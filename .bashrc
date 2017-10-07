@@ -3,7 +3,6 @@ alias glog='git log --oneline --graph --color=auto'
 alias ls='ls -F --color=auto'
 alias vi='vim'
 alias x='exit'
-bind 'set match-hidden-files off'
 complete -A hostname ping
 complete -A hostname ssh
 complete -A user write
@@ -24,5 +23,9 @@ export PS1=$PS1'else echo "\[\e[m\]\$ ";'   # begin color default
 export PS1=$PS1'fi)'                        #end if
 export PS1=$PS1'\[\e[m\]'                   # begin color default
 export TF_CPP_MIN_LOG_LEVEL=2
+
+if [[ -t 1 ]];then
+    bind 'set match-hidden-files off'
+fi
 
 source ~/.bashrc_local
