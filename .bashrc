@@ -4,7 +4,7 @@ alias ls='ls -F --color=auto'
 alias vi='vim'
 alias x='exit'
 complete -A hostname ping
-complete -A hostname ssh
+complete -A hostname -A user ssh
 complete -A user write
 complete -d cd
 eval `dircolors ~/.colorrc`
