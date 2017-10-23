@@ -18,6 +18,9 @@ repo='Shougo/vimproc.vim'
 hook_add="""
     set runtimepath^=~/.vim/dein/repos/github.com/Shougo/vimproc.vim
 """
+hook_post_update="""
+    let g:dein#plugin.build='make'
+"""
 
 [[plugins]]
 repo='Shougo/neocomplete.vim'
