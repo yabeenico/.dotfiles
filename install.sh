@@ -1,3 +1,4 @@
+mkdir -p ~/.vim/dein/rc
 mkdir -p ~/.vim/backupdir
 mkdir -p ~/.vim/directory
 mkdir -p ~/.vim/undodir
