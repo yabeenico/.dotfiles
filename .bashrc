@@ -19,7 +19,9 @@ if [[ -t 1 ]];then
 fi
 
 export PS1='\[\e]0;'                        # begin window title
-export PS1=$PS1'\u@\h: \w'                  #window title
+export PS1=$PS1'${WINDOW:+[$WINDOW]}'       #[screen number]
+export PS1=$PS1'\u@\h'                      #window title
+export PS1=$PS1': \w'                       #window title
 export PS1=$PS1'\a\]'                       # end window title
 export PS1=$PS1'\n'                         #\n
 export PS1=$PS1'\[\e[36m\]'                 # begin color cyan
