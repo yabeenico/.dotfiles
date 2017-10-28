@@ -55,6 +55,7 @@ set ignorecase
 set incsearch
 set iskeyword=@,48-57,_,192-255,#
 set laststatus=2
+set mouse=a
 set nofileignorecase
 set nowildignorecase
 set nowildmenu
