@@ -4,6 +4,7 @@ mkdir -p ~/.vim/directory
 mkdir -p ~/.vim/undodir
 
 touch ~/.bashrc_local
+touch ~/.ssh/config
 
 ln -sf ~/.dotfiles/.bashrc ~/.bashrc
 ln -sf ~/.dotfiles/.vimrc ~/.vimrc
