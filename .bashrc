@@ -1,11 +1,12 @@
-_ssh_completion(){
+
+_completion_ssh(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
         $(grep ^Host ~/.ssh/config|cut -b6-)
         ' -- $cur))
 }
 
-_sftp_completion(){
+_completion_sftp(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
         $(grep ^Host ~/.ssh/config|cut -b6-)
@@ -42,11 +43,10 @@ alias glog="git log --oneline --graph --branches --decorate=full"
 alias ls='ls -Fh --color=auto'
 alias vi='vim'
 alias x='exit'
-complete -A hostname -F _sftp_completion sftp
-complete -A hostname -F _ssh_completion ssh
+complete -A hostname -F _completion_sftp sftp
+complete -A hostname -F _completion_ssh ssh
 complete -A hostname ping
 complete -A user write
-complete -d cd
 eval `dircolors ~/.colorrc`
 export LANG=en_US.UTF-8
 export PS1
