@@ -63,6 +63,7 @@ set nowrap
 set nrformats=alpha,hex
 set number
 set shiftwidth=4
+set showcmd
 set smartcase 
 set smartindent
 set softtabstop=4
