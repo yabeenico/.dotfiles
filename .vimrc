@@ -35,7 +35,6 @@ inoremap <expr> <CR> pumvisible()?"<ESC>":"<CR>"
 inoremap {<CR> {}<Left><CR><Esc><S-o>
 noremap 0 ^
 noremap <C-e> 2<C-e>
-noremap <C-o> $
 noremap <C-y> 2<C-y>
 noremap ^ 0
 noremap gj j
