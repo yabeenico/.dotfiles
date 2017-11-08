@@ -56,4 +56,5 @@ hook_add="""
 """
 hook_add="""
     let g:jedi#use_splits_not_buffers='top'
+    let g:jedi#completions_command="<C-n>"
 """
