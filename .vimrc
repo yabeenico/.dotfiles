@@ -22,7 +22,7 @@ if dein#check_install()
 endif
 " end dein }
 
-" begin HilightInfo {
+" begin HighlightInfo {
 function! s:get_syn_id(transparent)
     let synid = synID(line('.'), col('.'), 1)
     return a:transparent ? synIDtrans(synid) : synid
@@ -35,7 +35,7 @@ function! s:show_highlight_info()
     execute "highlight " . s:get_syn_name(s:get_syn_id(1))
 endfunction
 command! HighlightInfo call s:show_highlight_info()
-" end HilightInfo }
+" end HighlightInfo }
 
 cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap <C-a> <C-b>
@@ -44,7 +44,6 @@ cnoremap <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 command! MK w | silent make | redraw!
-highlight Directory ctermfg=6
 inoremap <expr> / pumvisible()?"<C-x><C-f>":"/<C-x><C-f>"
 inoremap <expr> <CR> pumvisible()?"<ESC>":"<CR>"
 inoremap {<CR> {}<Left><CR><Esc><S-o>
@@ -92,6 +91,7 @@ set wildignore=*.dvi,*.pdf,*.aux,*.cpc
 set wildmode=list:longest,full
 syntax on
 
+" begin augroup {
 augroup vimrc
 	autocmd!
 	autocmd BufRead,BufNewFile *.html filetype plugin indent on
@@ -99,5 +99,16 @@ augroup vimrc
 	autocmd BufRead,BufNewFile *.md setl filetype=markdown
 	autocmd FileType vim syn keyword vimOption contained nofileignorecase
 	autocmd FileType vim syn keyword vimOption contained nowildignorecase
-	autocmd FileType python highlight link pythonInclude pythonFunction
+	"autocmd FileType python highlight link pythonInclude pythonFunction
+	"autocmd FileType python highlight link pythonDecorator pythonFunction
 augroup end
+" end augroup }
+
+" begin highlight {
+highlight DiffDelete ctermfg=6 cterm=bold 
+highlight Directory ctermfg=6 cterm=bold 
+highlight NonText ctermfg=6 cterm=bold 
+highlight PreProc ctermfg=6 cterm=bold 
+highlight SpecialKey ctermfg=6 cterm=bold 
+highlight Underlined ctermfg=6 cterm=bold 
+" end highlight }
