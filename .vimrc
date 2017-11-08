@@ -1,4 +1,4 @@
-"begin dein
+" begin dein {
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 if &runtimepath !~# '/dein.vim'
@@ -20,7 +20,22 @@ endif
 if dein#check_install()
     call dein#install()
 endif
-"end dein
+" end dein }
+
+" begin HilightInfo {
+function! s:get_syn_id(transparent)
+    let synid = synID(line('.'), col('.'), 1)
+    return a:transparent ? synIDtrans(synid) : synid
+endfunction
+    function! s:get_syn_name(synid)
+    return synIDattr(a:synid, 'name')
+endfunction
+function! s:show_highlight_info()
+    execute "highlight " . s:get_syn_name(s:get_syn_id(0))
+    execute "highlight " . s:get_syn_name(s:get_syn_id(1))
+endfunction
+command! HighlightInfo call s:show_highlight_info()
+" end HilightInfo }
 
 cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap <C-a> <C-b>
@@ -83,5 +98,6 @@ augroup vimrc
 	autocmd BufRead,BufNewFile *.html setl filetype=html
 	autocmd BufRead,BufNewFile *.md setl filetype=markdown
 	autocmd FileType vim syn keyword vimOption contained nofileignorecase
-        \ nowildignorecase
+	autocmd FileType vim syn keyword vimOption contained nowildignorecase
+	autocmd FileType python highlight link pythonInclude pythonFunction
 augroup end
