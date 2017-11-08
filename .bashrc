@@ -1,11 +1,15 @@
 
+# begin completion_ssh {
 _completion_ssh(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
         $(grep ^Host ~/.ssh/config|cut -b6-)
         ' -- $cur))
 }
+complete -A hostname -F _completion_ssh ssh
+# end completion_ssh }
 
+# begin completion_sftp {
 _completion_sftp(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
@@ -14,12 +18,16 @@ _completion_sftp(){
         -oPort=30000
         ' -- $cur))
 }
+complete -A hostname -F _completion_sftp sftp
+# end completion_sftp }
 
+# begin bind {
 if [[ -t 1 ]];then
     bind 'set match-hidden-files off'
     stty werase undef #delete <C-w> binding
     bind '"\C-w": unix-filename-rubout'
 fi
+# end bind }
 
 export PS1='\[\e]0;'                        # begin window title
 export PS1=$PS1'${WINDOW:+[$WINDOW]}'       #[screen number]
@@ -42,8 +50,6 @@ alias glog="git log --oneline --graph --branches --decorate=full"
 alias ls='ls -Fh --color=auto'
 alias vi='vim'
 alias x='exit'
-complete -A hostname -F _completion_sftp sftp
-complete -A hostname -F _completion_ssh ssh
 complete -A hostname ping
 complete -A user write
 eval `dircolors ~/.colorrc`
