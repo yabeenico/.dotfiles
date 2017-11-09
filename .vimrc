@@ -69,13 +69,14 @@ set ignorecase
 set incsearch
 set iskeyword=@,48-57,_,192-255,#
 set laststatus=2
-set mouse=a
+set mouse=nv
 set nofileignorecase
 set nowildignorecase
 set nowildmenu
 set nowrap
 set nrformats=alpha,hex
 set number
+set paste
 set shiftwidth=4
 set showcmd
 set smartcase 
