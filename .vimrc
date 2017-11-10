@@ -76,7 +76,6 @@ set nowildmenu
 set nowrap
 set nrformats=alpha,hex
 set number
-set paste
 set shiftwidth=4
 set showcmd
 set smartcase 
@@ -100,8 +99,6 @@ augroup vimrc
 	autocmd BufRead,BufNewFile *.md setl filetype=markdown
 	autocmd FileType vim syn keyword vimOption contained nofileignorecase
 	autocmd FileType vim syn keyword vimOption contained nowildignorecase
-	"autocmd FileType python highlight link pythonInclude pythonFunction
-	"autocmd FileType python highlight link pythonDecorator pythonFunction
 augroup end
 " end augroup }
 
