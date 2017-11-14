@@ -1,5 +1,5 @@
 
-# begin completion_ssh {
+# completion_ssh {
 _completion_ssh(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
@@ -7,9 +7,9 @@ _completion_ssh(){
         ' -- $cur))
 }
 complete -A hostname -F _completion_ssh ssh
-# end completion_ssh }
+# completion_ssh }
 
-# begin completion_sftp {
+# completion_sftp {
 _completion_sftp(){
     local cur=${COMP_WORDS[COMP_CWORD]}
     COMPREPLY=($(compgen -W '
@@ -19,16 +19,17 @@ _completion_sftp(){
         ' -- $cur))
 }
 complete -A hostname -F _completion_sftp sftp
-# end completion_sftp }
+# completion_sftp }
 
-# begin bind {
+# bind {
 if [[ -t 1 ]];then
     bind 'set match-hidden-files off'
     stty werase undef #delete <C-w> binding
     bind '"\C-w": unix-filename-rubout'
 fi
-# end bind }
+# bind }
 
+# ps1 {
 export PS1='\[\e]0;'                        # begin window title
 export PS1=$PS1'${WINDOW:+[$WINDOW]}'       #[screen number]
 export PS1=$PS1'\u@\h'                      #window title
@@ -44,6 +45,7 @@ export PS1=$PS1'then echo "\[\e[31m\]\$ ";' # begin color red
 export PS1=$PS1'else echo "\[\e[m\]\$ ";'   # begin color default
 export PS1=$PS1'fi)'                        #end if
 export PS1=$PS1'\[\e[m\]'                   # begin color default
+# ps1 }
 
 alias gis='git status --short'
 alias glog="git log --oneline --graph --branches --decorate=full"
