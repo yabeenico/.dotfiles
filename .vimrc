@@ -99,6 +99,11 @@ augroup vimrc
 	autocmd BufRead,BufNewFile *.md setl filetype=markdown
 	autocmd FileType vim syn keyword vimOption contained nofileignorecase
 	autocmd FileType vim syn keyword vimOption contained nowildignorecase
+    autocmd FileType python setl autoindent
+    autocmd FileType python setl cinwords=class,def,elif,else,except,finally
+    autocmd FileType python setl cinwords^=for,if,try,while
+    autocmd FileType python setl nocindent
+    autocmd FileType python setl smartindent 
 augroup end
 " augroup }
 
