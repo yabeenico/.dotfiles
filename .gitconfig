@@ -1,0 +1,9 @@
+[user]
+	email = niconico_door@gmail.com
+	name = EGAWA Hiroki
+[push]
+	default = simple
+[core]
+	pager = cat
+[format]
+	pretty = oneline
