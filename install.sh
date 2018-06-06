@@ -1,14 +1,10 @@
-mkdir -p ~/.vim/backupdir
-mkdir -p ~/.vim/dein/rc
-mkdir -p ~/.vim/directory
-mkdir -p ~/.vim/undodir
+#!/bin/bash
 
-touch ~/.bashrc_local
-touch ~/.ssh/config
+ln -sf ~/.dotfiles/.bashrc          ~/
+ln -sf ~/.dotfiles/.colorrc         ~/
+ln -sf ~/.dotfiles/.inputrc         ~/
+ln -sf ~/.dotfiles/.screenrc        ~/
+ln -sf ~/.dotfiles/.screenrc.multi  ~/
+ln -sf ~/.dotfiles/.vimrc           ~/
+ln -sf ~/.dotfiles/.vim             ~/
 
-ln -sf ~/.dotfiles/.bashrc ~/.bashrc
-ln -sf ~/.dotfiles/.colorrc ~/.colorrc
-ln -sf ~/.dotfiles/.inputrc ~/.inputrc
-ln -sf ~/.dotfiles/.vimrc ~/.vimrc
-ln -sf ~/.dotfiles/dein.toml ~/.vim/dein/rc/dein.toml
-ln -sf ~/.dotfiles/dein_lazy.toml ~/.vim/dein/rc/dein_lazy.toml

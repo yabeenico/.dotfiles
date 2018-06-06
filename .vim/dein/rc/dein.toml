@@ -1,0 +1,113 @@
+[[plugins]]
+repo='Shougo/dein.vim'
+
+#[[plugins]]
+#repo='Shougo/unite.vim'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/unite.vim
+#"""
+
+#[[plugins]]
+#repo='Shougo/neomru.vim'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/neomru.vim
+#"""
+
+#[[plugins]]
+#repo='Shougo/vimproc.vim'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/vimproc.vim
+#"""
+#hook_post_update="""
+#    let g:dein#plugin.build='make'
+#"""
+
+[[plugins]]
+repo='Shougo/neocomplete.vim'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/neocomplete.vim
+"""
+hook_add="""
+    if (has('lua') && (v:version > 703 || v:version == 703 && has('patch885')))
+        set runtimepath+=~/.vim/dein/repos/github.com/Shougo/neocomplete.vim
+        let g:acp_enableAtStartup = 0 " Disable AutoComplPop.
+        let g:neocomplete#enable_at_startup = 1 " Use neocomplete.
+        let g:neocomplete#enable_smart_case = 1 " Use smartcase.
+        let g:neocomplete#sources#syntax#min_keyword_length = 3
+        let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+        inoremap <expr><C-g> neocomplete#undo_completion()
+        inoremap <expr><C-l> neocomplete#complete_common_string()
+        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        function! s:my_cr_function()
+        return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        endfunction
+        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplete#smart_close_popup()."\<BS>"
+        inoremap <expr><C-y> neocomplete#close_popup()
+        inoremap <expr><C-e> neocomplete#cancel_popup()
+        inoremap <expr><Space> pumvisible() ?
+            \ neocomplete#close_popup() . "\<Space>" : "\<Space>"
+  endif
+"""
+
+#[[plugins]]
+#repo='davidhalter/jedi-vim'
+#on_ft='python'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/davidhalter/jedi-vim
+#"""
+#hook_add="""
+#    let g:jedi#completions_command="<C-n>"
+#    let g:jedi#completions_enabled=1
+#    let g:jedi#popup_on_dot=0
+#    let g:jedi#show_call_signatures=1
+#    let g:jedi#smart_auto_mappings=0
+#    let g:jedi#use_splits_not_buffers='top'
+#    let g:jedi#popup_select_first=0
+#    augroup jedi-vim
+#        autocmd!
+#        autocmd FileType python let g:neocomplete#force_omni_input_patterns = get(g:, 'neocomplete#force_omni_input_patterns.python', {})
+#        autocmd FileType python let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+#        autocmd FileType python setlocal completeopt-=preview
+#        autocmd FileType python setlocal omnifunc=jedi#completions
+#        autocmd FileType python inoremap <buffer> <expr> 
+#                \ <C-n> jedi#complete_string(0)
+#    augroup end
+#"""
+
+#[[plugins]]
+#repo='jmcantrell/vim-virtualenv'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/jmcantrell/vim-virtualenv
+#"""
+
+[[plugins]]
+repo='thinca/vim-template'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/thinca/vim-template
+"""
+
+#[[plugins]]
+#repo='vim-latex/vim-latex'
+#hook_add="""
+#    set runtimepath+=~/.vim/dein/repos/github.com/vim-latex/vim-latex
+#"""
+
+[[plugins]]
+repo='Shougo/neosnippet.vim'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/neosnippet.vim
+    let g:neosnippet#snippets_directory='~/.vim/snippets'
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_target)
+"""
+
+[[plugins]]
+repo='Shougo/neosnippet-snippets'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/neosnippet-snippets
+    let g:neosnippet#snippets_directory='~/.vim/snippets'
+"""
+

@@ -1,1 +1,15 @@
+"\C-n": history-search-forward
+"\C-p": history-search-backward
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[A": history-search-backward
+"\e[B": history-search-forward
 set bell-style none
+set completion-query-items 200
+set convert-meta off
+set mark-symlinked-directories on
+set meta-flag on
+set output-meta on
+set revert-all-at-newline on
+set visible-stats on
+

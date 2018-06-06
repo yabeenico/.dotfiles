@@ -1,0 +1,37 @@
+#!/usr/bin/screen
+
+multiuser on
+
+#bind  c eval screen 'source ~/.screenrc_multi'
+#bind ^c eval screen 'source ~/.screenrc_multi'
+
+acladd multiuser
+aclchg multiuser +r-wx "#?"
+aclchg multiuser +x "detach"
+aclchg multiuser +x "fit"
+aclchg multiuser +x "focus"
+aclchg multiuser +x "next"
+aclchg multiuser +x "prev"
+aclchg multiuser +x "split"
+aclchg multiuser +x "split"
+
+eval 'setenv u colak   ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u fukui   ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u itagawa ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u iwamura ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u kakizaki' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u kamasaka' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u katayama' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u kawamata' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u kazuya  ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u kida    ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u manabe  ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u naofumi ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u shibata ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u tomonaga' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u tsugami ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u yuka    ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u root    ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u ua      ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+eval 'setenv u ub      ' 'acladd $u' 'aclgrp $u multiuser' 'aclchg $u -rwx "#?"'
+

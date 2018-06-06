@@ -1,0 +1,8 @@
+/.vim/.netrwhist
+/.vim/backupdir/
+/.vim/dein/*
+!/.vim/dein/rc/
+/.vim/directory/
+/.vim/drill_instructor/
+/.vim/undodir/
+/.vim/view/

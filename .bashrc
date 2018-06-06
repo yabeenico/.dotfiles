@@ -1,55 +1,54 @@
-
-# completion_ssh {
-_completion_ssh(){
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W '
-        $(grep ^Host ~/.ssh/config|cut -b6-)
-        ' -- $cur))
-}
-complete -A hostname -F _completion_ssh ssh
-# completion_ssh }
-
-# completion_sftp {
-_completion_sftp(){
-    local cur=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W '
-        $(grep ^Host ~/.ssh/config|cut -b6-)
-        -oUser=pi
-        -oPort=30000
-        ' -- $cur))
-}
-complete -A hostname -F _completion_sftp sftp
-# completion_sftp }
-
 # bind {
 if [[ -t 1 ]];then
     bind 'set match-hidden-files off'
+#bind '"\e[1;5D" backward-word'
+#bind '"\e[1;5C" forward-word'
+    stty stop undef
     stty werase undef #delete <C-w> binding
     bind '"\C-w": unix-filename-rubout'
 fi
 # bind }
 
 # ps1 {
-export PS1='\[\e]0;'                        # begin window title
-export PS1=$PS1'${WINDOW:+[$WINDOW]}'       #[screen number]
-export PS1=$PS1'\u@\h'                      #window title
-export PS1=$PS1': \w'                       #window title
-export PS1=$PS1'\a\]'                       # end window title
-export PS1=$PS1'\n'                         #\n
-export PS1=$PS1'\[\e[36m\]'                 # begin color cyan
-export PS1=$PS1'\u@\h: '                    #user@host
-export PS1=$PS1'\[\e[32m\]'                 # begin color green
-export PS1=$PS1'\w\n'                       #path\n
-export PS1=$PS1'$(if [ $? != 0 ];'          #if previous command failed
-export PS1=$PS1'then echo "\[\e[31m\]\$ ";' # begin color red
-export PS1=$PS1'else echo "\[\e[m\]\$ ";'   # begin color default
-export PS1=$PS1'fi)'                        #end if
-export PS1=$PS1'\[\e[m\]'                   # begin color default
+PS1=''
+PS1=$PS1'$(echo $? > /tmp/ps1)'           # save exit status
+PS1=$PS1'\[\e]0;'                         # begin window title
+PS1=$PS1'['                               #  [
+PS1=$PS1'$(tty|sed "s,/dev/pts/,,")'      #  (pts_number)
+PS1=$PS1':'                               #  :
+PS1=$PS1'${WINDOW:+$WINDOW}'              #  (screen_number)
+PS1=$PS1'] '                              #  ] 
+PS1=$PS1'\u@\h'                           #  (user)@(host)
+PS1=$PS1': \w'                            #  : (path)
+PS1=$PS1'\a\]'                            # end window title
+PS1=$PS1'\n'                              #  \n
+PS1=$PS1'\[\e[36m\]'                      # begin color cyan
+PS1=$PS1'['                               #  [
+PS1=$PS1'$(tty|cut -b10-)'                #  (pts_number)
+PS1=$PS1':'                               #  :
+PS1=$PS1'${WINDOW:+$WINDOW}'              #  (screen_number)
+PS1=$PS1'] '                              #  ] 
+PS1=$PS1'\u@\h: '                         #  (user)@(host)
+PS1=$PS1'\[\e[32m\]'                      # begin color green
+PS1=$PS1'\w\n'                            #  : (path)\n
+PS1=$PS1'$(if [[ $(cat /tmp/ps1) = 0 ]];' # if exit status is 0
+PS1=$PS1'then echo "\[\e[37m\]\$ ";'      #  $ begin color white
+PS1=$PS1'else echo "\[\e[31m\]\$ ";'      #  $ begin color red
+PS1=$PS1'fi)'                             # end if
+PS1=$PS1'\[\e[m\]'                        # begin color default
+export PS1
 # ps1 }
 
+alias :q='exit'
 alias gis='git status --short'
-alias glog="git log --oneline --graph --branches --decorate=full"
+alias glog='git log --oneline --graph --branches --decorate=full'
 alias ls='ls -Fh --color=auto'
+alias em='emacs'
+alias ema='emacs'
+alias q='exit'
+alias sl='ls'
+alias sls='ls'
+alias s='ls'
 alias vi='vim'
 alias x='exit'
 complete -A hostname ping
@@ -57,7 +56,14 @@ complete -A user write
 eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
+export LESS='-iS'
+export LC_ALL=en_US.UTF-8
 export PS1
 export TF_CPP_MIN_LOG_LEVEL=2
 
-source ~/.bashrc_local
+if [[ -f ~/.bashrc_local ]]; then
+    source ~/.bashrc_local
+fi
+
+export PATH=$(echo $PATH|awk 'BEGIN{RS=ORS=":"}!a[$1]++'|head -1)
+
