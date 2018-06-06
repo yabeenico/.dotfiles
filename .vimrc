@@ -152,5 +152,7 @@ highlight SpecialKey ctermfg=6 cterm=bold
 highlight Underlined ctermfg=6 cterm=bold 
 " highlight }
 
-source ~/.vimrc_local
+if filereadable('~/.vimrc_local')
+    source ~/.vimrc_local
+endif
 
