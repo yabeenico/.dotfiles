@@ -5,3 +5,5 @@
 	pager = cat
 [format]
 	pretty = oneline
+[push]
+	default = simple
