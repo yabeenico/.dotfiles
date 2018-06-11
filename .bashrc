@@ -42,6 +42,7 @@ export PS1
 alias :q='exit'
 alias gis='git status --short'
 alias glog='git log --oneline --graph --branches --decorate=full'
+alias lls='ls'
 alias ls='ls -Fh --color=auto'
 alias em='emacs'
 alias ema='emacs'
