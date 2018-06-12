@@ -79,12 +79,12 @@ noremap <S-k> <Nop>
 set background=dark
 set backspace=eol,indent,start
 set backup
-set backupdir=$HOME/.vim/backupdir
+set backupdir=$HOME/.vim/anydir
 set cindent
 set colorcolumn=81
 set completeopt=menuone,longest,preview
 set cursorline
-set directory=$HOME/.vim/directory
+set directory=$HOME/.vim/anydir
 set expandtab
 set fileencodings=utf-8,iso-2022-jp,euc-jp
 set hlsearch
@@ -113,7 +113,7 @@ set tabstop=4
 set timeoutlen=0
 set ttimeoutlen=0
 set ttyfast
-set undodir=$HOME/.vim/undodir
+set undodir=$HOME/.vim/anydir
 set undofile
 set viminfo='20,s10
 set visualbell t_vb=
