@@ -6,4 +6,4 @@
 [format]
 	pretty = oneline
 [push]
-	default = simple
+	default = matching
