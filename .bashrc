@@ -39,17 +39,26 @@ PS1=$PS1'\[\e[m\]'                        # begin color default
 export PS1
 # ps1 }
 
+# ls {
+    alias ls='ls -Fh --color=auto'
+    alias la='ls -a'
+    alias ll='ls -l'
+
+    alias l='ls'
+    alias lls='ls'
+    alias lsl='ls'
+    alias s='ls'
+    alias sl='ls'
+    alias sls='ls'
+# ls }
+
 alias :q='exit'
 alias gis='git status --short'
 alias glog='git log --oneline --graph --branches --decorate=full'
-alias lls='ls'
-alias ls='ls -Fh --color=auto'
+alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'
 alias q='exit'
-alias sl='ls'
-alias sls='ls'
-alias s='ls'
 alias vi='vim'
 alias x='exit'
 complete -A hostname ping
