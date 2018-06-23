@@ -54,7 +54,8 @@ export PS1
 
 alias :q='exit'
 alias gis='git status --short'
-alias glog='git log --oneline --graph --branches --decorate=full'
+alias glog='git log --oneline --graph --branches --decorate=full \
+           -$(($(stty size|cut -f1 -d" ")-8))'
 alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'
