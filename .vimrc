@@ -61,6 +61,7 @@ cnoremap <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 command! MK w | silent make | redraw!
+filetype plugin on
 inoremap {<CR> {}<Left><CR><Esc><S-o>
 noremap 0 ^
 noremap <C-e> 2<C-e>
@@ -85,7 +86,7 @@ set colorcolumn=81
 set completeopt=menuone,longest,preview
 set cursorline
 set directory=$HOME/.vim/anydir
-set expandtab
+set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set fileencodings=utf-8,iso-2022-jp,euc-jp
 set hlsearch
 set ignorecase
@@ -101,47 +102,23 @@ set nowrap
 set nowrapscan
 set number
 set ruler
-set shiftwidth=4
 set showcmd
 set smartcase 
 set smartindent
-set softtabstop=4
 set spellfile=~/.vim/spell/en.utf-8.add
 set spelllang=en,cjk
 set swapfile
-set tabstop=4
 set timeoutlen=0
 set ttimeoutlen=0
 set ttyfast
 set undodir=$HOME/.vim/anydir
 set undofile
 set viminfo='20,s10
+set virtualedit=block
 set visualbell t_vb=
 set wildignore=*.dvi,*.pdf,*.aux,*.cpc
 set wildmode=list:longest,full
 syntax on
-
-" augroup {
-augroup vimrc
-    autocmd!
-    autocmd BufRead,BufNewFile *.html filetype plugin indent on
-    autocmd BufRead,BufNewFile *.html setl filetype=html
-    autocmd BufRead,BufNewFile *.md setl filetype=markdown
-    autocmd BufRead,BufNewFile *.tex setl shiftwidth=1
-    autocmd BufRead,BufNewFile *.tex setl softtabstop=1
-    autocmd BufRead,BufNewFile *.tex setl tabstop=1
-    autocmd FileType make setl noexpandtab
-    autocmd FileType python setl autoindent
-    autocmd FileType python setl cinwords=class,def,elif,else,except,finally
-    autocmd FileType python setl cinwords^=for,if,try,while,with
-    autocmd FileType python setl nocindent
-    autocmd FileType python setl smartindent 
-    autocmd FileType verilog setl cinwords+=begin
-    autocmd FileType verilog setl cinwords+=
-    autocmd FileType vim syn keyword vimOption contained nofileignorecase
-    autocmd FileType vim syn keyword vimOption contained nowildignorecase
-augroup end
-" augroup }
 
 " highlight {
 highlight DiffDelete ctermfg=6 cterm=bold 
@@ -152,7 +129,9 @@ highlight SpecialKey ctermfg=6 cterm=bold
 highlight Underlined ctermfg=6 cterm=bold 
 " highlight }
 
+" vimrc_local {
 if filereadable('~/.vimrc_local')
     source ~/.vimrc_local
 endif
+" vimrc_local }
 

@@ -52,10 +52,11 @@ export PS1
     alias sls='ls'
 # ls }
 
+alias ..='cd ..'
 alias :q='exit'
 alias gis='git status --short'
 alias glog='git log --oneline --graph --branches --decorate=full \
-           -$(($(stty size|cut -f1 -d" ")-8))'
+            -$(($(stty size|cut -f1 -d" ")-8))'
 alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'
@@ -67,9 +68,8 @@ complete -A user write
 eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
-export LESS='-iS'
+export LESS='-iSR'
 export LC_ALL=en_US.UTF-8
-export PS1
 export TF_CPP_MIN_LOG_LEVEL=2
 
 if [[ -f ~/.bashrc_local ]]; then

@@ -2,7 +2,6 @@ activity "Activity in window %."
 altscreen on
 autodetach on
 bell_msg "^GBell in window %."
-bind s colon "screen ssh "
 bind x remove
 bindkey -m ^e stuff ^e^e
 bindkey -m ^y stuff ^y^y
