@@ -11,7 +11,7 @@ fi
 
 # ps1 {
 PS1=''
-PS1=$PS1'$(echo $? > /tmp/ps1)'           # save exit status
+PS1=$PS1'$(echo $? > /tmp/$USER.ps1)'           # save exit status
 PS1=$PS1'\[\e]0;'                         # begin window title
 PS1=$PS1'['                               #  [
 PS1=$PS1'$(tty|sed "s,/dev/pts/,,")'      #  (pts_number)
