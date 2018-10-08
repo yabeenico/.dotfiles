@@ -82,6 +82,7 @@ set backspace=eol,indent,start
 set backup
 set backupdir=$HOME/.vim/anydir
 set cindent
+set cinkeys-=0#
 set colorcolumn=81
 set completeopt=menuone,longest,preview
 set cursorline
@@ -91,6 +92,7 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp
 set hlsearch
 set ignorecase
 set incsearch
+set indentkeys-=0#
 set iskeyword=@,48-57,_,192-255,#
 set laststatus=2
 set lazyredraw
