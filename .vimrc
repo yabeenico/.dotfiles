@@ -52,8 +52,6 @@ else
 endif
 " nrformats }
 
-noremap <Left> <Nop>
-noremap <Right> <Nop>
 cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap <C-a> <C-b>
 cnoremap <C-b> <Left>
