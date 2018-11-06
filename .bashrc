@@ -52,6 +52,37 @@ export PS1
     alias sls='ls'
 # ls }
 
+# complete_filter {
+    _complete_filter() {
+        grep -v '^ *$'|
+        awk '{printf("%s|",$1)}'
+    }
+    cf_tex=$(cat<<<"
+        aux
+        bbl
+        blg
+        dvi
+        lof
+        lot
+        pdf
+        toc
+    "|_complete_filter)
+
+    cf_media=$(cat<<<"
+        aac
+        ac3
+        flac
+        flv
+        m4v
+        mkv
+        mp3
+        mp4
+        wav
+    "|_complete_filter)
+    complete_filter='*.@('$cf_tex$cf_media'_)'
+    complete_filter_media='*.@('$cf_media'_)'
+# complete_filter }
+
 alias ..='cd ..'
 alias :q='exit'
 alias gis='git status --short'
@@ -65,12 +96,15 @@ alias vi='vim'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
+complete -F _filedir_xspec -X "$complete_filter" vim
+complete -f -X "!$complete_filter_media" -o plusdirs mpc
 eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
-export LESS='-iSR'
 export LC_ALL=en_US.UTF-8
+export LESS='-iSR'
 export TF_CPP_MIN_LOG_LEVEL=2
+shopt -s extglob
 
 if [[ -f ~/.bashrc_local ]]; then
     source ~/.bashrc_local
