@@ -32,8 +32,8 @@ PS1=$PS1'\u@\h: '                               #  (user)@(host)
 PS1=$PS1'\[\e[32m\]'                            # begin color green
 PS1=$PS1'\w\n'                                  #  : (path)\n
 PS1=$PS1'$(if [[ $(cat /tmp/$USER.ps1) = 0 ]];' # if exit status is 0
-PS1=$PS1'then echo "\[\e[37m\]\$";'            #  $ begin color white
-PS1=$PS1'else echo "\[\e[31m\]\$";'            #  $ begin color red
+PS1=$PS1'then echo "\[\e[37m\]\$";'             #  $ begin color white
+PS1=$PS1'else echo "\[\e[31m\]\$";'             #  $ begin color red
 PS1=$PS1'fi)'                                   # end if
 PS1=$PS1'\[\e[m\] '                             # begin color default
 export PS1
