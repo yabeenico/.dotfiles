@@ -1,55 +1,67 @@
 # bind {
-if [[ -t 1 ]];then
-    bind 'set match-hidden-files off'
-#bind '"\e[1;5D" backward-word'
-#bind '"\e[1;5C" forward-word'
-    stty stop undef
-    stty werase undef #delete <C-w> binding
-    bind '"\C-w": unix-filename-rubout'
-fi
+    if [[ -t 1 ]];then
+        bind 'set match-hidden-files off'
+        #bind '"\e[1;5D" backward-word'
+        #bind '"\e[1;5C" forward-word'
+        stty stop undef
+        stty werase undef #delete <C-w> binding
+        bind '"\C-w": unix-filename-rubout'
+    fi
 # bind }
 
 # ps1 {
-PS1=''
-PS1=$PS1'$(echo $? > /tmp/$USER.ps1)'           # save exit status
-PS1=$PS1'\[\e]0;'                               # begin window title
-PS1=$PS1'['                                     #  [
-PS1=$PS1'$(tty|sed "s,/dev/pts/,,")'            #  (pts_number)
-PS1=$PS1':'                                     #  :
-PS1=$PS1'${WINDOW:+$WINDOW}'                    #  (screen_number)
-PS1=$PS1'] '                                    #  ] 
-PS1=$PS1'\u@\h'                                 #  (user)@(host)
-PS1=$PS1': \w'                                  #  : (path)
-PS1=$PS1'\a\]'                                  # end window title
-PS1=$PS1'\n'                                    #  \n
-PS1=$PS1'\[\e[36m\]'                            # begin color cyan
-PS1=$PS1'['                                     #  [
-PS1=$PS1'$(tty|cut -b10-)'                      #  (pts_number)
-PS1=$PS1':'                                     #  :
-PS1=$PS1'${WINDOW:+$WINDOW}'                    #  (screen_number)
-PS1=$PS1'] '                                    #  ] 
-PS1=$PS1'\u@\h: '                               #  (user)@(host)
-PS1=$PS1'\[\e[32m\]'                            # begin color green
-PS1=$PS1'\w\n'                                  #  : (path)\n
-PS1=$PS1'$(if [[ $(cat /tmp/$USER.ps1) = 0 ]];' # if exit status is 0
-PS1=$PS1'then echo "\[\e[37m\]\$";'             #  $ begin color white
-PS1=$PS1'else echo "\[\e[31m\]\$";'             #  $ begin color red
-PS1=$PS1'fi)'                                   # end if
-PS1=$PS1'\[\e[m\] '                             # begin color default
-export PS1
+    PS1=''
+    PS1=$PS1'$(echo $? > /tmp/$USER.ps1)'           # save exit status
+    PS1=$PS1'\[\e]0;'                               # begin window title
+    PS1=$PS1'['                                     #  [
+    PS1=$PS1'$(tty|sed "s,/dev/pts/,,")'            #  (pts_number)
+    PS1=$PS1':'                                     #  :
+    PS1=$PS1'${WINDOW:+$WINDOW}'                    #  (screen_number)
+    PS1=$PS1'] '                                    #  ] 
+    PS1=$PS1'\u@\h'                                 #  (user)@(host)
+    PS1=$PS1': \w'                                  #  : (path)
+    PS1=$PS1'\a\]'                                  # end window title
+    PS1=$PS1'\n'                                    #  \n
+    PS1=$PS1'\[\e[36m\]'                            # begin color cyan
+    PS1=$PS1'['                                     #  [
+    PS1=$PS1'$(tty|cut -b10-)'                      #  (pts_number)
+    PS1=$PS1':'                                     #  :
+    PS1=$PS1'${WINDOW:+$WINDOW}'                    #  (screen_number)
+    PS1=$PS1'] '                                    #  ] 
+    PS1=$PS1'\u@\h: '                               #  (user)@(host)
+    PS1=$PS1'\[\e[32m\]'                            # begin color green
+    PS1=$PS1'\w\n'                                  #  : (path)\n
+    PS1=$PS1'$(if [[ $(cat /tmp/$USER.ps1) = 0 ]];' # if exit status is 0
+    PS1=$PS1'then echo "\[\e[37m\]\$";'             #  $ begin color white
+    PS1=$PS1'else echo "\[\e[31m\]\$";'             #  $ begin color red
+    PS1=$PS1'fi)'                                   # end if
+    PS1=$PS1'\[\e[m\] '                             # begin color default
+    export PS1
 # ps1 }
 
 # ls {
-    alias ls='ls -Fh --color=auto'
-    alias la='ls -a'
-    alias ll='ls -l'
-
-    alias l='ls'
-    alias lls='ls'
-    alias lsl='ls'
-    alias s='ls'
-    alias sl='ls'
-    alias sls='ls'
+    alias   ls='ls -Fh --color=auto'
+    alias    l=ls
+    alias    s=ls
+    alias   sl=ls
+    alias  lls=ls
+    alias  lsl=ls
+    alias  sls=ls
+    alias   la='ls -a'
+    alias  lsa='ls -a'
+    alias  lal='ls -al'
+    alias  lla='ll -al'
+    alias   lt='ls -lt'
+    alias  lst='ls -lt'
+    alias  alt='ls -alt'
+    alias  lat='ls -alt'
+    alias  lta='ls -alt'
+    alias llta='ls -alt'
+    alias lsta='ls -alt'
+    alias   ll='ls -l'
+    alias   tl='ls -lt'
+    alias  llt='ls -lt'
+    alias  ltl='ls -lt'
 # ls }
 
 # complete_filter {
@@ -83,11 +95,26 @@ export PS1
     complete_filter_media='*.@('$cf_media'_)'
 # complete_filter }
 
+# gdl {
+    gdl(){
+        svn checkout $(
+            echo $1|
+            sed 's,\(github.com/[^/]\+/[^/]\+\)/[^/]\+/[^/]\+,\1/trunk,'
+        )
+    }
+# gdl }
+
+# glog {
+    _glog(){
+        width=-$(($(stty size|cut -f1 -d" ")-8))
+        git log --oneline --graph --branches --decorate=full $width
+    }
+# glog }
+
 alias ..='cd ..'
 alias :q='exit'
 alias gis='git status --short'
-alias glog='git log --oneline --graph --branches --decorate=full \
-            -$(($(stty size|cut -f1 -d" ")-8))'
+alias glog=_glog
 alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'

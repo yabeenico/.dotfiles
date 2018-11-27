@@ -13,9 +13,9 @@ snippet enumerate
 snippet figure
 	\begin{figure}[h]
 		\centering
-		\includegraphics[height=]{}
-		\caption{}
-		\label{fig_}
+		\includegraphics[height=6cm]{$1}
+		\caption{$2}
+		\label{fig_$3}
 	\end{figure}
 
 snippet geometry
@@ -41,13 +41,13 @@ snippet subsubsection
 snippet table
 	\begin{table}[h]
 		\centering
-		\caption{caption}
+		\caption{$1}
 		\begin{tabular}{|c||c|c|}
 			\hline
-			title & header & description \\\\\hline\hline
-			cell  & value  & detail      \\\\\hline
+			title&header&description\\\\\hline\hline
+			cell &value &detail     \\\\\hline
 		\end{tabular}
-		\lebel{tab_label}
+		\label{tab_$2}
 	\end{table}
 
 snippet vspace

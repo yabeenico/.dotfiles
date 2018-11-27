@@ -52,6 +52,14 @@ else
 endif
 " nrformats }
 
+" J {
+command! -range J 
+    \'<+1,'>s/^ \+//e|
+    \'<,'>j!|
+    \call histdel("/",-1)|
+    \let @/=histget("/",-1)
+" J }
+
 cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap <C-a> <C-b>
 cnoremap <C-b> <Left>
@@ -59,7 +67,6 @@ cnoremap <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
 command! MK w | silent make | redraw!
-filetype plugin on
 inoremap {<CR> {}<Left><CR><Esc><S-o>
 noremap 0 ^
 noremap <C-e> 2<C-e>
@@ -74,15 +81,17 @@ noremap j gj
 noremap k gk
 noremap <C-S-k> <Nop>
 noremap <C-k> <Nop>
-noremap <S-k> <Nop>
+noremap <S-k> <Up>
 set background=dark
 set backspace=eol,indent,start
 set backup
 set backupdir=$HOME/.vim/anydir
 set cindent
 set cinkeys-=0#
+set cinkeys-=0{
 set colorcolumn=81
 set completeopt=menuone,longest,preview
+set conceallevel=0
 set cursorline
 set directory=$HOME/.vim/anydir
 set expandtab tabstop=4 softtabstop=4 shiftwidth=4
@@ -129,8 +138,10 @@ highlight SpecialKey ctermfg=6 cterm=bold
 highlight Underlined ctermfg=6 cterm=bold 
 " highlight }
 
+filetype plugin on
+
 " vimrc_local {
-if filereadable('~/.vimrc_local')
+if filereadable(glob("~/.vimrc_local"))
     source ~/.vimrc_local
 endif
 " vimrc_local }
