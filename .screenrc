@@ -34,11 +34,7 @@ setenv caption $caption"%{= bk}%Y-%m-%d %c:%s %D "
 setenv caption $caption"%{=}"
 caption always $caption
 
-split
-screen
-focus
-screen
-focus
+source ~/.screenrc_local
 
 # backup
 ################################################################################

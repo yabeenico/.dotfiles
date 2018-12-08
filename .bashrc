@@ -83,20 +83,24 @@
     cf_media=$(cat<<<"
         aac
         ac3
+        avi
         flac
         flv
+        m4a
         m4v
         mkv
+        mov
         mp3
         mp4
         wav
+        webm
     "|_complete_filter)
     complete_filter='*.@('$cf_tex$cf_media'_)'
     complete_filter_media='*.@('$cf_media'_)'
 # complete_filter }
 
 # gdl {
-    gdl(){
+    _gdl(){
         svn checkout $(
             echo $1|
             sed 's,\(github.com/[^/]\+/[^/]\+\)/[^/]\+/[^/]\+,\1/trunk,'
@@ -113,6 +117,7 @@
 
 alias ..='cd ..'
 alias :q='exit'
+alias gdl=_gdl
 alias gis='git status --short'
 alias glog=_glog
 alias glogo='glog origin/master'
@@ -123,7 +128,7 @@ alias vi='vim'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
-complete -F _filedir_xspec -X "$complete_filter" vim
+complete -f -X "$complete_filter" vim
 complete -f -X "!$complete_filter_media" -o plusdirs mpc
 eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
