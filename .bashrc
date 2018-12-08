@@ -134,7 +134,7 @@ eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export LESS='-iSR'
+export LESS='-iqRS'
 export TF_CPP_MIN_LOG_LEVEL=2
 shopt -s extglob
 
