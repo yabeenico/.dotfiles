@@ -1,3 +1,17 @@
+" encoding {
+set encoding=utf-8
+setglobal fileencoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,utf-8,sjis,cp932
+
+augroup fileencodings
+    autocmd!
+    autocmd BufReadPost * 
+        \ if &modifiable&&search('[^\x00-\x7f]', 'nw')==0|
+        \     set fileencoding= |
+        \ endif
+augroup END
+" encoding }
+
 " dein {
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -37,10 +51,20 @@ endfunction
 command! HighlightInfo call s:show_highlight_info()
 " HighlightInfo }
 
+" J {
+command! -range J 
+    \'<+1,'>s/^ \+//e|
+    \'<,'>j!|
+    \call histdel("/",-1)|
+    \let @/=histget("/",-1)
+" J }
+
 " remember_cursor_position {
 augroup cursorPosition
-    autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") |
-            \ exe "normal g`\"" | endif
+    autocmd BufRead * 
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute "normal g`\"" |
+        \ endif
 augroup END
 " remember_cursor_position }
 
@@ -51,14 +75,6 @@ else
     set nrformats=alpha,hex
 endif
 " nrformats }
-
-" J {
-command! -range J 
-    \'<+1,'>s/^ \+//e|
-    \'<,'>j!|
-    \call histdel("/",-1)|
-    \let @/=histget("/",-1)
-" J }
 
 cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
 cnoremap <C-a> <C-b>
@@ -95,7 +111,6 @@ set conceallevel=0
 set cursorline
 set directory=$HOME/.vim/anydir
 set expandtab tabstop=4 softtabstop=4 shiftwidth=4
-set fileencodings=utf-8,iso-2022-jp,euc-jp
 set hlsearch
 set ignorecase
 set incsearch
@@ -130,6 +145,7 @@ set wildmode=list:longest,full
 syntax on
 
 " highlight {
+" Must be located after 'syntax on'.
 highlight DiffDelete ctermfg=6 cterm=bold 
 highlight Directory ctermfg=6 cterm=bold 
 highlight NonText ctermfg=6 cterm=bold 
@@ -138,7 +154,9 @@ highlight SpecialKey ctermfg=6 cterm=bold
 highlight Underlined ctermfg=6 cterm=bold 
 " highlight }
 
+" filetype {
 filetype plugin on
+" filetype }
 
 " vimrc_local {
 if filereadable(glob("~/.vimrc_local"))
