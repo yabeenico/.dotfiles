@@ -111,3 +111,9 @@ hook_add="""
     let g:neosnippet#snippets_directory='~/.vim/snippets'
 """
 
+[[plugins]]
+repo='vhda/verilog_systemverilog.vim'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/vhda/verilog_systemverilog.vim
+"""
+

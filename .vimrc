@@ -118,6 +118,8 @@ set indentkeys-=0#
 set iskeyword=@,48-57,_,192-255,#
 set laststatus=2
 set lazyredraw
+set list
+set listchars=tab:>>,trail:~,
 set mouse=nv
 set nofileignorecase
 set nowildignorecase
@@ -126,6 +128,7 @@ set nowrap
 set nowrapscan
 set number
 set ruler
+set runtimepath+=$HOME/.vim/plugins/verilog_systemverilog
 set showcmd
 set smartcase 
 set smartindent
