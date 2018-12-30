@@ -10,18 +10,34 @@
 # bind }
 
 # ps1 {
-    _ps1(){ echo "$1"'[$(tty|tr -cd [0-9]):$WINDOW] \u@\h:'"$2"'\w'"$3"'\n';}
+    _ps1(){
+        EXIS_STATUS=$?
 
-    PS1=''
-    PS1=$PS1'$(echo $? > /tmp/ps1.$USER)'           # save exit status
-    PS1=$PS1$(_ps1 '\[\e]0;' '' '\a\]')             # window_title_begin,,end
-    PS1=$PS1$(_ps1 '\[\e[36m\]' '\[\e[32m\]' '')    # cyan,green,none
-    PS1=$PS1'$(if [[ $(cat /tmp/ps1.$USER) = 0 ]];' # if exit status is 0
-    PS1=$PS1' then echo "\[\e[37m\]\$";'            #  white $
-    PS1=$PS1' else echo "\[\e[31m\]\$";'            #  red   $
-    PS1=$PS1'fi)'                                   # end if
-    PS1=$PS1'\[\e[m\] '                             # default_color
-    export PS1
+        C_W='\e[37m' # WHITE
+        C_C='\e[36m' # CYAN
+        C_M='\e[35m' # MAGENTA
+        C_B='\e[34m' # BLUE
+        C_Y='\e[33m' # YELLOW
+        C_G='\e[32m' # GREEN
+        C_R='\e[31m' # RED
+        C_K='\e[30m' # BLACK
+
+        _main(){
+            T=$(tty|tr -cd [0-9])
+            S=$WINDOW
+            U=$USER
+            H=$(hostname -s)
+            W=$(pwd|sed "s,^$HOME,~,")
+            echo -e $1[$T:$S] $U@$H:$2$W$3
+        }
+        _main '\e]0;' '' '\a' # window_title_begin,,window_title_end
+        _main $C_C $C_G ''     # cyan,green,none
+
+        [[ $EXIS_STATUS = 0 ]] && echo -en $C_W || echo -en $C_R
+        [[ $EUID        = 0 ]] && echo -en '# ' || echo -en '$ '
+    }
+
+    export PS1='$(_ps1)\[\e[m\]'
 # ps1 }
 
 # ls {
@@ -100,6 +116,10 @@
     }
 # glog }
 
+# dircolors {
+    [[ -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
+# dircolors }
+
 alias ..='cd ..'
 alias :q='exit'
 alias gdl=_gdl
@@ -115,7 +135,6 @@ complete -A hostname ping
 complete -A user write
 complete -f -X "$complete_filter" vim
 complete -f -X "!$complete_filter_media" -o plusdirs mpc
-eval `dircolors ~/.colorrc`
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
