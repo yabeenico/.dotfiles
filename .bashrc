@@ -11,33 +11,37 @@
 
 # ps1 {
     _ps1(){
-        EXIS_STATUS=$?
+        local EXIT_STATUS=$?
 
-        C_W='\e[37m' # WHITE
-        C_C='\e[36m' # CYAN
-        C_M='\e[35m' # MAGENTA
-        C_B='\e[34m' # BLUE
-        C_Y='\e[33m' # YELLOW
-        C_G='\e[32m' # GREEN
-        C_R='\e[31m' # RED
-        C_K='\e[30m' # BLACK
+        # octal sequence description:
+        # \001: begin non-printed-sequence
+        # \002: end   non-printed-sequence
+        # \033: esc
+        local C_D="\001\033[m\002"     # DEFAULT
+        local C_K="\001\033[1;30m\002" # BLACK
+        local C_R="\001\033[1;31m\002" # RED
+        local C_G="\001\033[1;32m\002" # GREEN
+        local C_Y="\001\033[1;33m\002" # YELLOW
+        local C_B="\001\033[1;34m\002" # BLUE
+        local C_M="\001\033[1;35m\002" # MAGENTA
+        local C_C="\001\033[1;36m\002" # CYAN
+        local C_W="\001\033[1;37m\002" # WHITE
 
-        _main(){
-            T=$(tty|tr -cd [0-9])
-            S=$WINDOW
-            U=$USER
-            H=$(hostname -s)
-            W=$(pwd|sed "s,^$HOME,~,")
-            echo -e $1[$T:$S] $U@$H:$2$W$3
-        }
-        _main '\e]0;' '' '\a' # window_title_begin,,window_title_end
-        _main $C_C $C_G ''     # cyan,green,none
+        local U=$USER
+        local H=${HOSTNAME%%.*}
+        local W=${PWD/$HOME/\~}
+        local S=${WINDOW:+[$WINDOW] }
 
-        [[ $EXIS_STATUS = 0 ]] && echo -en $C_W || echo -en $C_R
-        [[ $EUID        = 0 ]] && echo -en '# ' || echo -en '$ '
+        _main(){ printf "$1$H:$2$W$3\n";}
+        _main "\001\033]0;\002" '' "\001\007\002" # window_title begin,,end
+        _main "$C_C$S$U@" $C_G ''
+
+        [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color of prompt
+        [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # prompt
+        printf $C_D
     }
 
-    export PS1='$(_ps1)\[\e[m\]'
+    export PS1='$(_ps1)'
 # ps1 }
 
 # ls {
@@ -129,6 +133,7 @@ alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'
 alias q='exit'
+alias sc=screen
 alias vi='vim'
 alias x='exit'
 complete -A hostname ping
