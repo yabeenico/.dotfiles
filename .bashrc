@@ -112,7 +112,7 @@
 # glog {
     _glog(){
         width=-$(($(stty size|cut -f1 -d" ")-8))
-        git log --oneline --graph --branches --decorate=full $width
+        git log --oneline --graph --branches --decorate=full $width $*
     }
 # glog }
 
