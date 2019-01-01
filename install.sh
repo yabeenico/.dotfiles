@@ -8,3 +8,5 @@ ln -sf ~/.dotfiles/.screenrc       ~/
 ln -sf ~/.dotfiles/.tmux.conf      ~/
 ln -sf ~/.dotfiles/.vim            ~/
 ln -sf ~/.dotfiles/.vimrc          ~/
+
+mkdir -p ~/.vim/anydir
