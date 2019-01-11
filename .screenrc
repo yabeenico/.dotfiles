@@ -4,6 +4,7 @@ autodetach on
 bell_msg "^GBell in window %."
 bind x remove
 bindkey -m ^e stuff ^e^e
+bindkey -m ^g stuff ^]
 bindkey -m ^y stuff ^y^y
 crlf off
 deflogin off
