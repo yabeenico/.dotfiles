@@ -85,19 +85,19 @@ cnoremap <C-p> <Up>
 command! MK w | silent make | redraw!
 inoremap {<CR> {}<Left><CR><Esc><S-o>
 noremap 0 ^
+noremap <C-K> <Nop>
 noremap <C-e> 2<C-e>
-noremap <C-j> gj
-noremap <C-k> gk
-noremap <C-l> <Space>
+noremap <C-h> 2zl
+noremap <C-j> 2<C-y>
+noremap <C-k> 2<C-e>
+noremap <C-l> 2zh
 noremap <C-y> 2<C-y>
+noremap K kJ
 noremap ^ 0
 noremap gj j
 noremap gk k
 noremap j gj
 noremap k gk
-noremap <C-S-k> <Nop>
-noremap <C-k> <Nop>
-noremap <S-k> <Up>
 set background=dark
 set backspace=eol,indent,start
 set backup
