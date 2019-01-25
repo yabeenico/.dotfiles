@@ -5,7 +5,7 @@ set fileencodings=iso-2022-jp,euc-jp,utf-8,sjis,cp932
 
 augroup fileencodings
     autocmd!
-    autocmd BufReadPost * 
+    autocmd BufReadPost *
         \ if &modifiable&&search('[^\x00-\x7f]', 'nw')==0|
         \     set fileencoding= |
         \ endif
@@ -52,16 +52,16 @@ command! HighlightInfo call s:show_highlight_info()
 " HighlightInfo }
 
 " J {
-command! -range J 
-    \'<+1,'>s/^ \+//e|
-    \'<,'>j!|
-    \call histdel("/",-1)|
-    \let @/=histget("/",-1)
+command! -range J
+    \ '<+1,'>s/^ \+//e|
+    \ '<,'>j!|
+    \ call histdel("/",-1)|
+    \ let @/=histget("/",-1)
 " J }
 
 " remember_cursor_position {
 augroup cursorPosition
-    autocmd BufRead * 
+    autocmd BufRead *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
         \     execute "normal g`\"" |
         \ endif
@@ -128,9 +128,9 @@ set nowrap
 set nowrapscan
 set number
 set ruler
-set runtimepath+=$HOME/.vim/plugins/verilog_systemverilog
+set runtimepath+=$HOME/.vim/plugins/vim-systemverilog
 set showcmd
-set smartcase 
+set smartcase
 set smartindent
 set spellfile=~/.vim/spell/en.utf-8.add
 set spelllang=en,cjk
@@ -145,16 +145,17 @@ set virtualedit=block
 set visualbell t_vb=
 set wildignore=*.dvi,*.pdf,*.aux,*.cpc
 set wildmode=list:longest,full
-syntax on
+source $VIMRUNTIME/macros/matchit.vim
 
 " highlight {
 " Must be located after 'syntax on'.
-highlight DiffDelete ctermfg=6 cterm=bold 
-highlight Directory ctermfg=6 cterm=bold 
-highlight NonText ctermfg=6 cterm=bold 
-highlight PreProc ctermfg=6 cterm=bold 
-highlight SpecialKey ctermfg=6 cterm=bold 
-highlight Underlined ctermfg=6 cterm=bold 
+syntax on
+highlight DiffDelete ctermfg=6 cterm=bold
+highlight Directory ctermfg=6 cterm=bold
+highlight NonText ctermfg=6 cterm=bold
+highlight PreProc ctermfg=6 cterm=bold
+highlight SpecialKey ctermfg=6 cterm=bold
+highlight Underlined ctermfg=6 cterm=bold
 " highlight }
 
 " filetype {
