@@ -110,7 +110,7 @@ set completeopt=menuone,longest,preview
 set conceallevel=0
 set cursorline
 set directory=$HOME/.vim/anydir
-set expandtab tabstop=4 softtabstop=4 shiftwidth=4
+set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
 set hlsearch
 set ignorecase
 set incsearch

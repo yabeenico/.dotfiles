@@ -1,5 +1,5 @@
 set autoindent
 set nosmartindent
 setlocal cinwords+=begin
-let b:verilog_indent_modules=&shiftwidth
+let b:verilog_indent_modules=&tabstop
 runtime! indent/verilog.vim
