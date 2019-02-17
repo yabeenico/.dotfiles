@@ -10,7 +10,7 @@ crlf off
 deflogin off
 defmonitor off
 defscrollback 10000
-escape ^tt
+escape ^t^t
 hardstatus off
 maptimeout 0
 msgminwait 1
