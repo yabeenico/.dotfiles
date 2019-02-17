@@ -134,7 +134,7 @@ alias em='emacs'
 alias ema='emacs'
 alias q='exit'
 alias sc=screen
-alias vi='vim'
+alias vi='vi -u NONE'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
