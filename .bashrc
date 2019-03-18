@@ -45,7 +45,7 @@
 # ps1 }
 
 # ls {
-    alias   ls='ls -Fh --color=auto'
+    alias   ls='ls -FhU --color=auto'
     alias    l=ls
     alias    s=ls
     alias   sl=ls
@@ -91,6 +91,7 @@
         avi
         flac
         flv
+        iso
         m4a
         m4v
         mkv
