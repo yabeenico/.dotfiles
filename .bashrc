@@ -134,6 +134,7 @@ alias glogo='glog origin/master'
 alias em='emacs'
 alias ema='emacs'
 alias q='exit'
+alias sb='source ~/.bashrc'
 alias sc=screen
 alias vi='vi -u NONE'
 alias x='exit'

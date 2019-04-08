@@ -145,7 +145,7 @@ set virtualedit=block
 set visualbell t_vb=
 set wildignore=*.dvi,*.pdf,*.aux,*.cpc
 set wildmode=list:longest,full
-source $VIMRUNTIME/macros/matchit.vim
+"source $VIMRUNTIME/macros/matchit.vim
 
 " highlight {
 " Must be located after 'syntax on'.
