@@ -101,7 +101,16 @@
         wav
         webm
     "|_complete_filter)
-    complete_filter='*.@('$cf_tex$cf_media'_)'
+
+    cf_img=$(cat<<<"
+        bmp
+        gif
+        jpg
+        png
+        tiff
+    "|_complete_filter)
+
+    complete_filter='*.@(''pdf|'$cf_tex$cf_media$cf_img'_)'
     complete_filter_media='*.@('$cf_media'_)'
 # complete_filter }
 
@@ -144,6 +153,7 @@ complete -A hostname ping
 complete -A user write
 complete -f -X "$complete_filter" vim
 complete -f -X "!$complete_filter_media" -o plusdirs mpc
+complete -f -X '!*.pdf' -o plusdirs evince
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
