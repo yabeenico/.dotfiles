@@ -45,7 +45,7 @@
 # ps1 }
 
 # ls {
-    alias   ls='ls -FhU --color=auto'
+    alias   ls='LC_ALL=en_UK.UTF-8 ls -Fh --color=auto'
     alias    l=ls
     alias    s=ls
     alias   sl=ls
@@ -136,7 +136,9 @@ alias ema='emacs'
 alias q='exit'
 alias sb='source ~/.bashrc'
 alias sc=screen
+alias sort='LC_ALL=en_UK.UTF-8 sort'
 alias vi='vi -u NONE'
+alias vb='vim ~/.bashrc'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
