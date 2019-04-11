@@ -140,6 +140,7 @@ alias gdl=_gdl
 alias gis='git status --short'
 alias glog=_glog
 alias glogo='glog origin/master'
+alias grep='grep -s'
 alias em='emacs'
 alias ema='emacs'
 alias q='exit'
