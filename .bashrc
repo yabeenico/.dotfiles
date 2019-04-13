@@ -45,7 +45,7 @@
 # ps1 }
 
 # ls {
-    alias   ls='LC_ALL=en_UK.UTF-8 ls -Fh --color=auto'
+    alias   ls='ls -Fh --color=auto'
     alias    l=ls
     alias    s=ls
     alias   sl=ls
