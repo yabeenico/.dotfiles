@@ -45,7 +45,7 @@
 # ps1 }
 
 # ls {
-    alias   ls='ls -Fh --color=auto'
+    alias   ls='ls -Fh --color=auto --time-style=+%Y-%m-%dT%H:%M:%S%:z'
     alias    l=ls
     alias    s=ls
     alias   sl=ls
