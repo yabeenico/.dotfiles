@@ -136,19 +136,22 @@
 
 alias ..='cd ..'
 alias :q='exit'
+alias em='emacs'
+alias ema='emacs'
+alias ffmpeg='2>&1 ffmpeg'
+alias ffprobe='2>&1 ffprobe'
 alias gdl=_gdl
 alias gis='git status --short'
 alias glog=_glog
 alias glogo='glog origin/master'
 alias grep='grep -s'
-alias em='emacs'
-alias ema='emacs'
+alias mp4box=MP4Box
 alias q='exit'
 alias sb='source ~/.bashrc'
 alias sc=screen
 alias sort='LC_ALL=en_UK.UTF-8 sort'
-alias vi='vi -u NONE'
 alias vb='vim ~/.bashrc'
+alias vi='vi -u NONE'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
