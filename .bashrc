@@ -121,13 +121,12 @@
             sed 's,\(github.com/[^/]\+/[^/]\+\)/[^/]\+/[^/]\+,\1/trunk,'
         )
     }
-# gdl }
 
-# git {
     _glog(){
         width=-$(($(stty size|cut -f1 -d" ")-8))
         git log --oneline --graph --branches --decorate=full $width $*
     }
+
     _gpulldotfiles(){
         cd ~/.dotfiles/
         local GIS=$(git status -s)
