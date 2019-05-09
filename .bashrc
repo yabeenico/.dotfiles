@@ -123,12 +123,21 @@
     }
 # gdl }
 
-# glog {
+# git {
     _glog(){
         width=-$(($(stty size|cut -f1 -d" ")-8))
         git log --oneline --graph --branches --decorate=full $width $*
     }
-# glog }
+    _gpulldotfiles(){
+        cd ~/.dotfiles/
+        local GIS=$(git status -s)
+        if [[ $GIS = '' ]]; then
+            git pull
+        else
+            echo "$GIS"
+        fi
+    }
+# git }
 
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
