@@ -46,12 +46,14 @@
 
 # ls {
     alias   ls='ls -Fh --color=auto --time-style=+%Y-%m-%dT%H:%M:%S%:z'
-    alias    l=ls
-    alias    s=ls
-    alias   sl=ls
-    alias  lls=ls
-    alias  lsl=ls
-    alias  sls=ls
+    alias    l='ls'
+    alias    s='ls'
+    alias   sl='ls'
+    alias  lls='ls'
+    alias  lsl='ls'
+    alias  sls='ls'
+    alias   l1='ls -1'
+    alias  ls1='ls -1'
     alias   la='ls -a'
     alias  lsa='ls -a'
     alias  lal='ls -al'
@@ -64,6 +66,7 @@
     alias llta='ls -alt'
     alias lsta='ls -alt'
     alias   ll='ls -l'
+    alias  lll='ls -l'
     alias   tl='ls -lt'
     alias  llt='ls -lt'
     alias  ltl='ls -lt'
