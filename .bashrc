@@ -141,6 +141,22 @@
     }
 # git }
 
+# u {
+    if [[ -f /etc/debian_version ]]; then
+        function u(){
+            sudo apt-fast update &&
+            sudo apt-fast dist-upgrade -y &&
+            sudo apt-fast autoremove -y &&
+            (_gpulldotfiles)
+        }
+    elif [[ -f /etc/centos-release ]]; then
+        function u(){
+            sudo yum update -y &&
+            (_gpulldotfiles)
+        }
+    fi
+# u }
+
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
 # dircolors }
