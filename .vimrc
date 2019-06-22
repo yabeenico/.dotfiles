@@ -1,3 +1,35 @@
+" A {
+    function! <SID>test_A()
+        let a = '05230000' | echo a == '05300000' a '05300000'
+        let a = '05240000' | echo a == '05310000' a '05310000'
+        let a = '05250000' | echo a == '06010000' a '06010000'
+        let a = '02200000' | echo a == '02270000' a '02270000'
+        let a = '02210000' | echo a == '02280000' a '02280000'
+        let a = '02220000' | echo a == '03010000' a '03010000'
+        unlet a
+    endfunction
+
+    function! <SID>define_A()
+        let l:date = expand('<cword>')
+        let l:last_day = system('
+            \ ncal -bhm ' . l:date[0:1] . ' |
+            \ tr " " "\n" |
+            \ grep -v ^$ |
+            \ tail -n 1 |
+            \ tr -d "\n" |
+            \ cat
+        \')
+        let l:date_dst = (substitute(l:date, '^0', '', '') + 70000)
+        let l:is_over = l:date_dst / 10000 % 100 > l:last_day
+        let l:increment = l:is_over? 770000 - (l:last_day - 30) * 10000: 70000
+
+        execute 'command! A normal ' . l:increment . ''
+    endfunction
+
+    noremap <Leader>a :call <SID>define_A()<CR>:A<CR>j
+    "map <Leader>t gg/test_A<CR>j a.j a a.j aVkkkkkk s:undo<CR>
+" A }
+
 " encoding {
     set encoding=utf-8
     setglobal fileencoding=utf-8
