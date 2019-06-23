@@ -115,6 +115,13 @@
 
     complete_filter='*.@(''pdf|'$cf_tex$cf_media$cf_img'_)'
     complete_filter_media='*.@('$cf_media'_)'
+
+    type _filedir_xspec >/dev/null &&
+
+    if [[ $? = 0 ]]; then
+        complete -F _filedir_xspec -X "$complete_filter" vim
+        complete -F _filedir_xspec -X "!$complete_filter_media" -o plusdirs mpc
+    fi
 # complete_filter }
 
 # gdl {
@@ -183,8 +190,6 @@ alias vi='vi -u NONE'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
-complete -f -X "$complete_filter" vim
-complete -f -X "!$complete_filter_media" -o plusdirs mpc
 complete -f -X '!*.pdf' -o plusdirs evince
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
