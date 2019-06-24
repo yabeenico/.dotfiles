@@ -70,6 +70,12 @@
     alias   tl='ls -lt'
     alias  llt='ls -lt'
     alias  ltl='ls -lt'
+    alias  laz='ls -Za'
+    alias  lza='ls -Za'
+    alias   lz='ls -Z'
+    alias  llz='ls -Z'
+    alias  ltz='ls -Zt'
+    alias latz='ls -Zat'
 # ls }
 
 # complete_filter {

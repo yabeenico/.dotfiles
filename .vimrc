@@ -1,3 +1,17 @@
+" root {
+    if $USER == 'root'
+        set nobackup
+        set noswapfile
+        set noundofile
+    else
+        set backup
+        set backupdir=$HOME/.vim/anydir
+        set swapfile
+        set undodir=$HOME/.vim/anydir
+        set undofile
+    endif
+" }
+
 " encoding {
     set encoding=utf-8
     setglobal fileencoding=utf-8
@@ -112,8 +126,6 @@
 
     set background=dark
     set backspace=eol,indent,start
-    set backup
-    set backupdir=$HOME/.vim/anydir
     set cindent
     set cinkeys-=0#
     set cinkeys-=0{
@@ -148,10 +160,7 @@
     set smartindent
     set spellfile=~/.vim/spell/en.utf-8.add
     set spelllang=en,cjk
-    set swapfile
     set ttyfast
-    set undodir=$HOME/.vim/anydir
-    set undofile
     set viminfo='20,s10
     set virtualedit=block
     set visualbell t_vb=
@@ -192,7 +201,6 @@
     noremap <Leader>a :call <SID>define_A()<CR>:A<CR>j
     "map <Leader>t gg/test_A<CR>j a.j a a.j aVkkkkkk s:undo<CR>
 " A }
-
 
 " miscellaneous {
     " source $VIMRUNTIME/macros/matchit.vim
