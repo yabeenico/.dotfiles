@@ -122,7 +122,7 @@
     complete_filter='*.@(''pdf|'$cf_tex$cf_media$cf_img'_)'
     complete_filter_media='*.@('$cf_media'_)'
 
-    type _filedir_xspec >/dev/null &&
+    type _filedir_xspec &>/dev/null
 
     if [[ $? = 0 ]]; then
         complete -F _filedir_xspec -X "$complete_filter" vim
