@@ -91,10 +91,20 @@
     endif
 " nrformats }
 
+" ip {
+    function! s:ip()
+        return "\<C-v>0" . (getpos('.')[2] - 1) . 'l'
+                \ . 'o0' . (getpos('.')[2] - 1) . 'l'
+    endfunction
+
+    vnoremap <expr> ip 'ip' . (mode() !=# "\<C-v>"? '': <SID>ip())
+" ip }
+
 " map {
     let mapleader = "\<Space>"
 
     cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
+    cnoremap <C-\> \<\><Left><Left>
     cnoremap <C-a> <C-b>
     cnoremap <C-b> <Left>
     cnoremap <C-f> <Right>
@@ -184,6 +194,30 @@
     highlight SpecialKey ctermfg=6 cterm=bold
     highlight Underlined ctermfg=6 cterm=bold
 " highlight }
+
+" D {
+    function! <SID>test_D()
+        let a = ''
+        " sort by 35th column (cursor position)
+        "                         v
+
+        let b0='dummmmy'|let  a3= 1 | let a.=a3
+        let b2='dummmy'|let   a0= 3 | let a.=a0
+        let b3='dummy'|let    a1= 0 | let a.=a1
+        let b1='dummmmmy'|let a2= 2 | let a.=a2
+
+        echo (a == '0123'? 'ok ': 'failed ') . a . ' 0123'
+        echo ' '
+        unlet a a0 a1 a2 a3 b0 b1 b2 b3
+    endfunction
+
+    function! <SID>func_D()
+        execute "'{;'}-sort /\\%" . getcurpos()[2] . "v/"
+    endfunction
+
+    noremap <Leader>d :call <SID>func_D()<CR>
+    "map <Leader>t gg/test_D<CR>/1<CR>j:noh<CR> dV}}kko{jjj s:undo<CR>
+" D }
 
 " filetype {
     filetype plugin on
