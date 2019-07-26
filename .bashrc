@@ -174,6 +174,13 @@
     [[ -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
 # dircolors }
 
+# touchx {
+    touchx(){
+        touch "$1" &&
+        chmod +x "$1"
+    }
+# touchx }
+
 alias ..='cd ..'
 alias :q='exit'
 alias em='emacs'
@@ -193,6 +200,7 @@ alias sort='LC_ALL=en_UK.UTF-8 sort'
 alias vb='vim ~/.bashrc'
 alias vbl='vim ~/.bashrc_local'
 alias vi='vi -u NONE'
+alias vt='vim ~/Dropbox/note/todo.txt'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
