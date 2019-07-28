@@ -183,6 +183,7 @@
 
 alias ..='cd ..'
 alias :q='exit'
+alias apt=apt-fast
 alias em='emacs'
 alias ema='emacs'
 alias ffmpeg='2>&1 ffmpeg'
