@@ -192,7 +192,7 @@ alias gdl=_gdl
 alias gis='git status --short'
 alias glog=_glog
 alias glogo='glog origin/master'
-alias grep='grep -s'
+alias grep='grep -s --color=auto'
 alias mp4box=MP4Box
 alias q='exit'
 alias sb='source ~/.bashrc'
