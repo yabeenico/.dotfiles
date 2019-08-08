@@ -7,3 +7,5 @@
 	pretty = oneline
 [push]
 	default = matching
+[color]
+	ui = auto

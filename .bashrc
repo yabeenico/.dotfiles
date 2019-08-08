@@ -139,8 +139,17 @@
     }
 
     _glog(){
-        width=-$(($(stty size|cut -f1 -d" ")-8))
-        git log --oneline --graph --branches --decorate=full $width $*
+        if [[ -t 1 ]]; then
+            COLOR=always
+        else
+            COLOR=auto
+        fi
+
+        HEIGHT=$(($(stty size|cut -f1 -d" ")-8))
+
+        git -c color.ui=$COLOR \
+            log --date-order --oneline --graph --branches --decorate=full $* |
+        head -n $HEIGHT
     }
 
     _gpulldotfiles(){
