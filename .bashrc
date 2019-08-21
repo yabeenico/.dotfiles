@@ -211,7 +211,6 @@ alias sudo='sudo '
 alias vb='vim ~/.bashrc'
 alias vbl='vim ~/.bashrc_local'
 alias vi='vi -u NONE'
-alias vt='vim ~/Dropbox/note/todo.txt'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
@@ -227,5 +226,5 @@ if [[ -f ~/.bashrc_local ]]; then
     source ~/.bashrc_local
 fi
 
-export PATH=$(echo $PATH|awk 'BEGIN{RS=ORS=":"}!a[$1]++'|head -1)
+export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
 

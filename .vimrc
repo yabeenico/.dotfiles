@@ -111,6 +111,7 @@
     cnoremap <C-n> <Down>
     cnoremap <C-p> <Up>
     command! MK w | silent make | redraw!
+    command! R redraw!
     inoremap {<CR> {}<Left><CR><Esc><S-o>
     noremap 0 ^
     noremap <C-K> <Nop>
