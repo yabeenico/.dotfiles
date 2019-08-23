@@ -51,21 +51,6 @@
     endif
 " dein }
 
-" HighlightInfo {
-    function! s:get_syn_id(transparent)
-        let synid = synID(line('.'), col('.'), 1)
-        return a:transparent ? synIDtrans(synid) : synid
-    endfunction
-        function! s:get_syn_name(synid)
-        return synIDattr(a:synid, 'name')
-    endfunction
-    function! s:show_highlight_info()
-        execute "highlight " . s:get_syn_name(s:get_syn_id(0))
-        execute "highlight " . s:get_syn_name(s:get_syn_id(1))
-    endfunction
-    command! HighlightInfo call s:show_highlight_info()
-" HighlightInfo }
-
 " J {
     command! -range J
         \ '<+1,'>s/^ \+//e|
@@ -185,15 +170,46 @@
     " source $VIMRUNTIME/macros/matchit.vim
 " miscellaneous }
 
+" HighlightInfo {
+    function! s:get_hi(synname)
+        redir => hi
+        execute 'silent highlight ' . a:synname
+        redir END
+        return hi . (hi =~ "links to"? s:get_hi(split(hi)[-1]): "")
+    endfunction
+
+    function! s:highlight_info()
+        let synid = synID(line('.'), col('.'), 1)
+        let synname = synIDattr(synid, 'name')
+        echo s:get_hi(synname)
+    endfunction
+
+    command! HighlightInfo call s:highlight_info()
+" HighlightInfo }
+
 " highlight {
-    " Must be located after 'syntax on'.
     syntax on
-    highlight DiffDelete ctermfg=6 cterm=bold
-    highlight Directory ctermfg=6 cterm=bold
-    highlight NonText ctermfg=6 cterm=bold
-    highlight PreProc ctermfg=6 cterm=bold
-    highlight SpecialKey ctermfg=6 cterm=bold
-    highlight Underlined ctermfg=6 cterm=bold
+
+    " Must be located after 'syntax on'.
+    highlight Comment    term=bold      cterm=none      ctermfg=6 ctermbg=none
+    highlight Constant   term=underline cterm=none      ctermfg=1 ctermbg=none
+    highlight Identifier term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Statement  term=bold      cterm=none      ctermfg=3 ctermbg=none
+    highlight PreProc    term=underline cterm=none      ctermfg=5 ctermbg=none
+    highlight Type       term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Special    term=bold      cterm=none      ctermfg=5 ctermbg=none
+    highlight Underlined term=underline cterm=underline ctermfg=5 ctermbg=none
+    highlight Ignore     term=none      cterm=bold      ctermfg=7 ctermbg=none
+    highlight Error      term=reverse   cterm=bold      ctermfg=7 ctermbg=1
+    highlight Todo       term=standout  cterm=none      ctermfg=0 ctermbg=3
+
+    "highlight DiffDelete ctermfg=6 cterm=bold
+    "highlight Directory ctermfg=6 cterm=bold
+    "highlight NonText ctermfg=6 cterm=bold
+    "highlight PreProc ctermfg=6 cterm=bold
+    "highlight SpecialKey ctermfg=6 cterm=bold
+    "highlight Underlined ctermfg=6 cterm=bold
+    "highlight Search term=none ctermfg=7 ctermbg=yellow
 " highlight }
 
 " D {
