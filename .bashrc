@@ -192,6 +192,7 @@
 
 alias ..='cd ..'
 alias :q='exit'
+alias a='axel -an 20'
 alias apt=apt-fast
 alias em='emacs'
 alias ema='emacs'
