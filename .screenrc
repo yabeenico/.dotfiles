@@ -31,7 +31,7 @@ setenv caption $caption"%{= kb}%-w"
 setenv caption $caption"%{=b kw}%n %t"              # focused window number
 setenv caption $caption"%{= kb}%+w"
 setenv caption $caption"%{= b.} %="
-setenv caption $caption"%{= bk}%Y-%m-%d %c:%s %D "
+setenv caption $caption"%{=b bw}%Y-%m-%d %c:%s %D "
 setenv caption $caption"%{=}"
 caption always $caption
 
