@@ -123,10 +123,14 @@
     complete_filter_media='*.@('$cf_media'_)'
 
     type _filedir_xspec &>/dev/null
-
     if [[ $? = 0 ]]; then
         complete -F _filedir_xspec -X "$complete_filter" vim
         complete -F _filedir_xspec -X "!$complete_filter_media" -o plusdirs mpc
+    fi
+
+    type _longopt &>/dev/null
+    if [[ $? = 0 ]]; then
+        complete -F _longopt -X "$complete_filter" tail
     fi
 # complete_filter }
 
