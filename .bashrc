@@ -17,25 +17,30 @@
         # \001: begin non-printed-sequence
         # \002: end   non-printed-sequence
         # \033: esc
-        local C_D="\001\033[m\002"     # DEFAULT
-        local C_K="\001\033[1;30m\002" # BLACK
-        local C_R="\001\033[1;31m\002" # RED
-        local C_G="\001\033[1;32m\002" # GREEN
-        local C_Y="\001\033[1;33m\002" # YELLOW
-        local C_B="\001\033[1;34m\002" # BLUE
-        local C_M="\001\033[1;35m\002" # MAGENTA
-        local C_C="\001\033[1;36m\002" # CYAN
-        local C_W="\001\033[1;37m\002" # WHITE
+        local C_D="\001\033[m\002"     # default
+        local C_K="\001\033[1;30m\002" # black
+        local C_R="\001\033[1;31m\002" # red
+        local C_G="\001\033[1;32m\002" # green
+        local C_Y="\001\033[1;33m\002" # yellow
+        local C_B="\001\033[1;34m\002" # blue
+        local C_M="\001\033[1;35m\002" # magenta
+        local C_C="\001\033[1;36m\002" # cyan
+        local C_W="\001\033[1;37m\002" # white
 
         local U=$USER
         local H=${HOSTNAME%%.*}
         local W=${PWD/$HOME/\~}
         local S=${WINDOW:+[$WINDOW] }
 
-        _main(){ printf "$1$H:$2$W$3\n";}
-        _main "\001\033]0;\002" '' "\001\007\002" # window_title begin,,end
-        _main "$C_C$S$U@" $C_G ''
+        local WTB="\001\033]0;\002" # window title begin
+        local WTE="\001\007\002"    # window title end
 
+        #_main(){ printf "$1$H:$2$W$3\n";}
+        #_main "\001\033]0;\002" '' "\001\007\002" # window_title begin,,end
+        #_main "$C_C$S$U@" $C_G ''
+
+        [[ ! $(tty) =~ tty ]]  && printf "$WTB$H:$W$WTE"
+        printf "\n$C_C$S$U@$H:$C_G$W\n"
         [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color of prompt
         [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # prompt
         printf $C_D

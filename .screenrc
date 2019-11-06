@@ -1,5 +1,6 @@
 activity "Activity in window %."
 altscreen on
+altscreen on
 autodetach on
 bell_msg "^GBell in window %."
 bind x remove
@@ -19,6 +20,7 @@ shell "/bin/bash"
 shelltitle ""
 silencewait 60
 startup_message off
+term xterm
 termcapinfo xterm* ti@:te@
 vbell off
 vbell_msg ""
