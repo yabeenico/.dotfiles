@@ -1,16 +1,4 @@
-" root {
-    if $USER == 'root'
-        set nobackup
-        set noswapfile
-        set noundofile
-    else
-        set backup
-        set backupdir=$HOME/.vim/anydir
-        set swapfile
-        set undodir=$HOME/.vim/anydir
-        set undofile
-    endif
-" }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " encoding {
     set encoding=utf-8
@@ -51,6 +39,82 @@
     endif
 " dein }
 
+" GetCChar {
+    function! GetCChar()
+        return strcharpart(getline('.')[col('.') - 1:], 0, 1)
+    endfunction
+" GetCChar }
+
+" highlight {
+    syntax on
+    " must be located after 'syntax on'
+    set background=dark
+    " must be located after 'set background'
+    highlight Comment    term=bold      cterm=none      ctermfg=6 ctermbg=none
+    highlight Constant   term=underline cterm=none      ctermfg=1 ctermbg=none
+    highlight Identifier term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Statement  term=bold      cterm=none      ctermfg=3 ctermbg=none
+    highlight PreProc    term=underline cterm=none      ctermfg=5 ctermbg=none
+    highlight Type       term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Special    term=bold      cterm=none      ctermfg=5 ctermbg=none
+    highlight Underlined term=underline cterm=underline ctermfg=5 ctermbg=none
+    highlight Ignore     term=none      cterm=bold      ctermfg=7 ctermbg=none
+    highlight Error      term=reverse   cterm=bold      ctermfg=7 ctermbg=1
+    highlight Todo       term=standout  cterm=none      ctermfg=0 ctermbg=3
+" highlight }
+
+" HighlightInfo {
+    function! s:get_hi(synname)
+        redir => hi
+        execute 'silent highlight ' . a:synname
+        redir END
+        return hi . (hi =~ "links to"? s:get_hi(split(hi)[-1]): "")
+    endfunction
+
+    function! s:highlight_info()
+        let synid = synID(line('.'), col('.'), 1)
+        let synname = synIDattr(synid, 'name')
+        echo s:get_hi(synname)
+    endfunction
+
+    command! HighlightInfo call s:highlight_info()
+" HighlightInfo }
+
+" IncrementAbs {
+    function! IncrementAbs(...)
+        let l:sign = (a:0 >= 1 && a:1 == '-')? '-': '+'
+        let l:is_invert = 0
+
+        if GetCChar() == '-'
+            normal! l
+        endif
+
+        if !(expand('<cword>') =~ '0x[0-9a-fA-F]\+') && GetCChar() =~ '[0-9]'
+            let l:is_nan_found = search('\%' . line('.') . 'l[^0-9]', 'Wb')
+            let l:is_invert = GetCChar() == '-'
+            execute 'normal!' . (l:is_nan_found? 'l': '0')
+            let l:pos_b = col('.')
+            call search('[0-9]\+', 'ce')
+            let l:pos_e = col('.')
+            let l:length_num = l:pos_e - l:pos_b + 1
+            let l:num = strcharpart(getline('.')[l:pos_b - 1:], 0, l:length_num)
+            if l:sign == '-' && l:num <= 1
+                normal! r0
+                return
+            endif
+        endif
+
+        if l:is_invert
+            execute 'normal!' . (l:sign == '+'? '': '')
+        else
+            execute 'normal!' . (l:sign == '+'? '': '')
+        endif
+    endfunction
+
+    noremap <C-a> :call IncrementAbs('+')<CR>
+    noremap <C-x> :call IncrementAbs('-')<CR>
+" IncrementAbs }
+
 " J {
     command! -range J
         \ '<+1,'>s/^ \+//e|
@@ -58,6 +122,14 @@
         \ call histdel("/",-1)|
         \ let @/=histget("/",-1)
 " J }
+
+" nrformats {
+    if v:version >= 800
+        set nrformats=alpha,bin,hex
+    else
+        set nrformats=alpha,hex
+    endif
+" nrformats }
 
 " remember_cursor_position {
     augroup cursorPosition
@@ -68,22 +140,16 @@
     augroup END
 " remember_cursor_position }
 
-" nrformats {
-    if v:version >= 800
-        set nrformats=alpha,bin,hex
-    else
-        set nrformats=alpha,hex
-    endif
-" nrformats }
-
-" ip {
+" vip {
     function! s:ip()
         return "\<C-v>0" . (getpos('.')[2] - 1) . 'l'
                 \ . 'o0' . (getpos('.')[2] - 1) . 'l'
     endfunction
 
     vnoremap <expr> ip 'ip' . (mode() !=# "\<C-v>"? '': <SID>ip())
-" ip }
+" vip }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " map {
     let mapleader = "\<Space>"
@@ -119,9 +185,11 @@
 " map }
 
 " set {
+    call system('mkdir ~/.vim/anydir')
 
-    set background=dark
     set backspace=eol,indent,start
+    set backup
+    set backupdir=$HOME/.vim/anydir
     set cindent
     set cinkeys-=0#
     set cinkeys-=0{
@@ -142,8 +210,6 @@
     set listchars=tab:>>,trail:~,
     set mouse=nv
     set nofileignorecase
-    set notimeout
-    set nottimeout
     set nowildignorecase
     set nowildmenu
     set nowrap
@@ -156,7 +222,14 @@
     set smartindent
     set spellfile=~/.vim/spell/en.utf-8.add
     set spelllang=en,cjk
+    set swapfile
+    set timeout
+    set timeoutlen=100
+    set ttimeout
+    set ttimeoutlen=100
     set ttyfast
+    set undodir=$HOME/.vim/anydir
+    set undofile
     set viminfo='20,s10
     set virtualedit=block
     set visualbell t_vb=
@@ -166,51 +239,7 @@
     " } (for cinkeys)
 " set }
 
-" miscellaneous {
-    " source $VIMRUNTIME/macros/matchit.vim
-" miscellaneous }
-
-" HighlightInfo {
-    function! s:get_hi(synname)
-        redir => hi
-        execute 'silent highlight ' . a:synname
-        redir END
-        return hi . (hi =~ "links to"? s:get_hi(split(hi)[-1]): "")
-    endfunction
-
-    function! s:highlight_info()
-        let synid = synID(line('.'), col('.'), 1)
-        let synname = synIDattr(synid, 'name')
-        echo s:get_hi(synname)
-    endfunction
-
-    command! HighlightInfo call s:highlight_info()
-" HighlightInfo }
-
-" highlight {
-    syntax on
-
-    " Must be located after 'syntax on'.
-    highlight Comment    term=bold      cterm=none      ctermfg=6 ctermbg=none
-    highlight Constant   term=underline cterm=none      ctermfg=1 ctermbg=none
-    highlight Identifier term=underline cterm=none      ctermfg=2 ctermbg=none
-    highlight Statement  term=bold      cterm=none      ctermfg=3 ctermbg=none
-    highlight PreProc    term=underline cterm=none      ctermfg=5 ctermbg=none
-    highlight Type       term=underline cterm=none      ctermfg=2 ctermbg=none
-    highlight Special    term=bold      cterm=none      ctermfg=5 ctermbg=none
-    highlight Underlined term=underline cterm=underline ctermfg=5 ctermbg=none
-    highlight Ignore     term=none      cterm=bold      ctermfg=7 ctermbg=none
-    highlight Error      term=reverse   cterm=bold      ctermfg=7 ctermbg=1
-    highlight Todo       term=standout  cterm=none      ctermfg=0 ctermbg=3
-
-    "highlight DiffDelete ctermfg=6 cterm=bold
-    "highlight Directory ctermfg=6 cterm=bold
-    "highlight NonText ctermfg=6 cterm=bold
-    "highlight PreProc ctermfg=6 cterm=bold
-    "highlight SpecialKey ctermfg=6 cterm=bold
-    "highlight Underlined ctermfg=6 cterm=bold
-    "highlight Search term=none ctermfg=7 ctermbg=yellow
-" highlight }
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " D {
     function! <SID>test_D()
@@ -233,8 +262,12 @@
     endfunction
 
     noremap <Leader>d :call <SID>func_D()<CR>
+    " for map {{{
     "map <Leader>t gg/test_D<CR>/1<CR>j:noh<CR> dV}}kko{jjj s:undo<CR>
+    " for map }}
 " D }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " filetype {
     filetype plugin on
