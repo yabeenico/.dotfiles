@@ -85,6 +85,14 @@
         let l:sign = (a:0 >= 1 && a:1 == '-')? '-': '+'
         let l:is_invert = 0
 
+        if !exists('*strcharpart')
+            execute 'normal!' . (l:sign == '+'? '': '')
+            echohl WarningMsg
+            echo 'warning: IncrementAbs: strcharpart is not supported'
+            echohl None
+            return
+        endif
+
         if GetCChar() == '-'
             normal! l
         endif
