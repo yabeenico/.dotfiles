@@ -161,8 +161,8 @@
         head -n $HEIGHT
     }
 
-    _gpulldotfiles(){
-        cd ~/.dotfiles/
+    _gpull(){
+        cd -P $1
         local GIS=$(git status -s)
         if [[ $GIS = '' ]]; then
             git pull
@@ -178,12 +178,12 @@
             sudo apt-fast update &&
             sudo apt-fast dist-upgrade -y &&
             sudo apt-fast autoremove -y &&
-            (_gpulldotfiles)
+            (_gpull ~/.dotfiles)
         }
     elif [[ -f /etc/centos-release ]]; then
         function u(){
             sudo yum update -y &&
-            (_gpulldotfiles)
+            (_gpull ~/.dotfiles)
         }
     fi
 # u }
