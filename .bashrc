@@ -162,13 +162,16 @@
     }
 
     _gpull(){
-        cd -P $1
-        local GIS=$(git status -s)
-        if [[ $GIS = '' ]]; then
-            git pull
-        else
-            echo "$GIS"
-        fi
+        (
+            echo _gpull: $1
+            cd -P $1
+            local GIS=$(git status -s)
+            if [[ $GIS = '' ]]; then
+                git pull
+            else
+                echo "$GIS"
+            fi
+        )
     }
 # git }
 
@@ -178,12 +181,14 @@
             sudo apt-fast update &&
             sudo apt-fast dist-upgrade -y &&
             sudo apt-fast autoremove -y &&
-            (_gpull ~/.dotfiles)
+            _gpull ~/.dotfiles &&
+            _gpull ~/.ssh
         }
     elif [[ -f /etc/centos-release ]]; then
         function u(){
             sudo yum update -y &&
-            (_gpull ~/.dotfiles)
+            _gpull ~/.dotfiles &&
+            _gpull ~/.ssh
         }
     fi
 # u }
