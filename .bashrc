@@ -176,21 +176,21 @@
 # git }
 
 # u {
-    if [[ -f /etc/debian_version ]]; then
-        function u(){
+    function u(){
+        if [[ "$SHELL" =~ termux ]]; then
+            apt-get update &&
+            apt-get dist-upgrade -y &&
+            apt-get autoremove -y
+        elif [[ -f /etc/debian_version ]]; then
             sudo apt-fast update &&
             sudo apt-fast dist-upgrade -y &&
-            sudo apt-fast autoremove -y &&
-            _gpull ~/.dotfiles &&
-            _gpull ~/.ssh
-        }
-    elif [[ -f /etc/centos-release ]]; then
-        function u(){
-            sudo yum update -y &&
-            _gpull ~/.dotfiles &&
-            _gpull ~/.ssh
-        }
-    fi
+            sudo apt-fast autoremove -y
+        elif [[ -f /etc/centos-release ]]; then
+            sudo yum update -y
+        fi &&
+        echo && _gpull ~/.dotfiles &&
+        echo && _gpull ~/.ssh
+    }
 # u }
 
 # dircolors {
