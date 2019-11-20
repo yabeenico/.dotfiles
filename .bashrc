@@ -204,6 +204,18 @@
     }
 # touchx }
 
+# datei {
+    datei(){
+        if [[ "$@" = '' ]]; then
+            date '+%Y-%m-%d%H:%M:%S%z%a' |
+            perl -pe '$_ = lc; s/(.{10})(.{11})(.{2})(.{2})./$1T$2:$3 ($4)/' |
+            cat
+        else
+            date "$@"
+        fi
+    }
+# datei }
+
 alias ..='cd ..'
 alias :q='exit'
 alias a='axel -an 20'
