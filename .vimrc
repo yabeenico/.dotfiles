@@ -227,7 +227,6 @@
     set runtimepath+=$HOME/.vim/plugins/vim-systemverilog
     set showcmd
     set smartcase
-    set smartindent
     set spellfile=~/.vim/spell/en.utf-8.add
     set spelllang=en,cjk
     set swapfile
