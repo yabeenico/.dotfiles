@@ -47,6 +47,8 @@
     }
 
     export PS1='$(_ps1)'
+
+    export PROMPT_COMMAND='echo -ne "\e[2 q"'
 # ps1 }
 
 # ls {
