@@ -239,7 +239,13 @@ alias sort='LC_ALL=en_UK.UTF-8 sort'
 alias sudo='sudo '
 alias vb='vim ~/.bashrc'
 alias vbl='vim ~/.bashrc_local'
+alias vc='vim ~/Dropbox/note/contents.txt'
 alias vi='vi -u NONE'
+alias vl='vim ~/Dropbox/opt/animesuite/list.txt'
+alias vn='vim ~/n/music/syn/0new/0new.m3u8'
+alias vs='vim ~/Dropbox/note/song.txt'
+alias vsa='vim ~/Dropbox/note/song.txt.arcive'
+alias vt='vim ~/Dropbox/note/todo.txt'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
