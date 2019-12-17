@@ -141,7 +141,7 @@
     fi
 # complete_filter }
 
-# gdl {
+# git {
     _gdl(){
         svn checkout $(
             echo $1|
@@ -174,6 +174,10 @@
                 echo "$GIS"
             fi
         )
+    }
+
+    gic(){
+        git commit -m "$@"
     }
 # git }
 

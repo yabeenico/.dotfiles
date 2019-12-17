@@ -81,46 +81,46 @@
 " HighlightInfo }
 
 " IncrementAbs {
-    function! IncrementAbs(...)
-        let l:sign = (a:0 >= 1 && a:1 == '-')? '-': '+'
-        let l:is_invert = 0
+    "function! IncrementAbs(...)
+    "    let l:sign = (a:0 >= 1 && a:1 == '-')? '-': '+'
+    "    let l:is_invert = 0
 
-        if !exists('*strcharpart')
-            execute 'normal!' . (l:sign == '+'? '': '')
-            echohl WarningMsg
-            echo 'warning: IncrementAbs: strcharpart is not supported'
-            echohl None
-            return
-        endif
+    "    if !exists('*strcharpart')
+    "        execute 'normal!' . (l:sign == '+'? '': '')
+    "        echohl WarningMsg
+    "        echo 'warning: IncrementAbs: strcharpart is not supported'
+    "        echohl None
+    "        return
+    "    endif
 
-        if GetCChar() == '-'
-            normal! l
-        endif
+    "    if GetCChar() == '-'
+    "        normal! l
+    "    endif
 
-        if !(expand('<cword>') =~ '0x[0-9a-fA-F]\+') && GetCChar() =~ '[0-9]'
-            let l:is_nan_found = search('\%' . line('.') . 'l[^0-9]', 'Wb')
-            let l:is_invert = GetCChar() == '-'
-            execute 'normal!' . (l:is_nan_found? 'l': '0')
-            let l:pos_b = col('.')
-            call search('[0-9]\+', 'ce')
-            let l:pos_e = col('.')
-            let l:length_num = l:pos_e - l:pos_b + 1
-            let l:num = strcharpart(getline('.')[l:pos_b - 1:], 0, l:length_num)
-            if l:sign == '-' && l:num <= 1
-                normal! r0
-                return
-            endif
-        endif
+    "    if !(expand('<cword>') =~ '0x[0-9a-fA-F]\+') && GetCChar() =~ '[0-9]'
+    "        let l:is_nan_found = search('\%' . line('.') . 'l[^0-9]', 'Wb')
+    "        let l:is_invert = GetCChar() == '-'
+    "        execute 'normal!' . (l:is_nan_found? 'l': '0')
+    "        let l:pos_b = col('.')
+    "        call search('[0-9]\+', 'ce')
+    "        let l:pos_e = col('.')
+    "        let l:length_num = l:pos_e - l:pos_b + 1
+    "        let l:num = strcharpart(getline('.')[l:pos_b - 1:], 0, l:length_num)
+    "        if l:sign == '-' && l:num <= 1
+    "            normal! r0
+    "            return
+    "        endif
+    "    endif
 
-        if l:is_invert
-            execute 'normal!' . (l:sign == '+'? '': '')
-        else
-            execute 'normal!' . (l:sign == '+'? '': '')
-        endif
-    endfunction
+    "    if l:is_invert
+    "        execute 'normal!' . (l:sign == '+'? '': '')
+    "    else
+    "        execute 'normal!' . (l:sign == '+'? '': '')
+    "    endif
+    "endfunction
 
-    noremap <C-a> :call IncrementAbs('+')<CR>
-    noremap <C-x> :call IncrementAbs('-')<CR>
+    "noremap <C-a> :call IncrementAbs('+')<CR>
+    "noremap <C-x> :call IncrementAbs('-')<CR>
 " IncrementAbs }
 
 " J {
