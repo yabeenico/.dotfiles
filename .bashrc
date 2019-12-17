@@ -177,7 +177,7 @@
     }
 
     gic(){
-        git commit -m "$@"
+        git commit -m "$*"
     }
 # git }
 
