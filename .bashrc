@@ -222,9 +222,30 @@
     }
 # datei }
 
+# scrape {
+    htt(){
+        if [[ $# = 0 ]]; then
+            cat
+        else
+            echo "$1"
+        fi |
+        sed 's,^ps://,https://,' |
+        sed 's,^s://,https://,' |
+        sed 's,^p://,http://,' |
+        cat
+    }
+
+    a(){
+        axel -an 20 $(htt "$1")
+    }
+
+    w(){
+        wget $(htt "$1")
+    }
+# scrape }
+
 alias ..='cd ..'
 alias :q='exit'
-alias a='axel -an 20'
 alias apt=apt-fast
 alias em='emacs'
 alias ema='emacs'
