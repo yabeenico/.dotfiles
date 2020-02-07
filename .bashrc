@@ -124,6 +124,7 @@
         jpg
         png
         tiff
+        svg
     "|_complete_filter)
 
     complete_filter='*.@(''pdf|'$cf_tex$cf_media$cf_img'_)'
@@ -275,6 +276,8 @@ alias x='exit'
 complete -A hostname ping
 complete -A user write
 complete -f -X '!*.pdf' -o plusdirs evince
+complete -f -X '!*.svg' -o plusdirs svg2pdf
+complete -f -X '!*.svg' -o plusdirs inkscape
 export EDITOR=/usr/bin/vim
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
