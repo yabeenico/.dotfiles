@@ -201,7 +201,7 @@
 # u }
 
 # dircolors {
-    [[ -f ~/.colorrc ]] && eval `dircolors ~/.colorrc`
+    [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
 # dircolors }
 
 # touchx {
