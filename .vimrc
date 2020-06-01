@@ -61,6 +61,7 @@
     highlight Ignore     term=none      cterm=bold      ctermfg=7 ctermbg=none
     highlight Error      term=reverse   cterm=bold      ctermfg=7 ctermbg=1
     highlight Todo       term=standout  cterm=none      ctermfg=0 ctermbg=3
+    highlight Search     term=bold      cterm=bold      ctermfg=7 ctermbg=4
 " highlight }
 
 " HighlightInfo {
