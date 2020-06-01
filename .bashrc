@@ -1,3 +1,11 @@
+#!/bin/bash
+
+# bashrc_local_begin {
+    if [[ -f ~/.bashrc_local_begin ]]; then
+        source ~/.bashrc_local_begin
+    fi
+# bashrc_local_begin }
+
 # bind {
     if [[ -t 1 ]];then
         bind 'set match-hidden-files off'
@@ -285,9 +293,11 @@ export LESS='-iqRS'
 export TF_CPP_MIN_LOG_LEVEL=2
 shopt -s extglob
 
-if [[ -f ~/.bashrc_local ]]; then
-    source ~/.bashrc_local
-fi
+# bashrc_local {
+    if [[ -f ~/.bashrc_local ]]; then
+        source ~/.bashrc_local
+    fi
+# bashrc_local }
 
 export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
 
