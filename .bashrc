@@ -287,6 +287,7 @@ complete -f -X '!*.pdf' -o plusdirs evince
 complete -f -X '!*.svg' -o plusdirs svg2pdf
 complete -f -X '!*.svg' -o plusdirs inkscape
 export EDITOR=/usr/bin/vim
+export HISTCONTROL=ignoreboth
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-iqRS'
