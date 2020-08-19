@@ -54,9 +54,9 @@
         printf $C_D
     }
 
-    export PS1='$(_ps1)'
+    export PS1='$(set +x; _ps1)'
 
-    export PROMPT_COMMAND='echo -ne "\e[2 q"'
+    export PROMPT_COMMAND='(set +x; echo -ne "\e[2 q")'
 # ps1 }
 
 # ls {
