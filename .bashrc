@@ -21,8 +21,6 @@
 
 # ps1 {
     _ps1(){
-        local EXIT_STATUS=$?
-
         # octal sequence description:
         # \001: begin non-printed-sequence
         # \002: end   non-printed-sequence
@@ -58,7 +56,7 @@
 
     export PS1='$(set +x; _ps1)'
 
-    export PROMPT_COMMAND='(set +x; echo -ne "\e[2 q")'
+    export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x; echo -ne "\e[2 q")'
 # ps1 }
 
 # ls {
