@@ -48,10 +48,13 @@
         #_main "$C_C$S$U@" $C_G ''
 
         [[ ! $(tty) =~ tty ]]  && printf "$WTB$H:$W$WTE"
-        printf "\n$C_C$S$U@$H:$C_G$W\n"
+        printf "\n"
+        printf "\033[?7711h" # mintty marker
+        printf "$C_C$S$U@$H:$C_G$W\n"
         [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color of prompt
         [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # prompt
         printf $C_D
+        #printf "\033[?7711l"
     }
 
     export PS1='$(set +x; _ps1)'
