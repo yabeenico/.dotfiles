@@ -274,6 +274,7 @@ alias sb='source ~/.bashrc'
 alias sc=screen
 alias sort='LC_ALL=en_UK.UTF-8 sort'
 alias sudo='sudo '
+alias tm=tmux
 alias vb='vim ~/.bashrc'
 alias vbl='vim ~/.bashrc_local'
 alias vc='vim ~/Dropbox/note/contents.txt'
