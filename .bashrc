@@ -256,6 +256,63 @@
     }
 # scrape }
 
+# rotate {
+    rotate(){
+        usage(){
+            echo USAGE:
+            echo '   rotate file'
+        }
+
+        FILE="$1"
+
+        if [[ "$*" = '' ]]; then
+            echo error: specify a file
+            echo
+            usage
+            return 1
+        elif [[ "$*" =~ '--help' ]]; then
+            usage
+            return
+        elif [[ ! -e "$FILE" ]]; then
+            echo "error: '$FILE' not found"
+            return 1
+        fi
+
+        LAST=$(
+            ls |
+            egrep "^$FILE\.[1-9][0-9]*$" |
+            awk -v FS=. '{print $NF}' |
+            sort -n |
+            awk 'BEGIN{last = 0} $0 == NR{last = $0} END{print last}' |
+            cat
+        )
+        #echo "$LAST";return
+
+        CMD=$(
+            for i in $(seq 1 $LAST); do
+                printf 'mv -n %q.%d %q.%d\n' "$FILE" $i "$FILE" $((i + 1))
+            done |
+            tac
+            printf 'mv -n %q %q.1\n' "$FILE" "$FILE"
+        )
+        #echo "$CMD";return
+
+        echo "$CMD" |
+        bash
+    }
+# rotate }
+
+# recycle { after=rotate
+    recycle(){
+        for i in "$@"; do
+            rotate ~/recycle/"$(basename $i)" 2>/dev/null
+            mv "$i" ~/recycle/
+        done
+    }
+
+    alias re=recycle
+# recycle }
+
 alias ..='cd ..'
 alias :q='exit'
 alias apt=apt-fast
