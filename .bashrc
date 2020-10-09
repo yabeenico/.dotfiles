@@ -266,15 +266,15 @@
         FILE="$1"
 
         if [[ "$*" = '' ]]; then
-            echo error: specify a file
-            echo
-            usage
+            echo error: specify a file >&2
+            echo >&2
+            usage >&2
             return 1
         elif [[ "$*" =~ '--help' ]]; then
             usage
             return
         elif [[ ! -e "$FILE" ]]; then
-            echo "error: '$FILE' not found"
+            echo "error: '$FILE' not found" >&2
             return 1
         fi
 
