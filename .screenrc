@@ -1,8 +1,14 @@
+#!/usr/bin/screen
+
+setenv sessionname $PID.$STY
+
 activity "Activity in window %."
 altscreen on
 altscreen on
 autodetach on
 bell_msg "^GBell in window %."
+bind  q exec screen -S $sessionname -X quit
+bind ^q exec screen -S $sessionname -X quit
 bind x remove
 bindkey -m ^e stuff ^e^e
 bindkey -m ^g stuff ^]
@@ -39,39 +45,3 @@ caption always $caption
 
 source $HOME/.screenrc_local
 
-# backup
-################################################################################
-### screen内でemacsを動かす場合、^S/^Qは素通りしたほうがうれしい
-#defflow off
-
-### vt100のwrapと同じ。default on
-#defwrap on
-
-### current screen (pclock) の activity を monitor しない。3.5.2の残り?
-#set monitor off
-
-### この window を /etc/utmp に登録する(who(1)参照)3.5.2の残り?
-#set login on
-
-# ターミナルハードウェアステイタスラインの表示
-#defhstatus "^En:^Et"
-
-# 反転モードの色。default 10 99
-#sorendition 10 74
-
-# カラフルに
-#termcap  cons25 'AF=\E[3%dm:AB=\E[4%dm'
-#termcap  vt100|kterm* 'AF=\E[3%dm:AB=\E[4%dm'
-#terminfo vt100|kterm* 'AF=\E[3%p1%dm:AB=\E[4%p1%dm'
-# 漢字
-#termcapinfo vt100|kterm 'G0:KJ=utf-8'
-# これでステータスラインが消えなくなる
-#termcapinfo vt100|kterm 'hs:ts=\E[?2S\E[?E\E[?%i%dT:fs=\E[?F:es:ds=\E[?E'
-# 反転をおかしくさせない
-#termcapinfo vt100|kterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;3;4;6l'
-# 縮ませない
-#termcapinfo vt100|kterm 'cl=\E[H\E[2J'
-
-# cd working directory workdir
-#chdir "$HOME"
-################################################################################
