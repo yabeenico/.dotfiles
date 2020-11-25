@@ -193,6 +193,20 @@
     }
 # git }
 
+# scs {
+    scs(){
+        screen bash -c '
+            screen -S $STY -X split
+            screen -S $STY -X stuff 
+            screen -S $STY -X focus next
+            screen -S $STY -X screen
+            screen -S $STY -X focus next
+            screen -S $STY -X layout save default
+            bash
+        '
+    }
+# scs }
+
 # u {
     function u(){
         if [[ "$SHELL" =~ termux ]]; then
