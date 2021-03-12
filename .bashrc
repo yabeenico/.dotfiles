@@ -68,6 +68,7 @@
     alias    s='ls'
     alias   sl='ls'
     alias  lls='ls'
+    alias  lsd='ls'
     alias  lsl='ls'
     alias  sls='ls'
     alias   l1='ls -1'
