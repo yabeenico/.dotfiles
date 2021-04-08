@@ -9,4 +9,7 @@ ln -sf ~/.dotfiles/.tmux.conf      ~/
 ln -sf ~/.dotfiles/.vim            ~/
 ln -sf ~/.dotfiles/.vimrc          ~/
 
+touch ~/.hushlogin
+
 mkdir -p ~/.vim/anydir
+vim
