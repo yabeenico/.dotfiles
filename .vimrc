@@ -47,21 +47,23 @@
 
 " highlight {
     syntax on
-    " must be located after 'syntax on'
+    " v must be located after 'syntax on'
     set background=dark
-    " must be located after 'set background'
-    highlight Comment    term=bold      cterm=none      ctermfg=6 ctermbg=none
-    highlight Constant   term=underline cterm=none      ctermfg=1 ctermbg=none
-    highlight Identifier term=underline cterm=none      ctermfg=2 ctermbg=none
-    highlight Statement  term=bold      cterm=none      ctermfg=3 ctermbg=none
-    highlight PreProc    term=underline cterm=none      ctermfg=5 ctermbg=none
-    highlight Type       term=underline cterm=none      ctermfg=2 ctermbg=none
-    highlight Special    term=bold      cterm=none      ctermfg=5 ctermbg=none
-    highlight Underlined term=underline cterm=underline ctermfg=5 ctermbg=none
-    highlight Ignore     term=none      cterm=bold      ctermfg=7 ctermbg=none
-    highlight Error      term=reverse   cterm=bold      ctermfg=7 ctermbg=1
-    highlight Todo       term=standout  cterm=none      ctermfg=0 ctermbg=3
-    highlight Search     term=bold      cterm=bold      ctermfg=7 ctermbg=4
+    " v must be located after 'set background' premitive
+    highlight Comment     term=bold      cterm=none      ctermfg=6 ctermbg=none
+    highlight Constant    term=underline cterm=none      ctermfg=1 ctermbg=none
+    highlight Identifier  term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Statement   term=bold      cterm=none      ctermfg=3 ctermbg=none
+    highlight PreProc     term=underline cterm=none      ctermfg=5 ctermbg=none
+    highlight Type        term=underline cterm=none      ctermfg=2 ctermbg=none
+    highlight Special     term=bold      cterm=none      ctermfg=5 ctermbg=none
+    highlight Underlined  term=underline cterm=underline ctermfg=5 ctermbg=none
+    highlight Ignore      term=none      cterm=bold      ctermfg=7 ctermbg=none
+    highlight Error       term=reverse   cterm=bold      ctermfg=7 ctermbg=1
+    highlight Todo        term=standout  cterm=none      ctermfg=0 ctermbg=3
+    highlight Search      term=bold      cterm=bold      ctermfg=7 ctermbg=4
+    " v must be located after 'set background' optional
+    highlight ColorColumn term=bold      cterm=bold      ctermfg=7 ctermbg=5
 " highlight }
 
 " HighlightInfo {

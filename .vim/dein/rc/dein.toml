@@ -117,3 +117,9 @@ hook_add="""
     set runtimepath+=~/.vim/dein/repos/github.com/vhda/verilog_systemverilog.vim
 """
 
+[[plugins]]
+repo='PProvost/vim-ps1'
+hook_add="""
+    set runtimepath+=~/.vim/dein/repos/github.com/PProvost/vim-ps1
+"""
+
