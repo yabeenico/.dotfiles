@@ -341,6 +341,7 @@ alias glog=_glog
 alias glogo='glog origin/master'
 alias grep='grep -s --color=auto'
 alias mp4box=MP4Box
+alias posh='powershell.exe -nologo'
 alias q='exit'
 alias sb='source ~/.bashrc'
 alias sc=screen
@@ -360,10 +361,12 @@ alias x='exit'
 complete -A hostname ping
 complete -A user write
 complete -f -X '!*.pdf' -o plusdirs evince
-complete -f -X '!*.svg' -o plusdirs svg2pdf
 complete -f -X '!*.svg' -o plusdirs inkscape
+complete -f -X '!*.svg' -o plusdirs svg2pdf
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=10000
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-iqRS'
