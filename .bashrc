@@ -371,7 +371,54 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-iqRS'
 export TF_CPP_MIN_LOG_LEVEL=2
+shopt -s cdspell
+shopt -s checkjobs
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s complete_fullquote
+shopt -s expand_aliases
 shopt -s extglob
+shopt -s extquote
+shopt -s force_fignore
+shopt -s histreedit
+shopt -s histverify
+shopt -s interactive_comments
+shopt -s mailwarn
+shopt -u nocaseglob
+shopt -s progcomp
+shopt -s promptvars
+shopt -s sourcepath
+shopt -u autocd
+shopt -u cdable_vars
+shopt -u checkhash
+shopt -u compat31
+shopt -u compat32
+shopt -u compat40
+shopt -u compat41
+shopt -u compat42
+shopt -u compat43
+shopt -u direxpand
+shopt -u dirspell
+shopt -u dotglob
+shopt -u execfail
+shopt -u extdebug
+shopt -u failglob
+shopt -u globasciiranges
+shopt -u globstar
+shopt -u gnu_errfmt
+shopt -u histappend
+shopt -u hostcomplete
+shopt -u huponexit
+shopt -u inherit_errexit
+shopt -u lastpipe
+shopt -u lithist
+shopt -u login_shell # may not be changed
+shopt -u no_empty_cmd_completion
+shopt -u nocasematch
+shopt -u nullglob
+shopt -u restricted_shell # may not be changed
+shopt -u shift_verbose
+shopt -u xpg_echo
 
 # bashrc_local {
     if [[ -f ~/.bashrc_local ]]; then
