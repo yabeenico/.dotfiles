@@ -8,14 +8,9 @@
 
 # bind {
     if [[ -t 1 ]];then
-        bind 'set match-hidden-files off'
         stty stop undef
         stty werase undef #delete <C-w> binding
-        bind '"\C-w": unix-filename-rubout'
-        bind '"\C-x\C-f": shell-forward-word'
-        bind '"\C-x\C-b": shell-backward-word'
-        bind '"\C-x\C-h": shell-backward-kill-word'
-        bind '"\C-x\C-d": shell-kill-word'
+
     fi
 # bind }
 
