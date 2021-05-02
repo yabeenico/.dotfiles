@@ -1,3 +1,7 @@
+"
+"
+"
+"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " encoding {
@@ -41,7 +45,7 @@
 
 " GetCChar {
     function! GetCChar()
-        return strcharpart(getline('.')[col('.') - 1:], 0, 1)
+        return strcharpart(line('.')[col('.') - 1:], 0, 1)
     endfunction
 " GetCChar }
 
@@ -108,7 +112,7 @@
     "        call search('[0-9]\+', 'ce')
     "        let l:pos_e = col('.')
     "        let l:length_num = l:pos_e - l:pos_b + 1
-    "        let l:num = strcharpart(getline('.')[l:pos_b - 1:], 0, l:length_num)
+    "        let l:num = strcharpart(line('.')[l:pos_b - 1:], 0, l:length_num)
     "        if l:sign == '-' && l:num <= 1
     "            normal! r0
     "            return
@@ -152,12 +156,31 @@
 " remember_cursor_position }
 
 " vip {
-    function! s:ip()
-        return "\<C-v>0" . (getpos('.')[2] - 1) . 'l'
-                \ . 'o0' . (getpos('.')[2] - 1) . 'l'
+    function! s:linep(direction)
+        let l:mark = a:direction < 0? "'{": "'}"
+        let l:l = line(l:mark)
+        return line(l:l) == ''? l:l - a:direction: l:l
     endfunction
 
-    vnoremap <expr> ip 'ip' . (mode() !=# "\<C-v>"? '': <SID>ip())
+    function! s:movep(direction)
+        let l:n = abs(line(".") - <SID>linep(a:direction))
+        if !l:n | return | endif
+        let l:jk = a:direction < 0? "k": "j"
+        call feedkeys(virtcol('.') . '|' . l:n . l:jk)
+        return ''
+    endfunction
+
+    function! s:moveip()
+        let l:view = winsaveview()
+        call s:movep(1)
+        call feedkeys('o')
+        call s:movep(-1)
+        call winrestview(l:view)
+    endfunction
+
+    vnoremap <expr> [ (mode() ==# "\<C-v>"? <SID>movep(-1): '[')
+    vnoremap <expr> ] (mode() ==# "\<C-v>"? <SID>movep(+1): ']')
+    vnoremap <expr> p (mode() ==# "\<C-v>"? <SID>moveip():  'p')
 " vip }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,6 +215,8 @@
     noremap j gj
     noremap k gk
     vnoremap <Leader>s y:@"<CR>
+    vnoremap gj 10000000j
+    vnoremap gk 10000000k
 
     " } (for inoremap)
 " map }
@@ -289,4 +314,3 @@
         source ~/.vimrc_local
     endif
 " vimrc_local }
-
