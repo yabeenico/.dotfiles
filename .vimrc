@@ -146,6 +146,7 @@
     cnoremap <C-\> \<\><Left><Left>
     cnoremap <C-a> <C-b>
     cnoremap <C-b> <Left>
+    cnoremap <C-d> <Delete>
     cnoremap <C-f> <Right>
     cnoremap <C-n> <Down>
     cnoremap <C-p> <Up>
