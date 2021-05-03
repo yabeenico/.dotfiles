@@ -203,7 +203,7 @@
     set lazyredraw
     set list
     set listchars=tab:>>,trail:~,
-    set mouse=nv
+    set mouse=
     set nofileignorecase
     set notimeout
     set nowildignorecase
