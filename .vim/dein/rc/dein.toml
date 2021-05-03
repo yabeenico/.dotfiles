@@ -123,3 +123,6 @@ hook_add="""
     set runtimepath+=~/.vim/dein/repos/github.com/PProvost/vim-ps1
 """
 
+[[plugins]]
+repo='Shougo/unite.vim'
+
