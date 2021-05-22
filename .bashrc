@@ -73,7 +73,8 @@
     alias  lal='ls -al'
     alias  lla='ll -al'
     alias   lt='ls -lt'
-    alias  lst='ls -lt'
+    alias  lst='ls -t'
+    alias lstr='ls -t'
     alias  alt='ls -alt'
     alias  lat='ls -alt'
     alias  lta='ls -alt'
@@ -83,13 +84,19 @@
     alias  lll='ls -l'
     alias   tl='ls -lt'
     alias  llt='ls -lt'
+    alias lltr='ls -ltr'
+    alias llrt='ls -ltr'
     alias  ltl='ls -lt'
+    alias  ltr='ls -ltr'
+    alias  lrt='ls -ltr'
     alias  laz='ls -Za'
     alias  lza='ls -Za'
     alias   lz='ls -Z'
     alias  llz='ls -Z'
     alias  ltz='ls -Zt'
     alias latz='ls -Zat'
+    alias  llr='ls -lr'
+    alias lsrt='ls -rt'
 # ls }
 
 # complete_filter {
@@ -314,6 +321,14 @@
 
 # recycle { after=rotate
     recycle(){
+        if [[ $1 = --gc ]]; then
+            cd ~/recycle/
+            while du -bd0 . | awk '{exit $1<100*1000**3}'; do # while . > 100G
+                rm -rf ./"$(ls -tr | head -n1)"
+            done
+            return
+        fi
+
         for i in "$@"; do
             rotate ~/recycle/"$(basename $i)" 2>/dev/null
             mv "$i" ~/recycle/

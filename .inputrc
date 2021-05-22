@@ -45,13 +45,14 @@ set visible-stats                       on
 
 "\C-]":     "\e0\e."                    # M-0M-.
 "\e[1;5D":  backward-word               # C-leftArrow
+"\C-]":     character-search
 "\e[1;5C":  forward-word                # C-rightArrow
-"\C-p":     history-substring-search-backward
-"\e[A":     history-substring-search-backward     # upArrow
-"\C-n":     history-substring-search-forward
-"\e[B":     history-substring-search-forward      # downArrow
-"\M-p":     history-search-backward
-"\M-n":     history-search-forward
+"\C-p":     history-search-backward
+"\e[A":     history-search-backward     # upArrow
+"\C-n":     history-search-forward
+"\e[B":     history-search-forward      # downArrow
+"\M-p":     history-substring-search-backward
+"\M-n":     history-substring-search-forward
 "\C-x\C-k": kill-region
 TAB:        menu-complete
 "\C-TAB":   menu-complete-backward
@@ -60,7 +61,6 @@ TAB:        menu-complete
 "\C-x\C-b": shell-backward-word
 "\C-x\C-f": shell-forward-word
 "\C-x\C-d": shell-kill-word
-"\C-w":     unix-filename-rubout
 "\C-/":     undo
-"\C-]":     character-search
+"\C-w":     unix-filename-rubout
 
