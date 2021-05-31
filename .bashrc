@@ -54,7 +54,8 @@
 
     export PS1='$(set +x; _ps1)'
 
-    export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x; echo -ne "\e[2 q")'
+    #export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x; echo -ne "\e[4 q")'
+    export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x)'
 # ps1 }
 
 # ls {
