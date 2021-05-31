@@ -61,6 +61,7 @@
     highlight Error       term=reverse   cterm=bold      ctermfg=7 ctermbg=1
     highlight Todo        term=standout  cterm=none      ctermfg=0 ctermbg=3
     highlight Search      term=bold      cterm=bold      ctermfg=7 ctermbg=4
+    highlight Visual      term=reverse   cterm=reverse
     " v must be located after 'set background' optional
     highlight ColorColumn term=bold      cterm=bold      ctermfg=7 ctermbg=5
 " highlight }
