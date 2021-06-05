@@ -22,7 +22,7 @@ hardstatus off
 maptimeout 0
 msgminwait 1
 msgwait 5
-shell "/bin/bash"
+shell bash
 shelltitle ""
 silencewait 60
 startup_message off
