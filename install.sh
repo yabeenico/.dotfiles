@@ -11,6 +11,7 @@ ln -sf ~/.dotfiles/.vimrc          ~/
 
 touch ~/.hushlogin
 
+sudo mkdir -p /root/.vim/anydir
 sudo cp ~/.dotfiles/.vimrc_root /root/.vimrc
 
 mkdir -p ~/.vim/anydir

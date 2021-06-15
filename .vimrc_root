@@ -43,6 +43,7 @@ noremap k gk
 
 set backspace=eol,indent,start
 set backup
+set backupdir=/root/.vim/anydir
 set cindent
 set cinkeys-=0#
 set cinkeys-=0{
