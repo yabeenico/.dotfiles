@@ -381,6 +381,12 @@ export HISTSIZE=10000
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-iqRS'
+export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+export PATH=/mnt/c/ProgramData/chocolatey:$PATH
+export PATH=~/.local/bin:$PATH
+export PATH=~/.opt/bin:$PATH
+export PATH=~/Dropbox/opt/bin:$PATH
+export PATH=~/Dropbox/opt/music:$PATH
 export TF_CPP_MIN_LOG_LEVEL=2
 shopt -s cdspell
 shopt -s checkjobs
@@ -395,7 +401,6 @@ shopt -s histreedit
 shopt -s histverify
 shopt -s interactive_comments
 shopt -s mailwarn
-shopt -u nocaseglob
 shopt -s progcomp
 shopt -s promptvars
 shopt -s sourcepath
@@ -425,6 +430,7 @@ shopt -u lastpipe
 shopt -u lithist
 shopt -u login_shell # may not be changed
 shopt -u no_empty_cmd_completion
+shopt -u nocaseglob
 shopt -u nocasematch
 shopt -u nullglob
 shopt -u restricted_shell # may not be changed
