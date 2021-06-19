@@ -1,4 +1,5 @@
 # posh
+# ~/account/Documents/WindowsPowerShell
 
 Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
