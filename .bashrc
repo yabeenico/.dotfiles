@@ -213,11 +213,12 @@
 
 # u {
     function u(){
-        if [[ "$SHELL" =~ termux ]]; then
+        if [[ $SHELL =~ termux ]]; then
             apt-get update &&
             apt-get dist-upgrade -y &&
             apt-get autoremove -y
         elif [[ -f /etc/debian_version ]]; then
+            sudo apt-fast autoremove -y &&
             sudo apt-fast update &&
             sudo apt-fast dist-upgrade -y &&
             sudo apt-fast autoremove -y
