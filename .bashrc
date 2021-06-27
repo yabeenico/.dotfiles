@@ -200,12 +200,13 @@
 # scs {
     scs(){
         screen bash -c '
-            screen -S $STY -X split
-            screen -S $STY -X stuff 
-            screen -S $STY -X focus next
-            screen -S $STY -X screen
-            screen -S $STY -X focus next
-            screen -S $STY -X layout save default
+            screen -S $STY -X eval \
+            "split" \
+            "stuff " \
+            "focus next" \
+            "screen" \
+            "focus next" \
+            "layout save default"
             bash
         '
     }
