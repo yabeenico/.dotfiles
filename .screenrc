@@ -4,11 +4,11 @@ setenv sessionname $PID.$STY
 
 activity "Activity in window %."
 altscreen on
-altscreen on
 autodetach on
 bell_msg "^GBell in window %."
 bind  q exec screen -S $sessionname -X quit
 bind ^q exec screen -S $sessionname -X quit
+bind  l eval "select 0" prev
 bind x remove
 bindkey -m ^e stuff ^e^e
 bindkey -m ^g stuff ^]
