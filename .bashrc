@@ -15,20 +15,21 @@
 # bind }
 
 # ps1 {
+    # octal sequence description:
+    # \001: begin non-printed-sequence
+    # \002: end   non-printed-sequence
+    # \033: esc
+    export C_D="\001\033[m\002"     # default
+    export C_K="\001\033[1;30m\002" # black
+    export C_R="\001\033[1;31m\002" # red
+    export C_G="\001\033[1;32m\002" # green
+    export C_Y="\001\033[1;33m\002" # yellow
+    export C_B="\001\033[1;34m\002" # blue
+    export C_M="\001\033[1;35m\002" # magenta
+    export C_C="\001\033[1;36m\002" # cyan
+    export C_W="\001\033[1;37m\002" # white
+
     _ps1(){
-        # octal sequence description:
-        # \001: begin non-printed-sequence
-        # \002: end   non-printed-sequence
-        # \033: esc
-        local C_D="\001\033[m\002"     # default
-        local C_K="\001\033[1;30m\002" # black
-        local C_R="\001\033[1;31m\002" # red
-        local C_G="\001\033[1;32m\002" # green
-        local C_Y="\001\033[1;33m\002" # yellow
-        local C_B="\001\033[1;34m\002" # blue
-        local C_M="\001\033[1;35m\002" # magenta
-        local C_C="\001\033[1;36m\002" # cyan
-        local C_W="\001\033[1;37m\002" # white
 
         local U=$USER
         local H=${HOSTNAME%%.*}
