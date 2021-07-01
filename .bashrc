@@ -15,7 +15,6 @@
 # bind }
 
 # ps1 {
-    # octal sequence description:
     # \001: begin non-printed-sequence
     # \002: end   non-printed-sequence
     # \033: esc
@@ -29,7 +28,36 @@
     export C_C="\001\033[1;36m\002" # cyan
     export C_W="\001\033[1;37m\002" # white
 
-    _ps1(){
+    alias isingit='(which git && git status) &>/dev/null'
+    _ps1_git(){
+        isingit || return
+        (
+            echo -e "(${C_R}git:${C_C}"
+            git remote -v |
+                head -n1 |
+                sed 's,.*/,,g' |
+                sed 's/ .*//g' |
+                sed 's/\.git$//' |
+                cat
+            echo '/'
+            git branch | grep ^'\*' | tr -s ' ' | cut -d' ' -f2
+            echo -e "${C_D}) "
+        )  | tr -d '\n'
+    }
+
+    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
+    alias kubeon='touch ~/.kube/ps1'
+    alias kubeoff='rm -f ~/.kube/ps1'
+    _ps1_kube(){
+        iskubeon || return
+        echo -en "(${C_C}k8s:${C_G}"
+            kubectl config get-contexts --no-headers |
+            awk '{printf($3"/"$5)}' |
+            cat
+        echo -en "$C_D) "
+    }
+
+    _ps1_uhw(){
 
         local U=$USER
         local H=${HOSTNAME%%.*}
@@ -39,24 +67,24 @@
         local WTB="\001\033]0;\002" # window title begin
         local WTE="\001\007\002"    # window title end
 
-        #_main(){ printf "$1$H:$2$W$3\n";}
-        #_main "\001\033]0;\002" '' "\001\007\002" # window_title begin,,end
-        #_main "$C_C$S$U@" $C_G ''
-
         [[ ! $(tty) =~ tty ]]  && printf "$WTB$H:$W$WTE"
-        printf "\n"
+        #printf "\n"
         printf "\033[?7711h" # mintty marker
         printf "$C_C$S$U@$H:$C_G$W\n"
         [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color of prompt
         [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # prompt
         printf $C_D
-        #printf "\033[?7711l"
     }
 
-    export PS1='$(set +x; _ps1)'
+    export PS1='$(
+        set +x
+        _ps1_git
+        _ps1_kube
+        (iskubeon || isingit) && echo
+        _ps1_uhw
+    )'
 
-    #export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x; echo -ne "\e[4 q")'
-    export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x)'
+    export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x;echo)'
 # ps1 }
 
 # ls {
