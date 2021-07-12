@@ -205,7 +205,7 @@
     set list
     set listchars=tab:>>,trail:~,
     set mouse=
-    set nofileignorecase
+    set fileignorecase
     set notimeout
     set nowildignorecase
     set nowildmenu
