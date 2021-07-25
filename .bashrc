@@ -226,7 +226,7 @@
     }
 # git }
 
-# scs {
+# screen {
     scs(){
         screen bash -c '
             screen -S $STY -X eval \
@@ -239,7 +239,8 @@
             bash
         '
     }
-# scs }
+    chmod 600 ~/.c &>/dev/null
+# screen }
 
 # u {
     function u(){
