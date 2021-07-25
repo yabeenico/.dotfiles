@@ -31,4 +31,5 @@ $ENV:Path="C:\Users\yabeenico\scoop\shims;"+$ENV:Path
 
 Set-Alias s ls
 Set-Alias l ls
+Set-Alias powershell posh
 
