@@ -384,6 +384,7 @@ alias gis='git status --short'
 alias glog=_glog
 alias glogo='glog origin/master'
 alias grep='grep -s --color=auto'
+alias k=kubectl
 alias mp4box=MP4Box
 alias posh='powershell.exe -nologo'
 alias q='exit'
