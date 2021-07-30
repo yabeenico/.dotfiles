@@ -195,6 +195,7 @@
     set cursorline
     set directory=$HOME/.vim/anydir
     set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
+    set fileignorecase
     set hlsearch
     set ignorecase
     set incsearch
@@ -204,8 +205,8 @@
     set lazyredraw
     set list
     set listchars=tab:>>,trail:~,
+    set modeline
     set mouse=
-    set fileignorecase
     set notimeout
     set nowildignorecase
     set nowildmenu
