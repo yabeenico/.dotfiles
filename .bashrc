@@ -52,6 +52,7 @@
         iskubeon || return
         echo -en "(${C_C}k8s:${C_G}"
             kubectl config get-contexts --no-headers |
+            grep '\*' |
             awk '{printf($3"/"$5)}' |
             cat
         echo -en "$C_D) "
