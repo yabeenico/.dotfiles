@@ -1,0 +1,79 @@
+[[plugins]]
+repo='Shougo/dein.vim'
+
+[[plugins]]
+repo='Shougo/neocomplete.vim'
+
+hook_add="""
+    if (has('lua') && (v:version > 703 || v:version == 703 && has('patch885')))
+        let g:acp_enableAtStartup = 0 " Disable AutoComplPop.
+        let g:neocomplete#enable_at_startup = 1 " Use neocomplete.
+        let g:neocomplete#enable_smart_case = 1 " Use smartcase.
+        let g:neocomplete#sources#syntax#min_keyword_length = 3
+        let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+        inoremap <expr><C-g> neocomplete#undo_completion()
+        inoremap <expr><C-l> neocomplete#complete_common_string()
+        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        function! s:my_cr_function()
+        return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        endfunction
+        inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplete#smart_close_popup()."\<BS>"
+        inoremap <expr><C-y> neocomplete#close_popup()
+        inoremap <expr><C-e> neocomplete#cancel_popup()
+        inoremap <expr><Space> pumvisible() ?
+            \ neocomplete#close_popup() . "\<Space>" : "\<Space>"
+  endif
+"""
+
+[[plugins]]
+repo='thinca/vim-template'
+
+[[plugins]]
+repo='Shougo/neosnippet.vim'
+hook_add="""
+    let g:neosnippet#snippets_directory='~/.vim/snippets'
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_target)
+"""
+
+[[plugins]]
+repo='Shougo/neosnippet-snippets'
+hook_add="""
+    let g:neosnippet#snippets_directory='~/.vim/snippets'
+"""
+
+[[plugins]]
+repo='vhda/verilog_systemverilog.vim'
+
+[[plugins]]
+repo='PProvost/vim-ps1'
+
+[[plugins]]
+repo='Shougo/unite.vim'
+
+[[plugins]]
+repo='mattn/vim-sonictemplate'
+hook_add="""
+    let g:sonictemplate_vim_template_dir = ['~/.vim/template/sonictemplate']
+"""
+
+[[plugins]]
+repo='dense-analysis/ale'
+hook_add="""
+    let g:ale_sign_column_always = 1
+    let g:ale_lint_on_text_changed = 1
+    let g:ale_sign_error = 'e'
+    let g:ale_sign_warning = 'w'
+    let g:ale_echo_msg_format = '[%linter%]%code: %%s'
+    highlight link ALEErrorSign Error
+    highlight link ALEWarningSign Comment
+    nmap <silent> <Leader>k <Plug>(ale_previous_wrap)
+    nmap <silent> <Leader>j <Plug>(ale_next_wrap)
+"""
+
+[[plugins]]
+repo='cespare/vim-toml'
+

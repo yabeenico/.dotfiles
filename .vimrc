@@ -14,7 +14,7 @@
 " encoding }
 
 " dein {
-    let s:dein_dir = expand('~/.vim/dein')
+    let s:dein_dir = expand('~/.cache/vim/dein')
     let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
     if &runtimepath !~# '/dein.vim'
         if !isdirectory(s:dein_repo_dir)
@@ -25,11 +25,7 @@
     endif
     if dein#load_state(s:dein_dir)
         call dein#begin(s:dein_dir)
-        let g:rc_dir    = s:dein_dir . '/rc'
-        let s:toml      = g:rc_dir . '/dein.toml'
-        let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
-        call dein#load_toml(s:toml,      {'lazy': 0})
-        call dein#load_toml(s:lazy_toml, {'lazy': 1})
+        call dein#load_toml(expand('~/.vim/dein.toml'), {'lazy': 0})
         call dein#end()
         call dein#save_state()
     endif
@@ -180,12 +176,18 @@
     " } (for inoremap)
 " map }
 
+" anydir {
+    let s:anydir = expand('~/.cache/vim/anydir')
+    call system('mkdir -p ' . s:anydir)
+    let &backupdir=s:anydir
+    let &directory=s:anydir
+    let &undodir=s:anydir
+" anydir }
+
 " set {
-    call system('mkdir ~/.vim/anydir')
 
     set backspace=eol,indent,start
     set backup
-    set backupdir=$HOME/.vim/anydir
     set cindent
     set cinkeys-=0#
     set cinkeys-=0{
@@ -193,7 +195,6 @@
     set completeopt=menuone,longest,preview
     set conceallevel=0
     set cursorline
-    set directory=$HOME/.vim/anydir
     set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
     set fileignorecase
     set hlsearch
@@ -223,7 +224,6 @@
     set ttimeout
     set ttimeoutlen=100
     set ttyfast
-    set undodir=$HOME/.vim/anydir
     set undofile
     set viminfo='20,s10
     set virtualedit=block
