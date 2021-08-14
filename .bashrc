@@ -411,8 +411,9 @@ complete -f -X '!*.svg' -o plusdirs svg2pdf
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
 export HISTCONTROL=ignoreboth:erasedups
-export HISTSIZE=10000
 export HISTFILESIZE=10000
+export HISTSIZE=10000
+export HISTTIMEFORMAT='%F %T '
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LESS='-iqRS'
