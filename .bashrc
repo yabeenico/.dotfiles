@@ -10,15 +10,157 @@
     if [[ -t 1 ]];then
         stty stop undef
         stty werase undef #delete <C-w> binding
-
     fi
 # bind }
 
-# vimmv {
-    vimmv(){
-        vim <(ls | xargs -d\\n -n1 -II printf "mv -n %q/%s\n" I I | column -ts/)
+# complete_filter {
+    cf_tex='aux|bbl|blg|dvi|lof|lot|pdf|toc'
+    cf_media='aac|ac3|avi|flac|flv|iso|m4a|m4v|mkv|mov|mp3|mp4|wav|webm'
+    cf_img='bmp|gif|jpg|png|tiff|svg'
+
+    complete_filter="*.@(pdf|$cf_tex|$cf_media|$cf_img)"
+    complete_filter_media="*.@($cf_media)"
+    complete -F _longopt -X "$complete_filter" tail
+    complete -fX "$complete_filter" vi vim
+    complete -fX "!$complete_filter_media" mpc
+
+    #_complete_filter() {
+    #    grep -v '^ *$'|
+    #    awk '{printf("%s|",$1)}'
+    #}
+
+    #cf_tex=$(cat<<<"
+    #    aux
+    #    bbl
+    #    blg
+    #    dvi
+    #    lof
+    #    lot
+    #    pdf
+    #    toc
+    #"|_complete_filter)
+
+    #cf_media=$(cat<<<"
+    #    aac
+    #    ac3
+    #    avi
+    #    flac
+    #    flv
+    #    iso
+    #    m4a
+    #    m4v
+    #    mkv
+    #    mov
+    #    mp3
+    #    mp4
+    #    wav
+    #    webm
+    #"|_complete_filter)
+
+    #cf_img=$(cat<<<"
+    #    bmp
+    #    gif
+    #    jpg
+    #    png
+    #    tiff
+    #    svg
+    #"|_complete_filter)
+
+    #if type _filedir_xspec &>/dev/null; then
+    #    complete -F _filedir_xspec -X "$complete_filter" vim
+    #    complete -F _filedir_xspec -X "!$complete_filter_media" -o plusdirs mpc
+    #fi
+    #if type _longopt &>/dev/null; then
+    #    complete -F _longopt -X "$complete_filter" tail
+    #fi
+
+# complete_filter }
+
+# dircolors {
+    [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
+# dircolors }
+
+# git {
+    _gdl(){
+        svn checkout $(
+            echo $1|
+            sed 's,\(github.com/[^/]\+/[^/]\+\)/[^/]\+/[^/]\+,\1/trunk,'
+        )
     }
-# vimmv }
+
+    _glog(){
+        if [[ -t 1 ]]; then
+            COLOR=always
+        else
+            COLOR=auto
+        fi
+
+        HEIGHT=$(($(stty size|cut -f1 -d" ")-8))
+
+        git -c color.ui=$COLOR \
+            log --date-order --oneline --graph --branches --decorate=full $* |
+        head -n $HEIGHT
+    }
+
+    _gpull(){
+        (
+            echo _gpull: $1
+            cd -P $1
+            local GIS=$(git status -s)
+            if [[ $GIS = '' ]]; then
+                git pull
+            else
+                echo "$GIS"
+            fi
+        )
+    }
+
+    gic(){
+        git commit -m "$*"
+    }
+# git }
+
+# ls {
+    alias   ls='ls -Fh --color=auto --time-style=+%Y-%m-%dT%H:%M:%S%:z'
+    alias    l='ls'
+    alias    s='ls'
+    alias   sl='ls'
+    alias  lls='ls'
+    alias  lsd='ls'
+    alias  lsl='ls'
+    alias  sls='ls'
+    alias   l1='ls -1'
+    alias  ls1='ls -1'
+    alias   la='ls -a'
+    alias  lsa='ls -a'
+    alias  lal='ls -al'
+    alias  lla='ll -al'
+    alias   lt='ls -lt'
+    alias  lst='ls -t'
+    alias lstr='ls -t'
+    alias  alt='ls -alt'
+    alias  lat='ls -alt'
+    alias  lta='ls -alt'
+    alias llta='ls -alt'
+    alias lsta='ls -alt'
+    alias   ll='ls -l'
+    alias  lll='ls -l'
+    alias   tl='ls -lt'
+    alias  llt='ls -lt'
+    alias lltr='ls -ltr'
+    alias llrt='ls -ltr'
+    alias  ltl='ls -lt'
+    alias  ltr='ls -ltr'
+    alias  lrt='ls -ltr'
+    alias  laz='ls -Za'
+    alias  lza='ls -Za'
+    alias   lz='ls -Z'
+    alias  llz='ls -Z'
+    alias  ltz='ls -Zt'
+    alias latz='ls -Zat'
+    alias  llr='ls -lr'
+    alias lsrt='ls -rt'
+# ls }
 
 # ps1 {
     # \001: begin non-printed-sequence
@@ -94,224 +236,24 @@
     export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x;echo)'
 # ps1 }
 
-# ls {
-    alias   ls='ls -Fh --color=auto --time-style=+%Y-%m-%dT%H:%M:%S%:z'
-    alias    l='ls'
-    alias    s='ls'
-    alias   sl='ls'
-    alias  lls='ls'
-    alias  lsd='ls'
-    alias  lsl='ls'
-    alias  sls='ls'
-    alias   l1='ls -1'
-    alias  ls1='ls -1'
-    alias   la='ls -a'
-    alias  lsa='ls -a'
-    alias  lal='ls -al'
-    alias  lla='ll -al'
-    alias   lt='ls -lt'
-    alias  lst='ls -t'
-    alias lstr='ls -t'
-    alias  alt='ls -alt'
-    alias  lat='ls -alt'
-    alias  lta='ls -alt'
-    alias llta='ls -alt'
-    alias lsta='ls -alt'
-    alias   ll='ls -l'
-    alias  lll='ls -l'
-    alias   tl='ls -lt'
-    alias  llt='ls -lt'
-    alias lltr='ls -ltr'
-    alias llrt='ls -ltr'
-    alias  ltl='ls -lt'
-    alias  ltr='ls -ltr'
-    alias  lrt='ls -ltr'
-    alias  laz='ls -Za'
-    alias  lza='ls -Za'
-    alias   lz='ls -Z'
-    alias  llz='ls -Z'
-    alias  ltz='ls -Zt'
-    alias latz='ls -Zat'
-    alias  llr='ls -lr'
-    alias lsrt='ls -rt'
-# ls }
-
-# complete_filter {
-    _complete_filter() {
-        grep -v '^ *$'|
-        awk '{printf("%s|",$1)}'
-    }
-    cf_tex=$(cat<<<"
-        aux
-        bbl
-        blg
-        dvi
-        lof
-        lot
-        pdf
-        toc
-    "|_complete_filter)
-
-    cf_media=$(cat<<<"
-        aac
-        ac3
-        avi
-        flac
-        flv
-        iso
-        m4a
-        m4v
-        mkv
-        mov
-        mp3
-        mp4
-        wav
-        webm
-    "|_complete_filter)
-
-    cf_img=$(cat<<<"
-        bmp
-        gif
-        jpg
-        png
-        tiff
-        svg
-    "|_complete_filter)
-
-    complete_filter='*.@(''pdf|'$cf_tex$cf_media$cf_img'_)'
-    complete_filter_media='*.@('$cf_media'_)'
-
-    type _filedir_xspec &>/dev/null
-    if [[ $? = 0 ]]; then
-        complete -F _filedir_xspec -X "$complete_filter" vim
-        complete -F _filedir_xspec -X "!$complete_filter_media" -o plusdirs mpc
-    fi
-
-    type _longopt &>/dev/null
-    if [[ $? = 0 ]]; then
-        complete -F _longopt -X "$complete_filter" tail
-    fi
-# complete_filter }
-
-# git {
-    _gdl(){
-        svn checkout $(
-            echo $1|
-            sed 's,\(github.com/[^/]\+/[^/]\+\)/[^/]\+/[^/]\+,\1/trunk,'
-        )
-    }
-
-    _glog(){
-        if [[ -t 1 ]]; then
-            COLOR=always
-        else
-            COLOR=auto
+# recycle: rotate {
+    recycle(){
+        if [[ $1 = --gc ]]; then
+            cd ~/recycle/
+            while du -bd0 . | awk '{exit $1<100*1000**3}'; do # while . > 100G
+                rm -rf ./"$(ls -tr | head -n1)"
+            done
+            return
         fi
 
-        HEIGHT=$(($(stty size|cut -f1 -d" ")-8))
-
-        git -c color.ui=$COLOR \
-            log --date-order --oneline --graph --branches --decorate=full $* |
-        head -n $HEIGHT
+        for i in "$@"; do
+            rotate ~/recycle/"$(basename $i)" 2>/dev/null
+            mv "$i" ~/recycle/
+        done
     }
 
-    _gpull(){
-        (
-            echo _gpull: $1
-            cd -P $1
-            local GIS=$(git status -s)
-            if [[ $GIS = '' ]]; then
-                git pull
-            else
-                echo "$GIS"
-            fi
-        )
-    }
-
-    gic(){
-        git commit -m "$*"
-    }
-# git }
-
-# screen {
-    scs(){
-        screen bash -c '
-            screen -S $STY -X eval \
-            "split" \
-            "stuff " \
-            "focus next" \
-            "screen" \
-            "focus next" \
-            "layout save default"
-            bash
-        '
-    }
-    chmod 600 ~/.c &>/dev/null
-# screen }
-
-# u {
-    function u(){
-        if [[ $SHELL =~ termux ]]; then
-            apt-get update &&
-            apt-get dist-upgrade -y &&
-            apt-get autoremove -y
-        elif [[ -f /etc/debian_version ]]; then
-            sudo apt-fast autoremove -y &&
-            sudo apt-fast update &&
-            sudo apt-fast dist-upgrade -y &&
-            sudo apt-fast autoremove -y
-        elif [[ -f /etc/centos-release ]]; then
-            sudo yum update -y
-        fi &&
-        echo && _gpull ~/.dotfiles &&
-        echo && _gpull ~/.ssh
-    }
-# u }
-
-# dircolors {
-    [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
-# dircolors }
-
-# touchx {
-    touchx(){
-        touch "$1" &&
-        chmod +x "$1"
-    }
-# touchx }
-
-# datei {
-    datei(){
-        if [[ "$@" = '' ]]; then
-            date '+%Y-%m-%d%H:%M:%S%z%a' |
-            perl -pe '$_ = lc; s/(.{10})(.{11})(.{2})(.{2})./$1T$2:$3 ($4)/' |
-            cat
-        else
-            date "$@"
-        fi
-    }
-# datei }
-
-# scrape {
-    htt(){
-        if [[ $# = 0 ]]; then
-            cat
-        else
-            echo "$1"
-        fi |
-        sed 's,^ps://,https://,' |
-        sed 's,^s://,https://,' |
-        sed 's,^p://,http://,' |
-        cat
-    }
-
-    a(){
-        axel -an 20 $(htt "$1")
-    }
-
-    w(){
-        wget $(htt "$1")
-    }
-# scrape }
+    alias re=recycle
+# recycle }
 
 # rotate {
     rotate(){
@@ -359,24 +301,68 @@
     }
 # rotate }
 
-# recycle { after=rotate
-    recycle(){
-        if [[ $1 = --gc ]]; then
-            cd ~/recycle/
-            while du -bd0 . | awk '{exit $1<100*1000**3}'; do # while . > 100G
-                rm -rf ./"$(ls -tr | head -n1)"
-            done
-            return
-        fi
-
-        for i in "$@"; do
-            rotate ~/recycle/"$(basename $i)" 2>/dev/null
-            mv "$i" ~/recycle/
-        done
+# scraping {
+    htt(){
+        if [[ $# = 0 ]]; then
+            cat
+        else
+            echo "$1"
+        fi |
+        sed 's,^ps://,https://,' |
+        sed 's,^s://,https://,' |
+        sed 's,^p://,http://,' |
+        cat
     }
 
-    alias re=recycle
-# recycle }
+    a(){
+        axel -an 20 $(htt "$1")
+    }
+
+    w(){
+        wget $(htt "$1")
+    }
+# scraping }
+
+# screen {
+    scs(){
+        screen bash -c '
+            screen -S $STY -X eval \
+            "split" \
+            "stuff " \
+            "focus next" \
+            "screen" \
+            "focus next" \
+            "layout save default"
+            bash
+        '
+    }
+    chmod 600 ~/.c &>/dev/null
+# screen }
+
+# u {
+    u(){
+        if [[ $SHELL =~ termux ]]; then
+            apt-get update &&
+            apt-get dist-upgrade -y &&
+            apt-get autoremove -y
+        elif [[ -f /etc/debian_version ]]; then
+            sudo apt-fast autoremove -y &&
+            sudo apt-fast update &&
+            sudo apt-fast dist-upgrade -y &&
+            sudo apt-fast autoremove -y
+        elif [[ -f /etc/centos-release ]]; then
+            sudo yum update -y
+        fi &&
+        echo && _gpull ~/.dotfiles &&
+        echo && _gpull ~/.ssh
+    }
+# u }
+
+# vimmv {
+    vimmv(){
+        vim <(ls | xargs -d\\n -n1 -II printf "mv -n %q/%s\n" I I | column -ts/)
+    }
+# vimmv }
 
 alias ..='cd ..'
 alias :q='exit'
@@ -430,6 +416,8 @@ export PATH=~/.opt/bin:$PATH
 export PATH=~/Dropbox/opt/bin:$PATH
 export PATH=~/Dropbox/opt/music:$PATH
 export TF_CPP_MIN_LOG_LEVEL=2
+function datei(){ date '+%FT%T%:z (%a' | perl -pe '$_=lc;s/.$/)/'; }
+function touchx(){ touch "$1" && chmod +x "$1"; }
 shopt -s cdspell
 shopt -s checkjobs
 shopt -s checkwinsize
