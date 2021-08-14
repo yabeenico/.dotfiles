@@ -7,7 +7,7 @@
 # bashrc_local_begin }
 
 # bind {
-    if [[ -t 1 ]];then
+    if [[ -t 1 ]]; then
         stty stop undef
         stty werase undef #delete <C-w> binding
     fi
@@ -302,25 +302,9 @@
 # rotate }
 
 # scraping {
-    htt(){
-        if [[ $# = 0 ]]; then
-            cat
-        else
-            echo "$1"
-        fi |
-        sed 's,^ps://,https://,' |
-        sed 's,^s://,https://,' |
-        sed 's,^p://,http://,' |
-        cat
-    }
-
-    a(){
-        axel -an 20 $(htt "$1")
-    }
-
-    w(){
-        wget $(htt "$1")
-    }
+    htt(){ ([[ -z $* ]] && cat || echo "$1") | sed -E 's,^h?t?t?p?,http,'; }
+    a(){ [[ ! -z $2 ]] && { n=$1; shift;}; axel -an ${n:-5} $(htt "$1"); }
+    w(){ wget $(htt "$1"); }
 # scraping }
 
 # screen {
@@ -397,9 +381,9 @@ alias vt='vim ~/Dropbox/note/todo.txt'
 alias x='exit'
 complete -A hostname ping
 complete -A user write
-complete -f -X '!*.pdf' -o plusdirs evince
-complete -f -X '!*.svg' -o plusdirs inkscape
-complete -f -X '!*.svg' -o plusdirs svg2pdf
+complete -fX '!*.pdf' -o plusdirs evince
+complete -fX '!*.svg' -o plusdirs inkscape
+complete -fX '!*.svg' -o plusdirs svg2pdf
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
 export HISTCONTROL=ignoreboth:erasedups
