@@ -9,12 +9,12 @@ bell_msg "^GBell in window %."
 bind  l eval "select 0" prev
 bind  q exec screen -S $sessionname -X quit
 bind ^q exec screen -S $sessionname -X quit
-bind x remove
-bindkey -m ' ' eval 'stuff " "' writebuf
+bind  x remove
+#bindkey -m ' ' eval 'stuff " "' writebuf
 bindkey -m ^e  stuff ^e^e
 bindkey -m ^g  stuff ^]
 bindkey -m ^y  stuff ^y^y
-bindkey -m  c  eval 'stuff " "' writebuf 'exec bash -c "cat ~/.c | clip.exe"'
+#bindkey -m  c  eval 'stuff " "' writebuf 'exec bash -c "cat ~/.c | clip.exe"'
 bufferfile $HOME/.c
 crlf off
 deflogin off
