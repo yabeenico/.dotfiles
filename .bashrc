@@ -14,6 +14,12 @@
     fi
 # bind }
 
+# vimmv {
+    vimmv(){
+        vim <(ls | xargs -d\\n -n1 -II printf "mv -n %q/%s\n" I I | column -ts/)
+    }
+# vimmv }
+
 # ps1 {
     # \001: begin non-printed-sequence
     # \002: end   non-printed-sequence
