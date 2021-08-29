@@ -160,6 +160,7 @@
     noremap <C-y> 2<C-y>
     noremap <Leader><Esc> <Esc>
     noremap <Leader>s :source %<CR>
+    noremap <Leader>t :Template 
     noremap K kJ
     noremap ^ 0
     noremap gj j
