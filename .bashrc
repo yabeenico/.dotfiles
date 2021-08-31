@@ -309,17 +309,19 @@
 
 # screen {
     scs(){
+        v=$1
         screen bash -c '
             screen -S $STY -X eval \
-            "split" \
+            "split '$v'" \
             "stuff " \
             "focus next" \
             "screen" \
             "focus next" \
-            "layout save default"
-            bash
+            "layout save default" \
+            ;bash
         '
     }
+    alias scv='scs -v'
     chmod 600 ~/.c &>/dev/null
 # screen }
 
