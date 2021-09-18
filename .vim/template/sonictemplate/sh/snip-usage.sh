@@ -1,4 +1,6 @@
 usage(){
-    echo "USAGE:"
-    echo "    ${0##*/} --help"
+cat<<EOF
+USAGE:
+    ${0##*/} {{_cursor_}}
+EOF
 }

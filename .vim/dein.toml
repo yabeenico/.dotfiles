@@ -29,6 +29,16 @@ hook_add="""
 
 [[plugins]]
 repo='thinca/vim-template'
+hook_add="""
+    function! s:pluginTemplateLoaded()
+        if &ft == "sh"
+            normal G
+        endif
+    endfunction
+    augroup plugin-template-loaded
+        autocmd User plugin-template-loaded call s:pluginTemplateLoaded()
+    augroup END
+"""
 
 [[plugins]]
 repo='Shougo/neosnippet.vim'

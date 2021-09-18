@@ -1,3 +1,4 @@
 if [[ $* =~ --help ]]; then
-    {{_cursor_}}
+    usage
+    exit 0
 fi
