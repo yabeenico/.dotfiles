@@ -44,7 +44,7 @@
     syntax on
     " v must be located after 'syntax on'
     set background=dark
-    " v must be located after 'set background' premitive
+    " v must be located after 'set background', premitives (h group-name)
     highlight Comment     term=bold      cterm=none      ctermfg=6 ctermbg=none
     highlight Constant    term=underline cterm=none      ctermfg=1 ctermbg=none
     highlight Identifier  term=underline cterm=none      ctermfg=2 ctermbg=none
@@ -56,12 +56,11 @@
     highlight Ignore      term=none      cterm=bold      ctermfg=7 ctermbg=none
     highlight Error       term=reverse   cterm=bold      ctermfg=7 ctermbg=1
     highlight Todo        term=standout  cterm=none      ctermfg=0 ctermbg=3
-    highlight Search      term=bold      cterm=bold      ctermfg=7 ctermbg=4
-    highlight Visual      term=reverse   cterm=reverse
+    " v must be located after 'set background', optionals
+    highlight ColorColumn term=bold cterm=bold ctermfg=7 ctermbg=4
     highlight markdownError ctermbg=none
-    " v must be located after 'set background' optional
-    highlight ColorColumn term=bold      cterm=bold      ctermfg=7 ctermbg=5
-" highlight }
+    highlight Search term=bold cterm=bold ctermfg=7 ctermbg=4
+    highlight Visual term=reverse cterm=reverse
 
 " HighlightInfo {
     function! s:get_hi(synname)

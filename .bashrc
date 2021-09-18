@@ -88,23 +88,37 @@
         )
     }
 
-    _glog(){
-        if [[ -t 1 ]]; then
-            COLOR=always
-        else
-            COLOR=auto
-        fi
-
-        HEIGHT=$(($(stty size|cut -f1 -d" ")-8))
-
-        git -c color.ui=$COLOR \
-            log --date-order --oneline --graph --branches --decorate=full $* |
-        head -n $HEIGHT
+    glogf(){
+        FORMAT='%C(yellow)%h%Creset %cd %C(cyan)%an%Creset %s %Cgreen%d%Creset'
+        git log \
+            --oneline \
+            --date=format:'%Y-%m-%dT%H:%M:%S%z' \
+            --date-order \
+            --pretty=format:"$FORMAT"\
+            "$@"
+            #--graph \
+            #--branches \
+            #--tags \
+            #--remotes \
+            #--decorate=full \
     }
 
-    _gpull(){
+    glog(){
+        HEIGHT_PROMPT=$(bash -ic "echo \"$PS1\";$PROMPT_COMMAND" | wc -l)
+        HEIGHT_WINDOW=$(stty size|cut -f1 -d" ")
+        HEIGHT=$((HEIGHT_WINDOW - HEIGHT_PROMPT * 2))
+        if [[ $* =~ --graph ]]; then
+            glogf "$@" --color=always -$HEIGHT | head -n $HEIGHT
+        else
+            glogf "$@" --color=auto   -$HEIGHT
+        fi
+    }
+    alias glogo='glog origin/master'
+    alias glogg='glog --graph'
+
+    gpull(){
         (
-            echo _gpull: $1
+            echo gpull: $1
             cd -P $1
             local GIS=$(git status -s)
             if [[ $GIS = '' ]]; then
@@ -118,6 +132,8 @@
     gic(){
         git commit -m "$*"
     }
+
+    alias gis='git status --short'
 # git }
 
 # ls {
@@ -339,8 +355,8 @@
         elif [[ -f /etc/centos-release ]]; then
             sudo yum update -y
         fi &&
-        echo && _gpull ~/.dotfiles &&
-        echo && _gpull ~/.ssh
+        echo && gpull ~/.dotfiles &&
+        echo && gpull ~/.ssh
     }
 # u }
 
@@ -358,9 +374,6 @@ alias ema='emacs'
 alias ffmpeg='2>&1 ffmpeg'
 alias ffprobe='2>&1 ffprobe'
 alias gdl=_gdl
-alias gis='git status --short'
-alias glog=_glog
-alias glogo='glog origin/master'
 alias grep='grep -s --color=auto'
 alias k=kubectl
 alias mp4box=MP4Box
@@ -394,7 +407,7 @@ export HISTSIZE=10000
 export HISTTIMEFORMAT='%F %T '
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export LESS='-iQRS'
+export LESS='-iqQRSX'
 export PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 export PATH=/mnt/c/ProgramData/chocolatey:$PATH
 export PATH=~/.local/bin:$PATH
@@ -404,6 +417,7 @@ export PATH=~/Dropbox/opt/music:$PATH
 export TF_CPP_MIN_LOG_LEVEL=2
 function datei(){ date '+%FT%T%:z (%a' | perl -pe '$_=lc;s/.$/)/'; }
 function touchx(){ touch "$1" && chmod +x "$1"; }
+set bell-style none
 shopt -s cdspell
 shopt -s checkjobs
 shopt -s checkwinsize

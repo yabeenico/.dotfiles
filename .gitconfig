@@ -1,10 +1,8 @@
 [user]
-	email = niconico_door@gmail.com
-	name = EGAWA Hiroki
+	name = yabeenico
+	email = <>
 [core]
-	pager = cat
-[format]
-	pretty = oneline
+	pager = less -FX
 [push]
 	default = matching
 [color]
