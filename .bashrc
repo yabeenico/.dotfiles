@@ -82,7 +82,10 @@
 
 # docker }
     mkdir -p ~/.docker/
-    (cat ~/.docker/config.json >/dev/null; cat ~/.dotfiles/docker-config.json) |
+    (
+        cat ~/.docker/config.json 2>/dev/null
+        cat ~/.dotfiles/docker-config.json
+    ) |
     jq -s add |
     tee ~/.docker/config.json >/dev/null
 # docker }
