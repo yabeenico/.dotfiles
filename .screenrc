@@ -6,7 +6,10 @@ activity "Activity in window %."
 altscreen on
 autodetach on
 bell_msg "^GBell in window %."
-bind  l eval "select 0" prev
+bind ^h focus left
+bind ^j focus down
+bind ^k focus up
+bind ^l focus right
 bind  q exec screen -S $sessionname -X quit
 bind ^q exec screen -S $sessionname -X quit
 bind  x remove
