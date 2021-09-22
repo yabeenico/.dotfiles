@@ -160,6 +160,9 @@
         fi
     }
 
+    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
+    alias kubeon='touch ~/.kube/ps1'
+    alias kubeoff='rm -f ~/.kube/ps1'
     _ps1_kube(){
         iskubeon || return 1
         echo -en "[${C_C}k8s:${C_G}"
@@ -169,10 +172,8 @@
             cat
         echo -en "$C_D] "
     }
-    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
-    alias kubeon='touch ~/.kube/ps1'
-    alias kubeoff='rm -f ~/.kube/ps1'
 
+    alias isingit='(which git && git status) &>/dev/null'
     _ps1_git(){
         isingit || return 1
         (
@@ -188,7 +189,6 @@
             echo -e "${C_D}] "
         )  | tr -d '\n'
     }
-    alias isingit='(which git && git status) &>/dev/null'
 
     _ps1_uhw(){
         local U=$USER
