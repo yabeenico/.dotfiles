@@ -151,11 +151,32 @@
     export C_C="\001\033[1;36m\002" # cyan
     export C_W="\001\033[1;37m\002" # white
 
-    alias isingit='(which git && git status) &>/dev/null'
+    _ps1_screen(){
+        if [[ -z $WINDOW ]]; then
+            return 1
+        else
+            printf "[$C_C$WINDOW$C_D] "
+            return 0
+        fi
+    }
+
+    _ps1_kube(){
+        iskubeon || return 1
+        echo -en "(${C_C}k8s:${C_G}"
+            kubectl config get-contexts --no-headers |
+            grep '\*' |
+            awk '{printf($3"/"$5)}' |
+            cat
+        echo -en "$C_D) "
+    }
+    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
+    alias kubeon='touch ~/.kube/ps1'
+    alias kubeoff='rm -f ~/.kube/ps1'
+
     _ps1_git(){
-        isingit || return
+        isingit || return 1
         (
-            echo -e "(${C_R}git:${C_C}"
+            echo -e "(${C_C}git:${C_G}"
             git remote -v |
                 head -n1 |
                 sed 's,.*/,,g' |
@@ -167,46 +188,44 @@
             echo -e "${C_D}) "
         )  | tr -d '\n'
     }
-
-    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
-    alias kubeon='touch ~/.kube/ps1'
-    alias kubeoff='rm -f ~/.kube/ps1'
-    _ps1_kube(){
-        iskubeon || return
-        echo -en "(${C_C}k8s:${C_G}"
-            kubectl config get-contexts --no-headers |
-            grep '\*' |
-            awk '{printf($3"/"$5)}' |
-            cat
-        echo -en "$C_D) "
-    }
+    alias isingit='(which git && git status) &>/dev/null'
 
     _ps1_uhw(){
-
         local U=$USER
         local H=${HOSTNAME%%.*}
         local W=${PWD/$HOME/\~}
-        local S=${WINDOW:+[$WINDOW] }
 
         local WTB="\001\033]0;\002" # window title begin
         local WTE="\001\007\002"    # window title end
 
-        [[ ! $(tty) =~ tty ]]  && printf "$WTB$H:$W$WTE"
-        #printf "\n"
-        printf "\033[?7711h" # mintty marker
-        printf "$C_C$S$U@$H:$C_G$W\n"
-        [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color of prompt
-        [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # prompt
+        [[ ! $(tty) =~ tty ]]  && printf "$WTB$H:$W$WTE"    # window title
+        printf "\033[?7711h"                                # mintty marker
+        printf "$C_C$U@$H:$C_G$W"                           # user@host:path
         printf $C_D
     }
 
-    export PS1='$(
+    _ps1_dollar(){
+        [[ $EXIT_STATUS = 0 ]] && printf $C_W || printf $C_R # color
+        [[ $EUID        = 0 ]] && printf '# ' || printf '$ ' # $
+        printf $C_D
+    }
+
+    _ps1(){
         set +x
-        _ps1_git
-        _ps1_kube
-        (iskubeon || isingit) && echo
+
+        flag=1
+        _ps1_screen; flag=$((flag * $?))
+        _ps1_kube;   flag=$((flag * $?))
+        _ps1_git;    flag=$((flag * $?))
+        [[ $flag = 0 ]] && echo
+
         _ps1_uhw
-    )'
+        echo
+
+        _ps1_dollar
+    }
+
+    export PS1='$(_ps1)'
 
     export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x;echo)'
 # ps1 }
