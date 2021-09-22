@@ -162,12 +162,12 @@
 
     _ps1_kube(){
         iskubeon || return 1
-        echo -en "(${C_C}k8s:${C_G}"
+        echo -en "[${C_C}k8s:${C_G}"
             kubectl config get-contexts --no-headers |
             grep '\*' |
             awk '{printf($3"/"$5)}' |
             cat
-        echo -en "$C_D) "
+        echo -en "$C_D] "
     }
     alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
     alias kubeon='touch ~/.kube/ps1'
@@ -176,7 +176,7 @@
     _ps1_git(){
         isingit || return 1
         (
-            echo -e "(${C_C}git:${C_G}"
+            echo -e "[${C_C}git:${C_G}"
             git remote -v |
                 head -n1 |
                 sed 's,.*/,,g' |
@@ -185,7 +185,7 @@
                 cat
             echo '/'
             git branch | grep ^'\*' | tr -s ' ' | cut -d' ' -f2
-            echo -e "${C_D}) "
+            echo -e "${C_D}] "
         )  | tr -d '\n'
     }
     alias isingit='(which git && git status) &>/dev/null'
