@@ -23,57 +23,6 @@
     complete -F _longopt -X "$complete_filter" tail
     complete -fX "$complete_filter" vi vim
     complete -fX "!$complete_filter_media" mpc
-
-    #_complete_filter() {
-    #    grep -v '^ *$'|
-    #    awk '{printf("%s|",$1)}'
-    #}
-
-    #cf_tex=$(cat<<<"
-    #    aux
-    #    bbl
-    #    blg
-    #    dvi
-    #    lof
-    #    lot
-    #    pdf
-    #    toc
-    #"|_complete_filter)
-
-    #cf_media=$(cat<<<"
-    #    aac
-    #    ac3
-    #    avi
-    #    flac
-    #    flv
-    #    iso
-    #    m4a
-    #    m4v
-    #    mkv
-    #    mov
-    #    mp3
-    #    mp4
-    #    wav
-    #    webm
-    #"|_complete_filter)
-
-    #cf_img=$(cat<<<"
-    #    bmp
-    #    gif
-    #    jpg
-    #    png
-    #    tiff
-    #    svg
-    #"|_complete_filter)
-
-    #if type _filedir_xspec &>/dev/null; then
-    #    complete -F _filedir_xspec -X "$complete_filter" vim
-    #    complete -F _filedir_xspec -X "!$complete_filter_media" -o plusdirs mpc
-    #fi
-    #if type _longopt &>/dev/null; then
-    #    complete -F _longopt -X "$complete_filter" tail
-    #fi
-
 # complete_filter }
 
 # dircolors {
