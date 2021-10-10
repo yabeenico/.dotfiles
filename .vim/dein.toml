@@ -1,5 +1,12 @@
 [[plugins]]
 repo='Shougo/dein.vim'
+# call dein#recache_runtimepath()
+
+[[plugins]]
+repo='mattn/vim-sonictemplate'
+hook_add="""
+    let g:sonictemplate_vim_template_dir = ['~/.vim/sonictemplate']
+"""
 
 # [[plugins]]
 # repo='Shougo/neocomplete.vim'
@@ -26,33 +33,33 @@ repo='Shougo/dein.vim'
 #   endif
 # """
 
-[[plugins]]
-repo='thinca/vim-template'
-hook_add="""
-    function! s:pluginTemplateLoaded()
-        if &ft == "sh"
-            normal G
-        endif
-    endfunction
-    augroup plugin-template-loaded
-        autocmd User plugin-template-loaded call s:pluginTemplateLoaded()
-    augroup END
-"""
+# [[plugins]]
+# repo='thinca/vim-template'
+# hook_add="""
+#     function! s:pluginTemplateLoaded()
+#         if &ft == "sh"
+#             normal G
+#         endif
+#     endfunction
+#     augroup plugin-template-loaded
+#         autocmd User plugin-template-loaded call s:pluginTemplateLoaded()
+#     augroup END
+# """
 
-[[plugins]]
-repo='Shougo/neosnippet.vim'
-hook_add="""
-    let g:neosnippet#snippets_directory='~/.vim/snippets'
-    imap <C-k> <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k> <Plug>(neosnippet_expand_or_jump)
-    smap <C-k> <Plug>(neosnippet_expand_target)
-"""
+#[[plugins]]
+#repo='Shougo/neosnippet.vim'
+#hook_add="""
+#    let g:neosnippet#snippets_directory='~/.vim/snippets'
+#    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+#    xmap <C-k> <Plug>(neosnippet_expand_or_jump)
+#    smap <C-k> <Plug>(neosnippet_expand_target)
+#"""
 
-[[plugins]]
-repo='Shougo/neosnippet-snippets'
-hook_add="""
-    let g:neosnippet#snippets_directory='~/.vim/snippets'
-"""
+#[[plugins]]
+#repo='Shougo/neosnippet-snippets'
+#hook_add="""
+#    let g:neosnippet#snippets_directory='~/.vim/snippets'
+#"""
 
 [[plugins]]
 repo='vhda/verilog_systemverilog.vim'
@@ -62,12 +69,6 @@ repo='PProvost/vim-ps1'
 
 [[plugins]]
 repo='Shougo/unite.vim'
-
-[[plugins]]
-repo='mattn/vim-sonictemplate'
-hook_add="""
-    let g:sonictemplate_vim_template_dir = ['~/.vim/sonictemplate']
-"""
 
 [[plugins]]
 repo='dense-analysis/ale'
