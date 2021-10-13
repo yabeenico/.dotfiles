@@ -95,6 +95,23 @@
     alias gis='git status --short'
 # git }
 
+# kubernetes {
+    if ! (cd ~/git/kubectx && isingit) &>/dev/null; then
+        (
+            which git &>/dev/null &&
+            cd ~/git &&
+            rm -rf kubectx &&
+            git clone https://github.com/ahmetb/kubectx
+        )
+    fi
+    if [[ -d ~/git/kubectx ]]; then
+        source ~/git/kubectx/completion/kubectx.bash
+        source ~/git/kubectx/completion/kubens.bash
+    fi
+    alias kctx=kubectx
+    alias kns=kubens
+# kubernetes }
+
 # ls {
     alias   ls='ls -Fh --color=auto --time-style=+%Y-%m-%dT%H:%M:%S%:z'
     alias    l='ls'
@@ -452,4 +469,3 @@ shopt -u xpg_echo
 # bashrc_local }
 
 export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
-
