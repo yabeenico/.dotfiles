@@ -96,13 +96,9 @@
 # git }
 
 # kubernetes {
-    if ! (cd ~/git/kubectx && isingit) &>/dev/null; then
-        (
-            which git &>/dev/null &&
-            cd ~/git &&
-            rm -rf kubectx &&
-            git clone https://github.com/ahmetb/kubectx
-        )
+    if [[ ! -d ~/git/kubectx ]]; then
+        which git &>/dev/null &&
+        git clone https://github.com/ahmetb/kubectx ~/git/kubectx
     fi
     if [[ -d ~/git/kubectx ]]; then
         source ~/git/kubectx/completion/kubectx.bash
