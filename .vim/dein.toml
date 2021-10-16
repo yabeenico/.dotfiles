@@ -87,14 +87,6 @@ hook_add="""
 repo='cespare/vim-toml'
 
 [[plugins]]
-repo='rhysd/migemo-search.vim'
-hook_add="""
-    "if executable('cmigemo')
-    "    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
-    "endif
-"""
-
-[[plugins]]
 repo='Shougo/vimproc.vim'
 build='make'
 hook_post_update="""
@@ -104,9 +96,6 @@ hook_post_update="""
 [[plugins]]
 repo='osyo-manga/vim-vigemo'
 hook_add="""
-    "nmap <silent> \<Leader>/ <Plug>(vigemo-search)
-    nmap <silent> ? <Plug>(vigemo-search)
-
     function! s:n(flag)
         let l:width = &columns - 12 " 12: width correction
         let l:msg = "/" . @/
@@ -116,7 +105,6 @@ hook_add="""
             let l:msge = l:msg[len(l:msg) - 10:]
             let l:msg = l:msgb . ' ... ' . l:msge
         endif
-
         if(search('', a:flag))
             echo l:msg
         else
@@ -126,9 +114,17 @@ hook_add="""
         endif
     endfunction
 
+    nmap <silent> ? <Plug>(vigemo-search)
     noremap <silent>    n  :call <SID>n('' )<CR>
     noremap <silent> <S-n> :call <SID>n('b')<CR>
     highlight Cursor ctermbg=none
-    "set cmdheight=2
+"""
+
+[[plugins]]
+repo='rhysd/migemo-search.vim'
+hook_add="""
+    "if executable('cmigemo')
+    "    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+    "endif
 """
 
