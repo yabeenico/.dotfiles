@@ -1,4 +1,4 @@
-[[plugins]]
+c>
 repo='Shougo/dein.vim'
 # call dein#recache_runtimepath()
 
@@ -86,4 +86,46 @@ hook_add="""
 
 [[plugins]]
 repo='cespare/vim-toml'
+
+[[plugins]]
+repo='rhysd/migemo-search.vim'
+hook_add="""
+    "if executable('cmigemo')
+    "    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+    "endif
+"""
+
+[[plugins]]
+repo='Shougo/vimproc.vim'
+
+[[plugins]]
+repo='osyo-manga/vim-vigemo'
+hook_add="""
+    "nmap <silent> \<Leader>/ <Plug>(vigemo-search)
+    nmap <silent> ? <Plug>(vigemo-search)
+
+    function! s:n(flag)
+        let l:width = &columns - 12 " 12: width correction
+        let l:msg = "/" . @/
+        if(len(l:msg) > l:width)
+            " 10: length of tail chars, 5: ' ... ', 1: length -> index
+            let l:msgb = l:msg[:l:width - 10 - 5 - 1]
+            let l:msge = l:msg[len(l:msg) - 10:]
+            let l:msg = l:msgb . ' ... ' . l:msge
+        endif
+
+        if(search('', a:flag))
+            echo l:msg
+        else
+            echoh ErrorMsg
+            echo l:msg
+            echoh None
+        endif
+    endfunction
+
+    noremap <silent>    n  :call <SID>n('' )<CR>
+    noremap <silent> <S-n> :call <SID>n('b')<CR>
+    highlight Cursor ctermbg=none
+    "set cmdheight=2
+"""
 
