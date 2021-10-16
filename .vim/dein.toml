@@ -1,4 +1,3 @@
-c>
 repo='Shougo/dein.vim'
 # call dein#recache_runtimepath()
 
@@ -97,6 +96,10 @@ hook_add="""
 
 [[plugins]]
 repo='Shougo/vimproc.vim'
+build='make'
+hook_post_update="""
+    call VimProcInstall
+"""
 
 [[plugins]]
 repo='osyo-manga/vim-vigemo'
