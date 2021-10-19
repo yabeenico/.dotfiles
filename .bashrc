@@ -388,6 +388,7 @@ alias vn='vim ~/n/music/syn/0new/0new.m3u8'
 alias vs='vim ~/Dropbox/note/song.txt'
 alias vsa='vim ~/Dropbox/note/song.txt.arcive'
 alias vt='vim ~/Dropbox/note/todo.txt'
+alias watch='watch '
 alias x='exit'
 complete -A hostname ping
 complete -A user write
