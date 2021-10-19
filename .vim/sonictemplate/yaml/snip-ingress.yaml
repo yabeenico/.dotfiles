@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  name: test-ingress
+spec:
+  rules:
+    - host: test.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-svc
+                port:
+                  number: 8080
+
+  ## This section is only required if TLS is to be enabled for the Ingress
+  #tls:
+  #  - hosts:
+  #    - example.com
+  #    - "*.example.com"
+  #    secretName: example-com-secret

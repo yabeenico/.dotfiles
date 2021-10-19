@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-pod
+  name: test-pod
   labels:
-    label: nginx-label
+    label: test-label
+  finalizers: null
 spec:
+  terminationGracePeriodSeconds: 0
   containers:
-  - name: nginx-container
+  - name: test-container
     image: nginx
     ports:
     - containerPort: 80
@@ -14,4 +16,3 @@ spec:
       ln -sf /etc/hostname /usr/share/nginx/html/index.html;
       nginx -g 'daemon off;';
     "]
-
