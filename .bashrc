@@ -30,13 +30,17 @@
 # dircolors }
 
 # docker }
-    mkdir -p ~/.docker/
-    (
-        cat ~/.docker/config.json 2>/dev/null
-        cat ~/.dotfiles/docker-config.json
-    ) |
-    jq -s add |
-    tee ~/.docker/config.json >/dev/null
+    if which jq &>/dev/null; then
+        mkdir -p ~/.docker/
+        (
+            cat ~/.docker/config.json 2>/dev/null
+            cat ~/.dotfiles/docker-config.json
+        ) |
+        jq -s add |
+        tee ~/.docker/config.json >/dev/null
+    else
+        jq
+    fi
 # docker }
 
 # git {
