@@ -390,6 +390,7 @@ alias vsa='vim ~/Dropbox/note/song.txt.arcive'
 alias vt='vim ~/Dropbox/note/todo.txt'
 alias watch='watch '
 alias x='exit'
+alias cutc='cut -c-$COLUMNS'
 complete -A hostname ping
 complete -A user write
 complete -fX '!*.pdf' -o plusdirs evince
