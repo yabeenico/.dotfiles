@@ -160,7 +160,7 @@
     noremap <C-y> 2<C-y>
     noremap <Leader><Esc> <Esc>
     noremap <Leader>s :source %<CR>
-    noremap <Leader>t :Template
+    noremap <Leader>t :Template 
     noremap <Leader>p :let &paste = !&paste \| set paste?<CR>
     noremap K kJ
     noremap ^ 0

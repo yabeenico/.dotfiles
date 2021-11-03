@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      label: test-label
+  template:
+    metadata:
+      labels:
+        label: test-label
+      finalizers: null
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: test-container
+        image: nginx
+        ports:
+        - containerPort: 80
+        command: [ "sh", "-c", "
+          ln -sf /etc/hostname /usr/share/nginx/html/index.html;
+          nginx -g 'daemon off;';
+        "]
