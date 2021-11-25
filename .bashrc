@@ -190,21 +190,10 @@
         echo -en "$C_D] "
     }
 
-    alias isingit='(which git && git status) &>/dev/null'
+    alias isingit='git remote &>/dev/null'
     _ps1_git(){
-        isingit || return 1
-        (
-            echo -e "[${C_C}git:${C_G}"
-            git remote -v |
-                head -n1 |
-                sed 's,.*/,,g' |
-                sed 's/ .*//g' |
-                sed 's/\.git$//' |
-                cat
-            echo '/'
-            git branch | grep ^'\*' | tr -s ' ' | cut -d' ' -f2
-            echo -e "${C_D}] "
-        )  | tr -d '\n'
+        GRP=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) &&
+        echo -ne "[${C_C}git:${C_G}${GRP}${C_D}] "
     }
 
     _ps1_uhw(){
