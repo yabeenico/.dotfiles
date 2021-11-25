@@ -219,16 +219,22 @@
     _ps1(){
         set +x
 
-        flag=1
-        _ps1_screen; flag=$((flag * $?))
-        _ps1_kube;   flag=$((flag * $?))
-        _ps1_git;    flag=$((flag * $?))
-        [[ $flag = 0 ]] && echo
+        #flag=1
+        #_ps1_screen; flag=$((flag * $?))
+        #_ps1_kube;   flag=$((flag * $?))
+        #_ps1_git;    flag=$((flag * $?))
+        #[[ $flag = 0 ]] && echo
 
-        _ps1_uhw
-        echo
+        ktemp=$(mktemp);_ps1_kube   >$ktemp&
+        gtemp=$(mktemp);_ps1_git    >$gtemp&
+        s=$(_ps1_screen)
+        remain=$(_ps1_uhw; echo; _ps1_dollar)
+        wait;wait
+        first="$s$(cat $ktemp $gtemp)"
+        rm $ktemp $gtemp &
+        [[ ! -z "$first"  ]] && echo "$first"
+        echo "$remain"
 
-        _ps1_dollar
     }
 
     export PS1='$(_ps1)'
