@@ -356,9 +356,12 @@
     }
 # vimmv }
 
+HISTFILESIZE=10000
+HISTSIZE=10000
 alias ..='cd ..'
 alias :q='exit'
 alias apt=apt-fast
+alias cutc='cut -c-$COLUMNS'
 alias em='emacs'
 alias ema='emacs'
 alias ffmpeg='2>&1 ffmpeg'
@@ -385,7 +388,6 @@ alias vsa='vim ~/Dropbox/note/song.txt.arcive'
 alias vt='vim ~/Dropbox/note/todo.txt'
 alias watch='watch '
 alias x='exit'
-alias cutc='cut -c-$COLUMNS'
 complete -A hostname ping
 complete -A user write
 complete -fX '!*.pdf' -o plusdirs evince
@@ -394,8 +396,6 @@ complete -fX '!*.svg' -o plusdirs svg2pdf
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
 export HISTCONTROL=ignoreboth:erasedups
-export HISTFILESIZE=10000
-export HISTSIZE=10000
 export HISTTIMEFORMAT='%F %T '
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
