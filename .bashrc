@@ -358,8 +358,8 @@
     }
 # vimmv }
 
-HISTFILESIZE=10000
-HISTSIZE=10000
+HISTFILESIZE=100000
+HISTSIZE=100000
 alias ..='cd ..'
 alias :q='exit'
 alias apt=apt-fast
