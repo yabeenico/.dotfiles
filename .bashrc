@@ -168,6 +168,12 @@
     export C_C="\001\033[1;36m\002" # cyan
     export C_W="\001\033[1;37m\002" # white
 
+    _ps1_date(){
+        echo -en "[$C_C"
+        TZ=UTC date -Is | tr -d '\n'
+        echo -en "$C_D] "
+    }
+
     _ps1_screen(){
         if [[ -z $WINDOW ]]; then
             return 1
@@ -219,21 +225,17 @@
     _ps1(){
         set +x
 
-        #flag=1
-        #_ps1_screen; flag=$((flag * $?))
-        #_ps1_kube;   flag=$((flag * $?))
-        #_ps1_git;    flag=$((flag * $?))
-        #[[ $flag = 0 ]] && echo
-
-        ktemp=$(mktemp);_ps1_kube   >$ktemp&
-        gtemp=$(mktemp);_ps1_git    >$gtemp&
-        s=$(_ps1_screen)
-        remain=$(_ps1_uhw; echo; _ps1_dollar)
-        wait;wait
-        first="$s$(cat $ktemp $gtemp)"
-        rm $ktemp $gtemp &
-        [[ ! -z "$first"  ]] && echo "$first"
-        echo "$remain"
+        temp_kube=$(  mktemp); _ps1_kube   >$temp_kube   & # real    0m0.069s
+        temp_git=$(   mktemp); _ps1_git    >$temp_git    & # real    0m0.020s
+        temp_date=$(  mktemp); _ps1_date   >$temp_date   & # real    0m0.021s
+        temp_uhw=$(   mktemp); _ps1_uhw    >$temp_uhw    & # real    0m0.014s
+        temp_dollar=$(mktemp); _ps1_dollar >$temp_dollar & # real    0m0.000s
+        temp_screen=$(mktemp); _ps1_screen >$temp_screen & # real    0m0.000s
+        wait; wait; wait; wait; wait; wait;
+        echo "$(cat $temp_{date,screen,kube,git})"
+        echo "$(cat $temp_uhw)"
+        echo "$(cat $temp_dollar)"
+        rm -f $temp_{kube,git,date,uhw,dollar,screen} &
 
     }
 
