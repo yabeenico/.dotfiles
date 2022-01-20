@@ -105,15 +105,16 @@
 " remember_cursor_position }
 
 " vip {
-    function! s:linep(direction)
-        let l:mark = a:direction < 0? "'{": "'}"
-        let l:l = line(l:mark)
-        return line(l:l) == ""? l:l - a:direction: l:l
+    function! s:linep(direction) " retval range: [0, $+1]
+        let l:line = line(a:direction < 0? "'{": "'}")
+        if l:line ==       1   | let l:line  = getline( 1 ) != ""? 0: 1 | endif
+        if l:line == line('$') | let l:line += getline('$') != ""? 1: 0 | endif
+        return l:line
     endfunction
 
     function! s:movep(direction)
-        let l:n = abs(line(".") - <SID>linep(a:direction))
-        if !l:n | return "" | endif
+        let l:n = abs(line(".") - <SID>linep(a:direction) + a:direction)
+        if l:n == 0 | return "" | endif
         let l:jk = a:direction < 0? "k": "j"
         call feedkeys(virtcol(".") . "|" . l:n . l:jk . "oo")
         return ""
