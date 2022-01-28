@@ -467,4 +467,6 @@ shopt -u xpg_echo
     fi
 # bashrc_local }
 
-export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
+#export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
+export PATH=$(awk '(RS=ORS=":")&&!a[$1]++' <<<"$PATH"|head -c-1)
+
