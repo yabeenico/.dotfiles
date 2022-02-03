@@ -102,7 +102,7 @@
 # kubernetes {
     if [[ ! -d ~/git/kubectx ]]; then
         which git &>/dev/null &&
-        git clone https://github.com/ahmetb/kubectx ~/git/kubectx
+        git clone https://github.com/ahmetb/kubectx ~/git/kubectx &
     fi
     if [[ -d ~/git/kubectx ]]; then
         source ~/git/kubectx/completion/kubectx.bash
@@ -110,6 +110,10 @@
     fi
     alias kctx=kubectx
     alias kns=kubens
+
+    export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
+    (kubectl config view --flatten >~/.kube/config &)
+    unset KUBECONFIG
 # kubernetes }
 
 # ls {
@@ -183,17 +187,21 @@
         fi
     }
 
-    alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
+    #alias iskubeon='which kubectl &>/dev/null && [[ -f ~/.kube/ps1 ]]'
+    alias iskubeon='[[ -f ~/.kube/ps1 ]]'
     alias kubeon='touch ~/.kube/ps1'
     alias kubeoff='rm -f ~/.kube/ps1'
+
     _ps1_kube(){
-        iskubeon || return 1
-        echo -en "[${C_C}k8s:${C_G}"
-        kubectl config get-contexts --no-headers |
-            grep '\*' |
-            awk '{printf($3"/"$5)}' |
-            cat
-        echo -en "$C_D] "
+        if iskubeon; then
+            echo -en "[${C_C}k8s:${C_G}"
+            awk '
+                /namespace:/        {namespace = $2}
+                /name:/             {namespaces[$2] = namespace}
+                /^current-context:/ {printf $2 "/" namespaces[$2]; exit}
+            ' ~/.kube/config
+            echo -en "$C_D] "
+        fi
     }
 
     alias isingit='git remote &>/dev/null'
@@ -226,7 +234,7 @@
         set +x
 
         mkdir -p /run/shm/$$
-        _ps1_kube   >/run/shm/$$/kube   & # real    0m0.069s
+        _ps1_kube   >/run/shm/$$/kube   & # real    0m0.025s
         _ps1_git    >/run/shm/$$/git    & # real    0m0.020s
         _ps1_date   >/run/shm/$$/date   & # real    0m0.021s
         _ps1_uhw    >/run/shm/$$/uhw    & # real    0m0.014s
@@ -236,10 +244,6 @@
         echo "$(cat /run/shm/$$/{date,screen,kube,git})"
         echo "$(cat /run/shm/$$/uhw)"
         echo "$(cat /run/shm/$$/dollar)"
-
-        #real    0m0.091s
-        #user    0m0.088s
-        #sys     0m0.135s
     }
 
     export PS1='$(_ps1)'
@@ -395,6 +399,7 @@ alias watch='watch '
 alias x='exit'
 complete -A hostname ping
 complete -A user write
+complete -cf sudo
 complete -fX '!*.pdf' -o plusdirs evince
 complete -fX '!*.svg' -o plusdirs inkscape
 complete -fX '!*.svg' -o plusdirs svg2pdf
@@ -473,4 +478,5 @@ shopt -u xpg_echo
 
 #export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
 export PATH=$(awk '(RS=ORS=":")&&!a[$1]++' <<<"$PATH"|head -c-1)
+
 
