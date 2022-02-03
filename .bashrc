@@ -100,20 +100,22 @@
 # git }
 
 # kubernetes {
-    if [[ ! -d ~/git/kubectx ]]; then
-        which git &>/dev/null &&
-        git clone https://github.com/ahmetb/kubectx ~/git/kubectx &
-    fi
-    if [[ -d ~/git/kubectx ]]; then
-        source ~/git/kubectx/completion/kubectx.bash
-        source ~/git/kubectx/completion/kubens.bash
-    fi
-    alias kctx=kubectx
-    alias kns=kubens
+    if which kubectl &>/dev/null; then
+        if [[ ! -d ~/git/kubectx ]]; then
+            which git &>/dev/null &&
+            git clone https://github.com/ahmetb/kubectx ~/git/kubectx &
+        fi
+        if [[ -d ~/git/kubectx ]]; then
+            source ~/git/kubectx/completion/kubectx.bash
+            source ~/git/kubectx/completion/kubens.bash
+        fi
+        alias kctx=kubectx
+        alias kns=kubens
 
-    export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
-    (kubectl config view --flatten >~/.kube/config &)
-    unset KUBECONFIG
+        export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
+        (kubectl config view --flatten >~/.kube/config &)
+        unset KUBECONFIG
+    fi
 # kubernetes }
 
 # ls {
