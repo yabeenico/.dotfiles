@@ -189,7 +189,7 @@
     _ps1_kube(){
         iskubeon || return 1
         echo -en "[${C_C}k8s:${C_G}"
-            kubectl config get-contexts --no-headers |
+        kubectl config get-contexts --no-headers |
             grep '\*' |
             awk '{printf($3"/"$5)}' |
             cat
@@ -225,18 +225,21 @@
     _ps1(){
         set +x
 
-        temp_kube=$(  mktemp); _ps1_kube   >$temp_kube   & # real    0m0.069s
-        temp_git=$(   mktemp); _ps1_git    >$temp_git    & # real    0m0.020s
-        temp_date=$(  mktemp); _ps1_date   >$temp_date   & # real    0m0.021s
-        temp_uhw=$(   mktemp); _ps1_uhw    >$temp_uhw    & # real    0m0.014s
-        temp_dollar=$(mktemp); _ps1_dollar >$temp_dollar & # real    0m0.000s
-        temp_screen=$(mktemp); _ps1_screen >$temp_screen & # real    0m0.000s
+        mkdir -p /run/shm/$$
+        _ps1_kube   >/run/shm/$$/kube   & # real    0m0.069s
+        _ps1_git    >/run/shm/$$/git    & # real    0m0.020s
+        _ps1_date   >/run/shm/$$/date   & # real    0m0.021s
+        _ps1_uhw    >/run/shm/$$/uhw    & # real    0m0.014s
+        _ps1_dollar >/run/shm/$$/dollar & # real    0m0.000s
+        _ps1_screen >/run/shm/$$/screen & # real    0m0.000s
         wait; wait; wait; wait; wait; wait;
-        echo "$(cat $temp_{date,screen,kube,git})"
-        echo "$(cat $temp_uhw)"
-        echo "$(cat $temp_dollar)"
-        rm -f $temp_{kube,git,date,uhw,dollar,screen} &
+        echo "$(cat /run/shm/$$/{date,screen,kube,git})"
+        echo "$(cat /run/shm/$$/uhw)"
+        echo "$(cat /run/shm/$$/dollar)"
 
+        #real    0m0.091s
+        #user    0m0.088s
+        #sys     0m0.135s
     }
 
     export PS1='$(_ps1)'
