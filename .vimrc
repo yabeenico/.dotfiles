@@ -26,6 +26,9 @@
     if dein#load_state(s:dein_dir)
         call dein#begin(s:dein_dir)
         call dein#load_toml(expand('~/.vim/dein.toml'), {'lazy': 0})
+        if filereadable(expand('~/.vim/localdein.toml'))
+            call dein#load_toml(expand('~/.vim/localdein.toml'), {'lazy': 0})
+        endif
         call dein#end()
         call dein#save_state()
     endif
