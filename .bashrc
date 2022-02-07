@@ -113,7 +113,11 @@
         alias kns=kubens
 
         export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
-        (kubectl config view --flatten >~/.kube/config &)
+        export KUBECONFIG=~/.kube/config:$KUBECONFIG
+        ({
+            kubectl config view --flatten >~/.kube/config.$$ &&
+            mv ~/.kube/config.$$ ~/.kube/config
+        }&)
         unset KUBECONFIG
     fi
 # kubernetes }
