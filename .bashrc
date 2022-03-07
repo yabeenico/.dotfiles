@@ -101,6 +101,7 @@
 
 # kubernetes {
     if which kubectl &>/dev/null; then
+        mkdir -p ~/.kube/configs/
         if [[ ! -d ~/git/kubectx ]]; then
             which git &>/dev/null &&
             git clone https://github.com/ahmetb/kubectx ~/git/kubectx &
@@ -112,8 +113,10 @@
         alias kctx=kubectx
         alias kns=kubens
 
-        export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
-        export KUBECONFIG=~/.kube/config:$KUBECONFIG
+        if ls ~/.kube/configs/* &>/dev/null; then
+            export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
+            export KUBECONFIG=~/.kube/config:$KUBECONFIG
+        fi
         ({
             kubectl config view --flatten >~/.kube/config.$$ &&
             mv ~/.kube/config.$$ ~/.kube/config
