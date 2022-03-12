@@ -1,5 +1,5 @@
 
-" encoding {
+" encoding {{{
     set encoding=utf-8
     setglobal fileencoding=utf-8
     set fileencodings=iso-2022-jp,euc-jp,utf-8,sjis,cp932
@@ -11,7 +11,7 @@
             \     set fileencoding= |
             \ endif
     augroup END
-" encoding }
+" encoding }}}
 
 " dein {
     let s:dein_dir = expand('~/.cache/vim/dein')
@@ -141,7 +141,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " map {
-    let mapleader = "\<Space>"
 
     cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
     cnoremap <C-\> \<\><Left><Left>
@@ -162,17 +161,12 @@
     noremap <C-k> 2<C-e>
     noremap <C-l> 2zh
     noremap <C-y> 2<C-y>
-    noremap <Leader><Esc> <Esc>
-    noremap <Leader>s :source %<CR>
-    noremap <Leader>t :Template 
-    noremap <Leader>p :let &paste = !&paste \| set paste?<CR>
     noremap K kJ
     noremap ^ 0
     noremap gj j
     noremap gk k
     noremap j gj
     noremap k gk
-    vnoremap <Leader>s y:@"<CR>
     vnoremap G  10000000j
     vnoremap gg 10000000k
     vnoremap gj 10000000j
@@ -241,7 +235,66 @@
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" D {
+" Leader {{{
+    let mapleader = "\<Space>"
+    noremap <Leader><Esc> <Esc>
+    noremap <Leader>s :source %<CR>
+    noremap <Leader>t :Template 
+    noremap <Leader>p :let &paste = !&paste \| set paste?<CR>
+    vnoremap <Leader>s y:@"<CR>
+" Leader }}}
+
+" Leader c CopipeTerm {{{
+    nnoremap <silent><Leader>c :<C-u>call <SID>CopipeTerm()<CR>
+    " https://saihoooooooo.hatenablog.com/entry/2013/07/09/112527
+    function! s:CopipeTerm()
+        if !exists('b:copipe_term_save')
+            let b:copipe_term_save = {
+            \     'number': &l:number,
+            \     'relativenumber': &relativenumber,
+            \     'foldcolumn': &foldcolumn,
+            \     'wrap': &wrap,
+            \     'list': &list,
+            \     'showbreak': &showbreak
+            \ }
+            setlocal foldcolumn=0
+            setlocal nonumber
+            setlocal norelativenumber
+            setlocal wrap
+            setlocal nolist
+            set showbreak=
+            if get(g:, 'ale_sign_column_always', "notdefined") != "notdefined"
+                let b:copipe_term_save['g:ale_sign_column_always'] = g:ale_sign_column_always
+                let b:copipe_term_save['g:ale_enabled'] = g:ale_enabled
+                let g:ale_sign_column_always = 0
+                ALEDisable
+            endif
+        else
+            let &l:foldcolumn = b:copipe_term_save['foldcolumn']
+            let &l:number = b:copipe_term_save['number']
+            let &l:relativenumber = b:copipe_term_save['relativenumber']
+            let &l:wrap = b:copipe_term_save['wrap']
+            let &l:list = b:copipe_term_save['list']
+            let &showbreak = b:copipe_term_save['showbreak']
+            if get(g:, 'ale_sign_column_always', "notdefined") != "notdefined"
+                let g:ale_sign_column_always =
+                    \ b:copipe_term_save['g:ale_sign_column_always']
+                ALEDisable
+                if b:copipe_term_save['g:ale_enabled']
+                    ALEEnable
+                endif
+            endif
+            unlet b:copipe_term_save
+        endif
+    endfunction
+" Leader c CopipeTerm }}}
+
+" Leader d {{{
+    noremap <Leader>d :call <SID>func_D()<CR>
+    " for map {{{
+    "map <Leader>t gg/test_D<CR>/1<CR>j:noh<CR> dV}}kko{jjj s:undo<CR>
+    " for map }}
+
     function! <SID>test_D()
         let a = ''
         " sort by 35th column (cursor position)
@@ -260,12 +313,7 @@
     function! <SID>func_D()
         execute "'{;'}-sort /\\%" . getcurpos()[2] . "v/"
     endfunction
-
-    noremap <Leader>d :call <SID>func_D()<CR>
-    " for map {{{
-    "map <Leader>t gg/test_D<CR>/1<CR>j:noh<CR> dV}}kko{jjj s:undo<CR>
-    " for map }}
-" D }
+" Leader d }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
