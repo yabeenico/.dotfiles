@@ -1,4 +1,30 @@
 
+" vim-plug {{{
+    let data_dir = '~/.cache/' . (has('nvim')? 'n': '') . 'vim/vim-plug'
+    let &runtimepath .= ',' . data_dir . '/vim-plug'
+    if empty(glob(data_dir . '/vim-plug/autoload/plug.vim'))
+        let url = 'https://raw.githubusercontent.com' .
+            \ '/junegunn/vim-plug/master/plug.vim'
+        silent execute '!curl -sfLo ' .
+            \ data_dir . '/vim-plug/autoload/plug.vim --create-dirs ' . url
+        "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
+    call plug#begin('~/.cache/vim/vim-plug') " {{{
+        Plug 'junegunn/fzf', { 'do': './install --all' }
+        Plug 'junegunn/vim-easy-align'
+        let added = join(sort(map(values(g:plugs), 'v:val.dir')), "\n")
+        let dirs = split(glob(data_dir . '/*/'), '\n')
+        let dirs = filter(dirs, 'match(v:val, "vim-plug/$") == -1')
+        let dirs = join(sort(dirs), "\n")
+        if added != dirs
+            PlugClean!
+            PlugInstall --sync
+        endif
+    call plug#end() " }}}
+" vim-plug }}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " encoding {{{
     set encoding=utf-8
     setglobal fileencoding=utf-8
@@ -10,32 +36,32 @@
             \ if &modifiable&&search('[^\x00-\x7f]', 'nw')==0|
             \     set fileencoding= |
             \ endif
-    augroup END
+    augroup end
 " encoding }}}
 
-" dein {
-    let s:dein_dir = expand('~/.cache/vim/dein')
-    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-    if &runtimepath !~# '/dein.vim'
-        if !isdirectory(s:dein_repo_dir)
-            let s:dein_get = '!git clone https://github.com/Shougo/dein.vim'
-            execute s:dein_get s:dein_repo_dir
-        endif
-        execute 'set runtimepath+=' . fnamemodify(s:dein_repo_dir, ':p')
-    endif
-    if dein#load_state(s:dein_dir)
-        call dein#begin(s:dein_dir)
-        call dein#load_toml(expand('~/.vim/dein.toml'), {'lazy': 0})
-        if filereadable(expand('~/.vim/localdein.toml'))
-            call dein#load_toml(expand('~/.vim/localdein.toml'), {'lazy': 0})
-        endif
-        call dein#end()
-        call dein#save_state()
-    endif
-    if dein#check_install()
-        call dein#install()
-    endif
-" dein }
+"" dein {
+"    let s:dein_dir = expand('~/.cache/vim/dein')
+"    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+"    if &runtimepath !~# '/dein.vim'
+"        if !isdirectory(s:dein_repo_dir)
+"            let s:dein_get = '!git clone https://github.com/Shougo/dein.vim'
+"            execute s:dein_get s:dein_repo_dir
+"        endif
+"        execute 'set runtimepath+=' . fnamemodify(s:dein_repo_dir, ':p')
+"    endif
+"    if dein#load_state(s:dein_dir)
+"        call dein#begin(s:dein_dir)
+"        call dein#load_toml(expand('~/.vim/dein.toml'), {'lazy': 0})
+"        if filereadable(expand('~/.vim/localdein.toml'))
+"            call dein#load_toml(expand('~/.vim/localdein.toml'), {'lazy': 0})
+"        endif
+"        call dein#end()
+"        call dein#save_state()
+"    endif
+"    if dein#check_install()
+"        call dein#install()
+"    endif
+"" dein }
 
 " GetCChar {
     function! GetCChar()
@@ -326,3 +352,4 @@
         source ~/.vimrc_local
     endif
 " vimrc_local }
+
