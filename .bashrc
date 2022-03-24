@@ -119,6 +119,7 @@
         fi
         ({
             kubectl config view --flatten >~/.kube/config.$$ &&
+            chmod 600 ~/.kube/config.$$
             mv ~/.kube/config.$$ ~/.kube/config
         }&)
         unset KUBECONFIG
