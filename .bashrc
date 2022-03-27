@@ -25,6 +25,10 @@
     complete -fX "!$complete_filter_media" mpc
 # complete_filter }
 
+# fzf {
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# fzf }
+
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
 # dircolors }
@@ -264,17 +268,22 @@
 # recycle: rotate {
     recycle(){
         if [[ $1 = --gc ]]; then
-            cd ~/recycle/
-            while du -bd0 . | awk '{exit $1<100*1000**3}'; do # while . > 100G
-                rm -rf ./"$(ls -tr | head -n1)"
-            done
+            (
+                cd ~/recycle/ &&
+                while du -bd0 . | awk '{exit $1<100*1000**3}'; do # 100G
+                    rm -rf ./"$(ls -tr | head -n1)"
+                done
+            )
             return
         fi
 
+
         for i in "$@"; do
+            [[ -e $i ]] || { echo "error: '$i' not found"; continue; }
             rotate ~/recycle/"$(basename $i)" 2>/dev/null
             mv "$i" ~/recycle/
         done
+        recycle --gc
     }
 
     alias re=recycle
@@ -302,27 +311,12 @@
             return 1
         fi
 
-        LAST=$(
-            ls |
-            egrep "^$FILE\.[1-9][0-9]*$" |
-            awk -v FS=. '{print $NF}' |
-            sort -n |
-            awk 'BEGIN{last = 0} $0 == NR{last = $0} END{print last}' |
-            cat
-        )
-        #echo "$LAST";return
-
-        CMD=$(
-            for i in $(seq 1 $LAST); do
-                printf 'mv -n %q.%d %q.%d\n' "$FILE" $i "$FILE" $((i + 1))
-            done |
-            tac
-            printf 'mv -n %q %q.1\n' "$FILE" "$FILE"
-        )
-        #echo "$CMD";return
-
-        echo "$CMD" |
-        bash
+        _rotate(){
+            local N=$1
+            [[ -e $FILE.$((N+1)) ]] && _rotate $((N+1))
+            mv -n "$FILE".$N "$FILE".$((N+1))
+        }
+        (_rotate 1; mv -n "$FILE" "$FILE.1")
     }
 # rotate }
 
@@ -486,7 +480,9 @@ shopt -u xpg_echo
     fi
 # bashrc_local }
 
-#export PATH=$(echo $PATH | awk 'BEGIN{RS = ORS = ":"} !a[$1]++' | head -1)
-export PATH=$(awk '(RS=ORS=":")&&!a[$1]++' <<<"$PATH"|head -c-1)
-
+#export PATH=$(a=$(printf "$PATH"|awk -vRS=: '!a[$0]++&&ORS=RS');echo ${a%?})
+#export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++&&ORS=RS'|rev|cut -b2-|rev)
+#export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|sed s/.$//)
+#export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|head -c-1)
+export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++'|paste -sd:)
 
