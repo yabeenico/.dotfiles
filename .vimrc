@@ -1,4 +1,3 @@
-
 " vim-plug {{{
     let data_dir = '~/.cache/' . (has('nvim')? 'n': '') . 'vim/vim-plug'
     let &runtimepath .= ',' . data_dir . '/vim-plug'
@@ -22,6 +21,13 @@
         endif
     call plug#end() " }}}
 " vim-plug }}}
+
+" vimrc_yaml after=vim-plug {
+    augroup vimrc_yaml
+        autocmd!
+        autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
+    augroup END
+" vimrc_yaml }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -342,6 +348,7 @@
 " Leader d }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " filetype {
     filetype plugin on
