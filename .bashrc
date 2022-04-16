@@ -6,8 +6,15 @@
     fi
 # bashrc_local_begin }
 
+# apt-fast {
+    if which apt-fast &>/dev/null; then
+        alias apt=apt-fast
+    fi
+# apt-fast }
+
 # bind {
     if [[ -t 1 ]]; then
+        stty start undef
         stty stop undef
         stty werase undef #delete <C-w> binding
     fi
@@ -27,6 +34,7 @@
 
 # fzf {
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    bind '"\C-": transpose-chars'
 # fzf }
 
 # dircolors {
@@ -373,7 +381,6 @@ HISTFILESIZE=100000
 HISTSIZE=100000
 alias ..='cd ..'
 alias :q='exit'
-alias apt=apt-fast
 alias cutc='cut -c-$COLUMNS'
 alias em='emacs'
 alias ema='emacs'
