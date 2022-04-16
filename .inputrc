@@ -25,7 +25,7 @@ set horizontal-scroll-mode              off
 set input-meta                          on
 set isearch-terminators                 "\e\C-j"
 set keymap                              emacs
-set keyseq-timeout                      500
+set keyseq-timeout                      50
 set mark-directories                    on
 set mark-modified-lines                 off
 set mark-symlinked-directories          on
