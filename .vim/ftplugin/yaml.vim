@@ -1,4 +1,1 @@
-autocmd FileType yaml,yaml.ansible setlocal expandtab
-autocmd FileType yaml,yaml.ansible setlocal tabstop=2
-autocmd FileType yaml,yaml.ansible setlocal shiftwidth=0
-autocmd FileType yaml,yaml.ansible setlocal softtabstop=-1
+setlocal expandtab tabstop=2 shiftwidth=0 softtabstop=-1

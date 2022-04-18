@@ -26,6 +26,7 @@
     augroup vimrc_yaml
         autocmd!
         autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
+        autocmd FileType yaml,yaml.ansible setlocal indentkeys-=<:>
     augroup END
 " vimrc_yaml }
 

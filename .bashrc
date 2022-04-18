@@ -34,7 +34,7 @@
 
 # fzf {
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-    bind '"\C-": transpose-chars'
+    bind '"\C-t": transpose-chars'
 # fzf }
 
 # dircolors {
