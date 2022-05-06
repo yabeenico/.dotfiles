@@ -11,6 +11,10 @@
     call plug#begin('~/.cache/vim/vim-plug') " {{{
         Plug 'junegunn/fzf', { 'do': './install --all' }
         Plug 'junegunn/vim-easy-align'
+        Plug 'Yggdroot/indentLine'
+        let g:indentLine_setColors = 1
+        let g:indentLine_color_term = 4
+        let g:indentLine_bgcolor_term = 0
         let added = join(sort(map(values(g:plugs), 'v:val.dir')), "\n")
         let dirs = split(glob(data_dir . '/*/'), '\n')
         let dirs = filter(dirs, 'match(v:val, "vim-plug/$") == -1')
