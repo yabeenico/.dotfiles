@@ -15,6 +15,7 @@
         let g:indentLine_setColors = 1
         let g:indentLine_color_term = 4
         let g:indentLine_bgcolor_term = 0
+        Plug 'jeetsukumaran/vim-indentwise'
         let added = join(sort(map(values(g:plugs), 'v:val.dir')), "\n")
         let dirs = split(glob(data_dir . '/*/'), '\n')
         let dirs = filter(dirs, 'match(v:val, "vim-plug/$") == -1')
