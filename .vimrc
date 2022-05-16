@@ -12,6 +12,7 @@
         Plug 'junegunn/fzf', { 'do': './install --all' }
         Plug 'junegunn/vim-easy-align'
         Plug 'Yggdroot/indentLine'
+        Plug 'elzr/vim-json'
         let g:indentLine_setColors = 1
         let g:indentLine_color_term = 4
         let g:indentLine_bgcolor_term = 0
