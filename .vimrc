@@ -237,6 +237,7 @@
     set cursorline
     set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
     set fileignorecase
+    set foldcolumn=3
     set hlsearch
     set ignorecase
     set incsearch
@@ -285,7 +286,7 @@
     vnoremap <Leader>s y:@"<CR>
 " Leader }}}
 
-" Leader c CopipeTerm {{{
+" Leader c CopipeTerm copy {{{
     nnoremap <silent><Leader>c :<C-u>call <SID>CopipeTerm()<CR>
     " https://saihoooooooo.hatenablog.com/entry/2013/07/09/112527
     function! s:CopipeTerm()
@@ -304,6 +305,7 @@
             setlocal wrap
             setlocal nolist
             set showbreak=
+            IndentLinesDisable
             if get(g:, 'ale_sign_column_always', "notdefined") != "notdefined"
                 let b:copipe_term_save['g:ale_sign_column_always'] = g:ale_sign_column_always
                 let b:copipe_term_save['g:ale_enabled'] = g:ale_enabled
@@ -317,6 +319,7 @@
             let &l:wrap = b:copipe_term_save['wrap']
             let &l:list = b:copipe_term_save['list']
             let &showbreak = b:copipe_term_save['showbreak']
+            IndentLinesEnable
             if get(g:, 'ale_sign_column_always', "notdefined") != "notdefined"
                 let g:ale_sign_column_always =
                     \ b:copipe_term_save['g:ale_sign_column_always']
@@ -328,7 +331,7 @@
             unlet b:copipe_term_save
         endif
     endfunction
-" Leader c CopipeTerm }}}
+" Leader c CopipeTerm copy }}}
 
 " Leader d {{{
     noremap <Leader>d :call <SID>func_D()<CR>
