@@ -50,8 +50,6 @@
         ) |
         jq -s add |
         tee ~/.docker/config.json >/dev/null
-    else
-        jq
     fi
 # docker }
 
