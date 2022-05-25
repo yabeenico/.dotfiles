@@ -9,6 +9,9 @@
         "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
     call plug#begin('~/.cache/vim/vim-plug') " {{{
+        Plug 'skanehira/preview-markdown.vim'
+        let g:preview_markdown_parser='glow'
+        let g:preview_markdown_auto_update=1
         Plug 'rcmdnk/vim-markdown'
         Plug 'junegunn/fzf', { 'do': './install --all' }
         Plug 'junegunn/vim-easy-align'
