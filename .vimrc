@@ -9,6 +9,7 @@
         "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
     call plug#begin('~/.cache/vim/vim-plug') " {{{
+        Plug 'rcmdnk/vim-markdown'
         Plug 'junegunn/fzf', { 'do': './install --all' }
         Plug 'junegunn/vim-easy-align'
         Plug 'Yggdroot/indentLine'
@@ -102,6 +103,7 @@
     highlight ColorColumn term=bold cterm=bold ctermfg=7 ctermbg=4
     highlight markdownError ctermbg=none
     highlight Search term=bold cterm=bold ctermfg=7 ctermbg=4
+    highlight SpellBad ctermbg=1 ctermfg=0
     highlight Visual term=reverse cterm=reverse
 
 " HighlightInfo {
