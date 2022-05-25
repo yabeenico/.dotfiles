@@ -14,5 +14,4 @@ ln -sf ~/.dotfiles/.vimrc               ~/
 
 touch ~/.hushlogin
 
-mkdir -p ~/.vim/anydir
 vim
