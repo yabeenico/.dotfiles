@@ -33,8 +33,18 @@
 # complete_filter }
 
 # fzf {
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-    bind '"\C-t": transpose-chars'
+    if [[ -t 1 ]]; then
+        if [[ ! -d ~/.git/fzf-tab-completion ]] && which git &>/dev/null; then
+            git clone https://github.com/lincheney/fzf-tab-completion \
+                    ~/.git/fzf-tab-completion
+        fi
+        if [[ -f ~/.fzf.bash ]]; then
+            source ~/.fzf.bash &&
+            source ~/.git/fzf-tab-completion/bash/fzf-bash-completion.sh &&
+            bind -x '"\t": fzf_bash_completion'
+        fi
+        bind '"\C-t": transpose-chars'
+    fi
 # fzf }
 
 # dircolors {
