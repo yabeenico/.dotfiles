@@ -32,22 +32,6 @@
     complete -fX "!$complete_filter_media" mpc
 # complete_filter }
 
-# fzf {
-    if [[ -t 1 ]]; then
-        if [[ ! -d ~/.git/fzf-tab-completion ]] && which git &>/dev/null; then
-            git clone https://github.com/lincheney/fzf-tab-completion \
-                    ~/.git/fzf-tab-completion
-        fi
-        if [[ -f ~/.fzf.bash ]]; then
-            source ~/.fzf.bash &&
-            source ~/.git/fzf-tab-completion/bash/fzf-bash-completion.sh &&
-            # bind -x '"\t": fzf_bash_completion'
-            bind -x '"\C-o": fzf_bash_completion'
-        fi
-        bind '"\C-t": transpose-chars'
-    fi
-# fzf }
-
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
 # dircolors }
@@ -385,6 +369,23 @@
         vim <(ls | xargs -d\\n -n1 -II printf "mv -n %q/%s\n" I I | column -ts/)
     }
 # vimmv }
+
+# fzf: dircolors {
+    if [[ -t 1 ]]; then
+        if [[ ! -d ~/.git/fzf-tab-completion ]] && which git &>/dev/null; then
+            git clone https://github.com/lincheney/fzf-tab-completion \
+                    ~/.git/fzf-tab-completion
+        fi
+        if [[ -f ~/.fzf.bash ]]; then
+            source ~/.fzf.bash &&
+            source ~/.git/fzf-tab-completion/bash/fzf-bash-completion.sh &&
+            # bind -x '"\t": fzf_bash_completion' &&
+            bind -x '"\C-o": fzf_bash_completion'
+        fi
+        bind '"\C-t": transpose-chars'
+    fi
+# fzf }
+
 
 HISTFILESIZE=100000
 HISTSIZE=100000
