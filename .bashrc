@@ -41,7 +41,8 @@
         if [[ -f ~/.fzf.bash ]]; then
             source ~/.fzf.bash &&
             source ~/.git/fzf-tab-completion/bash/fzf-bash-completion.sh &&
-            bind -x '"\t": fzf_bash_completion'
+            # bind -x '"\t": fzf_bash_completion'
+            bind -x '"\C-o": fzf_bash_completion'
         fi
         bind '"\C-t": transpose-chars'
     fi
