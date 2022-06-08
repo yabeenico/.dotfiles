@@ -13,6 +13,7 @@
         let g:preview_markdown_parser='glow'
         let g:preview_markdown_auto_update=1
         Plug 'rcmdnk/vim-markdown'
+        let g:vim_markdown_conceal=0
         Plug 'junegunn/fzf', { 'do': './install --all' }
         Plug 'junegunn/vim-easy-align'
         Plug 'Yggdroot/indentLine'
