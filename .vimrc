@@ -22,6 +22,14 @@
         let g:indentLine_color_term = 4
         let g:indentLine_bgcolor_term = 0
         Plug 'jeetsukumaran/vim-indentwise'
+        Plug 'vim-denops/denops.vim'
+        Plug 'vim-denops/denops-helloworld.vim'
+        let g:denops_disable_version_check = 0
+        Plug 'Shougo/ddc.vim'
+        Plug 'Shougo/ddc-around'
+        Plug 'Shougo/ddc-matcher_head'
+        Plug 'Shougo/ddc-sorter_rank'
+        """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         let added = join(sort(map(values(g:plugs), 'v:val.dir')), "\n")
         let dirs = split(glob(data_dir . '/*/'), '\n')
         let dirs = filter(dirs, 'match(v:val, "vim-plug/$") == -1')
@@ -30,7 +38,19 @@
             PlugClean!
             PlugInstall --sync
         endif
+        """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     call plug#end() " }}}
+    " ddc {{{
+        call ddc#custom#patch_global('sources', ['around'])
+        call ddc#custom#patch_global('sourceOptions', {
+            \ '_': {
+            \   'matchers': ['matcher_head'],
+            \   'sorters': ['sorter_rank']},
+            \ })
+        " ddc#enable() does not work if !has('patch-8.2.0662')
+        " see: ~/.cache/vim/vim-plug/ddc.vim/autoload/ddc.vim
+        silent call ddc#enable()
+    " ddc }}}
 " vim-plug }}}
 
 " vimrc_yaml after=vim-plug {
