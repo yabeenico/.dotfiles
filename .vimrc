@@ -24,7 +24,7 @@
         Plug 'jeetsukumaran/vim-indentwise'
         Plug 'vim-denops/denops.vim'
         Plug 'vim-denops/denops-helloworld.vim'
-        let g:denops_disable_version_check = 0
+        let g:denops_disable_version_check = 1
         Plug 'Shougo/ddc.vim'
         Plug 'Shougo/ddc-around'
         Plug 'Shougo/ddc-matcher_head'
@@ -76,30 +76,6 @@
             \ endif
     augroup end
 " encoding }}}
-
-"" dein {
-"    let s:dein_dir = expand('~/.cache/vim/dein')
-"    let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-"    if &runtimepath !~# '/dein.vim'
-"        if !isdirectory(s:dein_repo_dir)
-"            let s:dein_get = '!git clone https://github.com/Shougo/dein.vim'
-"            execute s:dein_get s:dein_repo_dir
-"        endif
-"        execute 'set runtimepath+=' . fnamemodify(s:dein_repo_dir, ':p')
-"    endif
-"    if dein#load_state(s:dein_dir)
-"        call dein#begin(s:dein_dir)
-"        call dein#load_toml(expand('~/.vim/dein.toml'), {'lazy': 0})
-"        if filereadable(expand('~/.vim/localdein.toml'))
-"            call dein#load_toml(expand('~/.vim/localdein.toml'), {'lazy': 0})
-"        endif
-"        call dein#end()
-"        call dein#save_state()
-"    endif
-"    if dein#check_install()
-"        call dein#install()
-"    endif
-"" dein }
 
 " GetCChar {
     function! GetCChar()
@@ -280,7 +256,6 @@
     set nowrapscan
     set number
     set ruler
-    set runtimepath+=$HOME/.vim/plugins/vim-systemverilog
     set showcmd
     set smartcase
     set spellfile=~/.vim/spell/en.utf-8.add
