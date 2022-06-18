@@ -3,12 +3,14 @@
 set -xeuo pipefail
 
 # apt-fast
-sudo add-apt-repository -y ppa:apt-fast/stable
-sudo apt-get update
-sudo apt-get install -y apt-fast
+if ! which apt-fast &>/dev/null; then
+    sudo add-apt-repository -y ppa:apt-fast/stable &&
+    sudo apt-get install -y apt-fast
+fi
 
 # vim
-sudo add-apt-repository -y ppa:jonathonf/vim
-sudo apt-fast install -y vim
-sudo apt-fast -y --only-upgrade install vim
+if ! grep -R jonathonf/vim /etc/apt/sources.list.d >/dev/null; then
+    sudo add-apt-repository -y ppa:jonathonf/vim &&
+    sudo apt-fast -y --only-upgrade install vim-nox
+fi
 
