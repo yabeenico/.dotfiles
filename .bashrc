@@ -54,6 +54,12 @@
     if ! which deno &>/dev/null; then
         curl -fsSL https://deno.land/install.sh | sh
     fi
+    (
+        vim -es +"if has('patch-8.2.0662') | q | else | cq | endif" &&
+        ! (cat /dev/null >/dev/tcp/localhost/32123) &>/dev/null &&
+        deno run -A --no-check \
+            ~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
+    ) &>/dev/null & disown
 # deno }
 
 # git {
