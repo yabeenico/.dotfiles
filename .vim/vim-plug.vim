@@ -1,6 +1,5 @@
 let g:denops_server_addr = '127.0.0.1:32123'
 
-
 let data_dir = '~/.cache/' . (has('nvim')? 'n': '') . 'vim/vim-plug'
 let &runtimepath .= ',' . data_dir . '/vim-plug'
 if empty(glob(data_dir . '/vim-plug/autoload/plug.vim'))
@@ -20,25 +19,35 @@ Plug 'vim-denops/denops-helloworld.vim'
 let g:denops_disable_version_check = 1
 Plug 'Shougo/ddc.vim'
 
-"Plug 'Shougo/ddc-around'
-Plug 'Shougo/ddc-matcher_head'
-Plug 'matsui54/ddc-buffer'
-Plug 'Shougo/ddc-sorter_rank'
+Plug 'Shougo/ddc-matcher_head'  " matcher_head
+Plug 'matsui54/ddc-buffer'      " buffer
+Plug 'Shougo/ddc-sorter_rank'   " sorter_rank
 Plug 'tani/ddc-fuzzy'
 Plug 'Shougo/pum.vim'
+inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
+inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
 "Plug 'Shougo/ddc-nextword'
-"Plug 'LumaKernel/ddc-file'
+Plug 'LumaKernel/ddc-file'
 "Plug 'mattn/vim-lsp-settings'
 "Plug 'prabirshrestha/vim-lsp'
 
-"Plug 'Shougo/ddc-around'
-"Plug 'Shougo/ddc-matcher_head'
-"Plug 'Shougo/ddc-sorter_rank'
 "Plug 'Shougo/ddc-converter_remove_overlap'
 "Plug 'Shougo/ddc-nvim-lsp'
 "Plug 'hrsh7th/vim-vsnip' " ['vim-vsnip-integ', 'friendly-snippets']
 "Plug 'hrsh7th/vim-vsnip-integ'
 "Plug 'rafamadriz/friendly-snippets'
+""     \ 'vim-lsp': {
+""     \   'mark': 'LSP', 
+"" \   'matchers': ['matcher_head'],
+"" \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+"" \ },
+
 
 " markdown
 Plug 'skanehira/preview-markdown.vim'
@@ -74,71 +83,68 @@ call plug#end()
 
 " ddc#custom {{{
 
-""     \ 'vim-lsp': {
-""     \   'mark': 'LSP', 
-"" \   'matchers': ['matcher_head'],
-"" \   'forceCompletionPattern': '\.|:|->|"\w+/*'
-"" \ },
-
-" Plug 'Shougo/ddc.vim'
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-        \ 'ignoreCase': v:true
-    \ }
-\ })
-
-" Plug 'Shougo/ddc-matcher_head'
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-        \ 'matchers': ['matcher_head'],
-    \ }
-\})
-
-" Plug 'Shougo/ddc-sorter_rank'
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-        \ 'sorters': ['sorter_rank']
+call ddc#custom#patch_filetype(['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+    \ 'sourceOptions': {
+        \ 'file': {
+            \ 'forceCompletionPattern': '\S\\\S*',
+        \ },
+    \ },
+    \ 'sourceParams': {
+        \ 'file': {
+            \ 'mode': 'win32',
+        \ },
     \ },
 \ })
 
-" Plug 'matsui54/ddc-buffer'
-call ddc#custom#patch_global('sources', ['buffer'])
-call ddc#custom#patch_global('sourceOptions', {
-    \ 'buffer': {
-        \ 'mark': '[ddc-buffer]'
-    \ },
-\ })
-call ddc#custom#patch_global('sourceParams', {
-    \ 'buffer': {
-        \ 'requireSameFiletype': v:false,
-        \ 'limitBytes': 5000000,
-        \ 'fromAltBuf': v:true,
-        \ 'forceCollect': v:false,
-        \ 'showBufName': v:true,
-        \ 'bufNameStyle': v:true,
-    \ },
-\ })
-
-" Plug 'Shougo/pum.vim'
 call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
-" Plug 'tani/ddc-fuzzy' " pum.vim
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-        \ 'matchers': ['matcher_fuzzy'],
-        \ 'sorters': ['sorter_fuzzy'],
-        \ 'converters': ['converter_fuzzy'],
-    \ }
-\ })
 call ddc#custom#patch_global('filterParams', {
     \ 'matcher_fuzzy': {
         \ 'splitMode': 'word',
-    \ }
-\ })
-call ddc#custom#patch_global('filterParams', {
+    \ },
     \ 'converter_fuzzy': {
         \ 'hlGroup': 'SpellBad',
-    \ }
+    \ },
+\ })
+
+call ddc#custom#patch_global('sources', [
+    \ 'buffer',
+    \ 'file',
+\ ])
+
+call ddc#custom#patch_global('sourceOptions', {
+    \ '_': {
+        \ 'ignoreCase': v:true,
+        \ 'matchers': [
+            \ 'matcher_head',
+            \ 'matcher_fuzzy',
+        \ ],
+        \ 'sorters': [
+            \ 'sorter_rank',
+            \ 'sorter_fuzzy',
+        \ ],
+        \ 'converters': [
+            \ 'converter_fuzzy',
+        \ ],
+    \ },
+    \ 'buffer': {
+        \ 'mark': '[ddc-buffer]',
+    \ },
+    \ 'file': {
+        \ 'mark': '[file]',
+        \ 'isVolatile': v:true,
+        \ 'forceCompletionPattern': '\S/\S*',
+    \ },
+\ })
+
+call ddc#custom#patch_global('sourceParams', {
+    \ 'buffer': {
+        \ 'bufNameStyle': 'basename',
+        \ 'forceCollect': v:false,
+        \ 'fromAltBuf': v:true,
+        \ 'limitBytes': 5000000,
+        \ 'requireSameFiletype': v:false,
+    \ },
 \ })
 
 " ddc#enable() does not work if !has('patch-8.2.0662')
@@ -146,3 +152,4 @@ call ddc#custom#patch_global('filterParams', {
 call ddc#enable()
 
 " ddc#custom }}}
+
