@@ -1,17 +1,25 @@
-" vim-plug {
+" vim-plug {{{
     source ~/.vim/vim-plug.vim
-" vim-plug }
-
-" vimrc_after_vim_plug after=vim-plug {
-    augroup vimrc_after_vim_plug
-        autocmd!
-        autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
-        autocmd FileType yaml,yaml.ansible setlocal indentkeys-=<:>
-        autocmd FileType vim setlocal indentkeys-=0\
-    augroup END
-" vimrc_after_vim_plug }
+" vim-plug }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" after_vim_plug_vimrc after=vim-plug {{{
+    augroup after_vim_plug_vimrc
+        autocmd!
+        autocmd FileType yaml,yaml.ansible setlocal indentkeys=o,O
+        autocmd FileType vim setlocal indentkeys-==}
+        autocmd FileType vim setlocal indentkeys-=0\\
+    augroup END
+" after_vim_plug_vimrc after=vim-plug }}}
+
+" anydir {{{
+    let s:anydir = expand('~/.cache/vim/anydir')
+    call system('mkdir -p ' . s:anydir)
+    let &backupdir=s:anydir
+    let &directory=s:anydir
+    let &undodir=s:anydir
+" anydir }}}
 
 " encoding {{{
     set encoding=utf-8
@@ -27,13 +35,13 @@
     augroup end
 " encoding }}}
 
-" GetCChar {
+" GetCChar {{{
     function! GetCChar()
         return strcharpart(line('.')[col('.') - 1:], 0, 1)
     endfunction
-" GetCChar }
+" GetCChar }}}
 
-" highlight {
+" highlight {{{
     syntax on
     " v must be located after 'syntax on'
     set background=dark
@@ -55,8 +63,9 @@
     highlight Search term=bold cterm=bold ctermfg=7 ctermbg=4
     highlight SpellBad ctermbg=1 ctermfg=0
     highlight Visual term=reverse cterm=reverse
+" highlight }}}
 
-" HighlightInfo {
+" HighlightInfo {{{
     function! s:get_hi(synname)
         redir => hi
         execute 'silent highlight ' . a:synname
@@ -71,162 +80,15 @@
     endfunction
 
     command! HighlightInfo call s:highlight_info()
-" HighlightInfo }
+" HighlightInfo }}}
 
-" J {
+" J {{{
     command! -range J
         \ '<+1,'>s/^ \+//e|
         \ '<,'>j!|
         \ call histdel("/",-1)|
         \ let @/=histget("/",-1)
-" J }
-
-" nrformats {
-    if v:version >= 800
-        set nrformats=alpha,bin,hex
-    else
-        set nrformats=alpha,hex
-    endif
-" nrformats }
-
-" remember_cursor_position {
-    augroup cursorPosition
-        autocmd BufRead *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \     execute "normal g`\"" |
-            \ endif
-    augroup END
-" remember_cursor_position }
-
-" vip {
-    function! s:linep(direction) " retval range: [0, $+1]
-        let l:line = line(a:direction < 0? "'{": "'}")
-        if l:line ==       1   | let l:line  = getline( 1 ) != ""? 0: 1 | endif
-        if l:line == line('$') | let l:line += getline('$') != ""? 1: 0 | endif
-        return l:line
-    endfunction
-
-    function! s:movep(direction)
-        let l:n = abs(line(".") - <SID>linep(a:direction) + a:direction)
-        if l:n == 0 | return "" | endif
-        let l:jk = a:direction < 0? "k": "j"
-        call feedkeys(virtcol(".") . "|" . l:n . l:jk . "oo")
-        return ""
-    endfunction
-
-    function! s:moveip()
-        let l:view = winsaveview()
-        call s:movep(1)
-        call feedkeys("o")
-        call s:movep(-1)
-        call winrestview(l:view)
-        return ""
-    endfunction
-
-    vnoremap <expr> { (mode() ==# "\<C-v>"? <SID>movep(-1): "{")
-    vnoremap <expr> } (mode() ==# "\<C-v>"? <SID>movep(+1): "}")
-    vnoremap <expr> p (mode() ==# "\<C-v>"? <SID>moveip():  "p")
-    vmap ip p
-" vip }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" map {
-
-    cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
-    cnoremap <C-\> \<\><Left><Left>
-    cnoremap <C-a> <C-b>
-    cnoremap <C-b> <Left>
-    cnoremap <C-d> <Delete>
-    cnoremap <C-f> <Right>
-    cnoremap <C-n> <Down>
-    cnoremap <C-p> <Up>
-    command! MK w | silent make | redraw!
-    command! R redraw!
-    inoremap <C-g> <Esc>
-    noremap 0 ^
-    noremap <C-K> <Nop>
-    noremap <C-e> 2<C-e>
-    noremap <C-h> 2zl
-    noremap <C-j> 2<C-y>
-    noremap <C-k> 2<C-e>
-    noremap <C-l> 2zh
-    noremap <C-y> 2<C-y>
-    noremap K kJ
-    noremap ^ 0
-    noremap gj j
-    noremap gk k
-    noremap j gj
-    noremap k gk
-    vnoremap G  10000000j
-    vnoremap gg 10000000k
-    vnoremap gj 10000000j
-    vnoremap gk 10000000k
-
-    " } (for inoremap)
-" map }
-
-" anydir {
-    let s:anydir = expand('~/.cache/vim/anydir')
-    call system('mkdir -p ' . s:anydir)
-    let &backupdir=s:anydir
-    let &directory=s:anydir
-    let &undodir=s:anydir
-" anydir }
-
-" set {
-
-    set backspace=eol,indent,start
-    set backup
-    set cindent
-    set cinkeys-=0#
-    set cinkeys-=0{
-    set colorcolumn=81
-    set completeopt=menuone,longest,preview
-    set conceallevel=0
-    set cursorline
-    set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
-    set fileignorecase
-    set foldcolumn=3
-    set foldlevel=99
-    set foldmethod=marker
-    set hlsearch
-    set ignorecase
-    set incsearch
-    set indentkeys-=0#
-    set iskeyword=@,48-57,_,192-255,#,-
-    set laststatus=2
-    set lazyredraw
-    set list
-    set listchars=tab:>>,trail:~,
-    set modeline
-    set mouse=
-    set notimeout
-    set nowildignorecase
-    set nowildmenu
-    set nowrap
-    set nowrapscan
-    set number
-    set ruler
-    set showcmd
-    set smartcase
-    set spellfile=~/.vim/spell/en.utf-8.add
-    set spelllang=en,cjk
-    set swapfile
-    set ttimeout
-    set ttimeoutlen=100
-    set ttyfast
-    set undofile
-    set viminfo='20,s10
-    set virtualedit=block
-    set visualbell t_vb=
-    set wildignore=*.dvi,*.pdf,*.aux,*.cpc
-    set wildmode=list:longest,full
-
-    " } (for cinkeys)
-" set }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" J }}}
 
 " Leader {{{
     let mapleader = "\<Space>"
@@ -286,9 +148,9 @@
 
 " Leader d {{{
     noremap <Leader>d :call <SID>func_D()<CR>
-    " for map {{{
+    " {{ (for syntax)
     "map <Leader>t gg/test_D<CR>/1<CR>j:noh<CR> dV}}kko{jjj s:undo<CR>
-    " for map }}
+    " } (for syntax)
 
     function! <SID>test_D()
         let a = ''
@@ -310,44 +172,149 @@
     endfunction
 " Leader d }}}
 
+" map {{{
+
+    cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
+    cnoremap <C-\> \<\><Left><Left>
+    cnoremap <C-a> <C-b>
+    cnoremap <C-b> <Left>
+    cnoremap <C-d> <Delete>
+    cnoremap <C-f> <Right>
+    cnoremap <C-n> <Down>
+    cnoremap <C-p> <Up>
+    command! MK w | silent make | redraw!
+    command! R redraw!
+    inoremap <C-g> <Esc>
+    noremap 0 ^
+    noremap <C-K> <Nop>
+    noremap <C-e> 2<C-e>
+    noremap <C-h> 2zl
+    noremap <C-j> 2<C-y>
+    noremap <C-k> 2<C-e>
+    noremap <C-l> 2zh
+    noremap <C-y> 2<C-y>
+    noremap K kJ
+    noremap ^ 0
+    noremap gj j
+    noremap gk k
+    noremap j gj
+    noremap k gk
+    vnoremap G  10000000j
+    vnoremap gg 10000000k
+    vnoremap gj 10000000j
+    vnoremap gk 10000000k
+
+" map }}}
+
+" nrformats {{{
+    if v:version >= 800
+        set nrformats=alpha,bin,hex
+    else
+        set nrformats=alpha,hex
+    endif
+" nrformats }}}
+
+" remember_cursor_position {{{
+    augroup cursorPosition
+        autocmd BufRead *
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \     execute "normal g`\"" |
+            \ endif
+    augroup END
+" remember_cursor_position }}}
+
+" set {{{
+
+    set backspace=eol,indent,start
+    set backup
+    set cindent
+    set cinkeys-=0#
+    set cinkeys-=0{
+    set colorcolumn=81
+    set completeopt=menuone,longest,preview
+    set conceallevel=0
+    set cursorline
+    set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
+    set fileignorecase
+    set foldcolumn=3
+    set foldlevel=99
+    set foldmethod=marker
+    set hlsearch
+    set ignorecase
+    set incsearch
+    set indentkeys-=0#
+    set iskeyword=@,48-57,_,192-255,#,-
+    set laststatus=2
+    set lazyredraw
+    set list
+    set listchars=tab:>>,trail:~,
+    set modeline
+    set mouse=
+    set notimeout
+    set nowildignorecase
+    set nowildmenu
+    set nowrap
+    set nowrapscan
+    set number
+    set ruler
+    set showcmd
+    set smartcase
+    set spellfile=~/.vim/spell/en.utf-8.add
+    set spelllang=en,cjk
+    set swapfile
+    set ttimeout
+    set ttimeoutlen=100
+    set ttyfast
+    set undofile
+    set viminfo='20,s10
+    set virtualedit=block
+    set visualbell t_vb=
+    set wildignore=*.dvi,*.pdf,*.aux,*.cpc
+    set wildmode=list:longest,full
+
+    " } (for syntax)
+" set }}}
+
+" vip {{{
+    function! s:linep(direction) " retval range: [0, $+1]
+        let l:line = line(a:direction < 0? "'{": "'}")
+        if l:line ==       1   | let l:line  = getline( 1 ) != ""? 0: 1 | endif
+        if l:line == line('$') | let l:line += getline('$') != ""? 1: 0 | endif
+        return l:line
+    endfunction
+
+    function! s:movep(direction)
+        let l:n = abs(line(".") - <SID>linep(a:direction) + a:direction)
+        if l:n == 0 | return "" | endif
+        let l:jk = a:direction < 0? "k": "j"
+        call feedkeys(virtcol(".") . "|" . l:n . l:jk . "oo")
+        return ""
+    endfunction
+
+    function! s:moveip()
+        let l:view = winsaveview()
+        call s:movep(1)
+        call feedkeys("o")
+        call s:movep(-1)
+        call winrestview(l:view)
+        return ""
+    endfunction
+
+    vnoremap <expr> { (mode() ==# "\<C-v>"? <SID>movep(-1): "{")
+    vnoremap <expr> } (mode() ==# "\<C-v>"? <SID>movep(+1): "}")
+    vnoremap <expr> p (mode() ==# "\<C-v>"? <SID>moveip():  "p")
+    vmap ip p
+" vip }}}
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-" filetype {
+" filetype {{{
     filetype plugin on
-" filetype }
+" filetype }}}
 
-" vimrc_local {
+" vimrc_local {{{
     if filereadable(glob("~/.vimrc_local"))
         source ~/.vimrc_local
     endif
-" vimrc_local }
+" vimrc_local }}}
 
-" ~/.vim
-" ~/.cache/vim/vim-plug/denops.vim
-" ~/.cache/vim/vim-plug/denops-helloworld.vim
-" ~/.cache/vim/vim-plug/ddc.vim
-" ~/.cache/vim/vim-plug/ddc-matcher_head
-" ~/.cache/vim/vim-plug/ddc-buffer
-" ~/.cache/vim/vim-plug/ddc-sorter_rank
-" ~/.cache/vim/vim-plug/ddc-fuzzy
-" ~/.cache/vim/vim-plug/pum.vim
-" ~/.cache/vim/vim-plug/preview-markdown.vim
-" ~/.cache/vim/vim-plug/vim-markdown
-" ~/.cache/vim/vim-plug/vim-json
-" ~/.cache/vim/vim-plug/fzf
-" ~/.cache/vim/vim-plug/vim-easy-align
-" ~/.cache/vim/vim-plug/indentLine
-" ~/.cache/vim/vim-plug/vim-indentwise
-" /var/lib/vim/addons
-" /etc/vim
-" /usr/share/vim/vimfiles
-" /usr/share/vim/vim82
-" /usr/share/vim/vimfiles/after
-" /etc/vim/after
-" /var/lib/vim/addons/after
-" ~/.vim/after
-" ~/.cache/vim/vim-plug/vim-plug
-" ~/.cache/vim/vim-plug/vim-markdown/after
-" ~/.cache/vim/vim-plug/indentLine/after
-" ~/.cache/vim/vim-plug/vim-plug
