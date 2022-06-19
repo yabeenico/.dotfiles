@@ -1,65 +1,15 @@
-" vim-plug {{{
-    let data_dir = '~/.cache/' . (has('nvim')? 'n': '') . 'vim/vim-plug'
-    let &runtimepath .= ',' . data_dir . '/vim-plug'
-    if empty(glob(data_dir . '/vim-plug/autoload/plug.vim'))
-        let url = 'https://raw.githubusercontent.com' .
-            \ '/junegunn/vim-plug/master/plug.vim'
-        silent execute '!curl -sfLo ' .
-            \ data_dir . '/vim-plug/autoload/plug.vim --create-dirs ' . url
-        "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-    call plug#begin('~/.cache/vim/vim-plug') " {{{
-        Plug 'skanehira/preview-markdown.vim'
-        let g:preview_markdown_parser='glow'
-        let g:preview_markdown_auto_update=1
-        Plug 'rcmdnk/vim-markdown'
-        let g:vim_markdown_conceal=0
-        Plug 'junegunn/fzf', { 'do': './install --all' }
-        Plug 'junegunn/vim-easy-align'
-        Plug 'Yggdroot/indentLine'
-        Plug 'elzr/vim-json'
-        let g:indentLine_setColors = 1
-        let g:indentLine_color_term = 4
-        let g:indentLine_bgcolor_term = 0
-        Plug 'jeetsukumaran/vim-indentwise'
-        Plug 'vim-denops/denops.vim'
-        Plug 'vim-denops/denops-helloworld.vim'
-        let g:denops_disable_version_check = 1
-        Plug 'Shougo/ddc.vim'
-        Plug 'Shougo/ddc-around'
-        Plug 'Shougo/ddc-matcher_head'
-        Plug 'Shougo/ddc-sorter_rank'
-        """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-        let added = join(sort(map(values(g:plugs), 'v:val.dir')), "\n")
-        let dirs = split(glob(data_dir . '/*/'), '\n')
-        let dirs = filter(dirs, 'match(v:val, "vim-plug/$") == -1')
-        let dirs = join(sort(dirs), "\n")
-        if added != dirs
-            PlugClean!
-            PlugInstall --sync
-        endif
-        """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    call plug#end() " }}}
-    " ddc {{{
-        call ddc#custom#patch_global('sources', ['around'])
-        call ddc#custom#patch_global('sourceOptions', {
-            \ '_': {
-            \   'matchers': ['matcher_head'],
-            \   'sorters': ['sorter_rank']},
-            \ })
-        " ddc#enable() does not work if !has('patch-8.2.0662')
-        " see: ~/.cache/vim/vim-plug/ddc.vim/autoload/ddc.vim
-        silent call ddc#enable()
-    " ddc }}}
-" vim-plug }}}
+" vim-plug {
+    source ~/.vim/vim-plug.vim
+" vim-plug }
 
-" vimrc_yaml after=vim-plug {
-    augroup vimrc_yaml
+" vimrc_after_vim_plug after=vim-plug {
+    augroup vimrc_after_vim_plug
         autocmd!
         autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
         autocmd FileType yaml,yaml.ansible setlocal indentkeys-=<:>
+        autocmd FileType vim setlocal indentkeys-=0\
     augroup END
-" vimrc_yaml }
+" vimrc_after_vim_plug }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -238,6 +188,8 @@
     set expandtab tabstop=4 shiftwidth=0 softtabstop=-1
     set fileignorecase
     set foldcolumn=3
+    set foldlevel=99
+    set foldmethod=marker
     set hlsearch
     set ignorecase
     set incsearch
@@ -371,3 +323,31 @@
     endif
 " vimrc_local }
 
+" ~/.vim
+" ~/.cache/vim/vim-plug/denops.vim
+" ~/.cache/vim/vim-plug/denops-helloworld.vim
+" ~/.cache/vim/vim-plug/ddc.vim
+" ~/.cache/vim/vim-plug/ddc-matcher_head
+" ~/.cache/vim/vim-plug/ddc-buffer
+" ~/.cache/vim/vim-plug/ddc-sorter_rank
+" ~/.cache/vim/vim-plug/ddc-fuzzy
+" ~/.cache/vim/vim-plug/pum.vim
+" ~/.cache/vim/vim-plug/preview-markdown.vim
+" ~/.cache/vim/vim-plug/vim-markdown
+" ~/.cache/vim/vim-plug/vim-json
+" ~/.cache/vim/vim-plug/fzf
+" ~/.cache/vim/vim-plug/vim-easy-align
+" ~/.cache/vim/vim-plug/indentLine
+" ~/.cache/vim/vim-plug/vim-indentwise
+" /var/lib/vim/addons
+" /etc/vim
+" /usr/share/vim/vimfiles
+" /usr/share/vim/vim82
+" /usr/share/vim/vimfiles/after
+" /etc/vim/after
+" /var/lib/vim/addons/after
+" ~/.vim/after
+" ~/.cache/vim/vim-plug/vim-plug
+" ~/.cache/vim/vim-plug/vim-markdown/after
+" ~/.cache/vim/vim-plug/indentLine/after
+" ~/.cache/vim/vim-plug/vim-plug
