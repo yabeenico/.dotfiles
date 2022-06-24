@@ -24,8 +24,23 @@ Plug 'matsui54/ddc-buffer'      " buffer
 Plug 'Shougo/ddc-sorter_rank'   " sorter_rank
 Plug 'tani/ddc-fuzzy'
 Plug 'Shougo/pum.vim'
-inoremap <Tab>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+
+" /etc/apt/sources
+
+function! s:my_insert_relative(number)
+    if pum#visible()
+        call pum#map#insert_relative(a:number)
+    else
+        if a:number > 0
+            call feedkeys("\<Tab>", 'n')
+        else
+            call feedkeys("\<C-o><<", 'n')
+        endif
+    endif
+endfunction
+
+inoremap <Tab>   <Cmd>call <SID>my_insert_relative(+1)<CR>
+inoremap <S-Tab> <Cmd>call <SID>my_insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
