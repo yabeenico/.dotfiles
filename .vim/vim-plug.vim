@@ -13,55 +13,60 @@ endif
 " Plug {{{
 call plug#begin('~/.cache/vim/vim-plug')
 
-" ddc
-Plug 'vim-denops/denops.vim'
-Plug 'vim-denops/denops-helloworld.vim'
-let g:denops_disable_version_check = 1
-Plug 'Shougo/ddc.vim'
+call system('{ :>/dev/tcp/localhost/32123;} &>/dev/null')
+let g:is_deno_running = !v:shell_error
 
-Plug 'Shougo/ddc-matcher_head'  " matcher_head
-Plug 'matsui54/ddc-buffer'      " buffer
-Plug 'Shougo/ddc-sorter_rank'   " sorter_rank
-Plug 'tani/ddc-fuzzy'
-Plug 'Shougo/pum.vim'
+if g:is_deno_running
+    " ddc
+    Plug 'vim-denops/denops.vim'
+    Plug 'vim-denops/denops-helloworld.vim'
+    let g:denops_disable_version_check = 1
+    Plug 'Shougo/ddc.vim'
 
-" /etc/apt/sources
+    Plug 'Shougo/ddc-matcher_head'  " matcher_head
+    Plug 'matsui54/ddc-buffer'      " buffer
+    Plug 'Shougo/ddc-sorter_rank'   " sorter_rank
+    Plug 'tani/ddc-fuzzy'
+    Plug 'Shougo/pum.vim'
 
-function! s:my_insert_relative(number)
-    if pum#visible()
-        call pum#map#insert_relative(a:number)
-    else
-        if a:number > 0
-            call feedkeys("\<Tab>", 'n')
+    " /etc/apt/sources
+
+    function! s:my_insert_relative(number)
+        if pum#visible()
+            call pum#map#insert_relative(a:number)
         else
-            call feedkeys("\<C-o><<", 'n')
+            if a:number > 0
+                call feedkeys("\<Tab>", 'n')
+            else
+                call feedkeys("\<C-o><<", 'n')
+            endif
         endif
-    endif
-endfunction
+    endfunction
 
-inoremap <Tab>   <Cmd>call <SID>my_insert_relative(+1)<CR>
-inoremap <S-Tab> <Cmd>call <SID>my_insert_relative(-1)<CR>
-inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
-inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
-inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
-inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
-"Plug 'Shougo/ddc-nextword'
-Plug 'LumaKernel/ddc-file'
-"Plug 'mattn/vim-lsp-settings'
-"Plug 'prabirshrestha/vim-lsp'
+    inoremap <Tab>   <Cmd>call <SID>my_insert_relative(+1)<CR>
+    inoremap <S-Tab> <Cmd>call <SID>my_insert_relative(-1)<CR>
+    inoremap <C-n>   <Cmd>call pum#map#insert_relative(+1)<CR>
+    inoremap <C-p>   <Cmd>call pum#map#insert_relative(-1)<CR>
+    inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+    inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+    inoremap <PageDown> <Cmd>call pum#map#insert_relative_page(+1)<CR>
+    inoremap <PageUp>   <Cmd>call pum#map#insert_relative_page(-1)<CR>
+    "Plug 'Shougo/ddc-nextword'
+    Plug 'LumaKernel/ddc-file'
+    "Plug 'mattn/vim-lsp-settings'
+    "Plug 'prabirshrestha/vim-lsp'
 
-"Plug 'Shougo/ddc-converter_remove_overlap'
-"Plug 'Shougo/ddc-nvim-lsp'
-"Plug 'hrsh7th/vim-vsnip' " ['vim-vsnip-integ', 'friendly-snippets']
-"Plug 'hrsh7th/vim-vsnip-integ'
-"Plug 'rafamadriz/friendly-snippets'
-""     \ 'vim-lsp': {
-""     \   'mark': 'LSP', 
-"" \   'matchers': ['matcher_head'],
-"" \   'forceCompletionPattern': '\.|:|->|"\w+/*'
-"" \ },
+    "Plug 'Shougo/ddc-converter_remove_overlap'
+    "Plug 'Shougo/ddc-nvim-lsp'
+    "Plug 'hrsh7th/vim-vsnip' " ['vim-vsnip-integ', 'friendly-snippets']
+    "Plug 'hrsh7th/vim-vsnip-integ'
+    "Plug 'rafamadriz/friendly-snippets'
+    ""     \ 'vim-lsp': {
+    ""     \   'mark': 'LSP', 
+    "" \   'matchers': ['matcher_head'],
+    "" \   'forceCompletionPattern': '\.|:|->|"\w+/*'
+    "" \ },
+endif
 
 
 " markdown
@@ -97,74 +102,73 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ddc#custom {{{
-
-call ddc#custom#patch_filetype(['ps1', 'dosbatch', 'autohotkey', 'registry'], {
-    \ 'sourceOptions': {
-        \ 'file': {
-            \ 'forceCompletionPattern': '\S\\\S*',
+if g:is_deno_running
+    call ddc#custom#patch_filetype(['ps1', 'dosbatch', 'autohotkey', 'registry'], {
+        \ 'sourceOptions': {
+            \ 'file': {
+                \ 'forceCompletionPattern': '\S\\\S*',
+            \ },
         \ },
-    \ },
-    \ 'sourceParams': {
-        \ 'file': {
-            \ 'mode': 'win32',
+        \ 'sourceParams': {
+            \ 'file': {
+                \ 'mode': 'win32',
+            \ },
         \ },
-    \ },
-\ })
+    \ })
 
-call ddc#custom#patch_global('completionMenu', 'pum.vim')
+    call ddc#custom#patch_global('completionMenu', 'pum.vim')
 
-call ddc#custom#patch_global('filterParams', {
-    \ 'matcher_fuzzy': {
-        \ 'splitMode': 'word',
-    \ },
-    \ 'converter_fuzzy': {
-        \ 'hlGroup': 'SpellBad',
-    \ },
-\ })
+    call ddc#custom#patch_global('filterParams', {
+        \ 'matcher_fuzzy': {
+            \ 'splitMode': 'word',
+        \ },
+        \ 'converter_fuzzy': {
+            \ 'hlGroup': 'SpellBad',
+        \ },
+    \ })
 
-call ddc#custom#patch_global('sources', [
-    \ 'buffer',
-    \ 'file',
-\ ])
+    call ddc#custom#patch_global('sources', [
+        \ 'buffer',
+        \ 'file',
+    \ ])
 
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-        \ 'ignoreCase': v:true,
-        \ 'matchers': [
-            \ 'matcher_head',
-            \ 'matcher_fuzzy',
-        \ ],
-        \ 'sorters': [
-            \ 'sorter_rank',
-            \ 'sorter_fuzzy',
-        \ ],
-        \ 'converters': [
-            \ 'converter_fuzzy',
-        \ ],
-    \ },
-    \ 'buffer': {
-        \ 'mark': '[ddc-buffer]',
-    \ },
-    \ 'file': {
-        \ 'mark': '[file]',
-        \ 'isVolatile': v:true,
-        \ 'forceCompletionPattern': '\S/\S*',
-    \ },
-\ })
+    call ddc#custom#patch_global('sourceOptions', {
+        \ '_': {
+            \ 'ignoreCase': v:true,
+            \ 'matchers': [
+                \ 'matcher_head',
+                \ 'matcher_fuzzy',
+            \ ],
+            \ 'sorters': [
+                \ 'sorter_rank',
+                \ 'sorter_fuzzy',
+            \ ],
+            \ 'converters': [
+                \ 'converter_fuzzy',
+            \ ],
+        \ },
+        \ 'buffer': {
+            \ 'mark': '[ddc-buffer]',
+        \ },
+        \ 'file': {
+            \ 'mark': '[file]',
+            \ 'isVolatile': v:true,
+            \ 'forceCompletionPattern': '\S/\S*',
+        \ },
+    \ })
 
-call ddc#custom#patch_global('sourceParams', {
-    \ 'buffer': {
-        \ 'bufNameStyle': 'basename',
-        \ 'forceCollect': v:false,
-        \ 'fromAltBuf': v:true,
-        \ 'limitBytes': 5000000,
-        \ 'requireSameFiletype': v:false,
-    \ },
-\ })
+    call ddc#custom#patch_global('sourceParams', {
+        \ 'buffer': {
+            \ 'bufNameStyle': 'basename',
+            \ 'forceCollect': v:false,
+            \ 'fromAltBuf': v:true,
+            \ 'limitBytes': 5000000,
+            \ 'requireSameFiletype': v:false,
+        \ },
+    \ })
 
-" ddc#enable() does not work if !has('patch-8.2.0662')
-" see: ~/.cache/vim/vim-plug/ddc.vim/autoload/ddc.vim
-call ddc#enable()
+    call ddc#enable()
+endif
 
 " ddc#custom }}}
 

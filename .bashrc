@@ -49,17 +49,21 @@
 # docker }
 
 # deno {
-    export DENO_INSTALL="$HOME/.deno"
-    export PATH="$DENO_INSTALL/bin:$PATH"
-    if ! which deno &>/dev/null; then
-        curl -fsSL https://deno.land/install.sh | sh
+    # see: ~/.cache/vim/vim-plug/ddc.vim/autoload/ddc.vim
+    # or: https://github.com/Shougo/ddc.vim/blob/main/autoload/ddc.vim#L13
+    if vim -es +"if has('patch-8.2.0662') | q | else | cq | endif"; then
+        export DENO_INSTALL="$HOME/.deno"
+        export PATH="$DENO_INSTALL/bin:$PATH"
+        if ! which deno &>/dev/null; then
+            curl -fsSL https://deno.land/install.sh | sh
+        fi
+        cli_ts=~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
+        if [[ -e $cli-ts ]] && !(:>/dev/tcp/localhost/32123) &>/dev/null; then
+            deno run -A --no-check "$cli_ts"
+        fi
+    else
+        unset DENO_INSTALL
     fi
-    (
-        vim -es +"if has('patch-8.2.0662') | q | else | cq | endif" &&
-        ! (cat /dev/null >/dev/tcp/localhost/32123) &>/dev/null &&
-        deno run -A --no-check \
-            ~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
-    ) &>/dev/null & disown
 # deno }
 
 # git {
@@ -116,6 +120,7 @@
     }
 
     alias gis='git status --short'
+    alias gdiff="git difftool -y --extcmd 'icdiff -N'|less -FX"
 # git }
 
 # kubernetes {
@@ -384,6 +389,7 @@
     }
 # vimmv }
 
+
 # fzf: dircolors {
     if [[ -t 1 ]]; then
         if [[ ! -d ~/.git/fzf-tab-completion ]] && which git &>/dev/null; then
@@ -398,7 +404,6 @@
         bind '"\C-t": transpose-chars'
     fi
 # fzf }
-
 
 HISTFILESIZE=100000
 HISTSIZE=100000
@@ -515,4 +520,3 @@ shopt -u xpg_echo
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|sed s/.$//)
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|head -c-1)
 export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++'|paste -sd:)
-
