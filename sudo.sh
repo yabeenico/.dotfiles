@@ -2,6 +2,8 @@
 
 set -xeuo pipefail
 
+sudo cp .vimrc_root /root/.vimrc
+
 # apt-fast
 if ! which apt-fast &>/dev/null; then
     sudo add-apt-repository -y ppa:apt-fast/stable &&
