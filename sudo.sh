@@ -16,3 +16,6 @@ if ! grep -R jonathonf/vim /etc/apt/sources.list.d >/dev/null; then
     sudo apt-fast -y --only-upgrade install vim-nox
 fi
 
+if ! which icdiff &>/dev/null; then
+    sudo apt-fast install -y icdiff
+fi
