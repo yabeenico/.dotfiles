@@ -291,12 +291,11 @@
             (
                 cd ~/recycle/ &&
                 while du -bd0 . | awk '{exit $1<100*1000**3}'; do # 100G
-                    rm -rf ./"$(ls -tr | head -n1)"
+                    rm -rf ./"$(\ls -tr | head -n1)"
                 done
             )
             return
         fi
-
 
         for i in "$@"; do
             [[ -e $i ]] || { echo "error: '$i' not found"; continue; }
