@@ -146,7 +146,7 @@
             chmod 600 ~/.kube/config.$$
             mv ~/.kube/config.$$ ~/.kube/config
         }&)
-        unset KUBECONFIG
+        #unset KUBECONFIG
     fi
 # kubernetes }
 
