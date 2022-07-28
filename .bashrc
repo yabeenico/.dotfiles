@@ -125,7 +125,6 @@
 
 # kubernetes {
     if which kubectl &>/dev/null; then
-        mkdir -p ~/.kube/configs/
         if [[ ! -d ~/git/kubectx ]]; then
             which git &>/dev/null &&
             git clone https://github.com/ahmetb/kubectx ~/git/kubectx &
@@ -137,15 +136,14 @@
         alias kctx=kubectx
         alias kns=kubens
 
-        if ls ~/.kube/configs/* &>/dev/null; then
+        if ls ~/.kube/configs/0 &>/dev/null; then
             export KUBECONFIG=$(printf %s: $(ls ~/.kube/configs/* 2>/dev/null))
-            export KUBECONFIG=~/.kube/config:$KUBECONFIG
         fi
-        ({
-            kubectl config view --flatten >~/.kube/config.$$ &&
-            chmod 600 ~/.kube/config.$$
-            mv ~/.kube/config.$$ ~/.kube/config
-        }&)
+        #({
+        #    kubectl config view --flatten >~/.kube/cache.$$ &&
+        #    chmod 600 ~/.kube/cache.$$
+        #    mv ~/.kube/cache.$$ ~/.kube/cache
+        #}&)
         #unset KUBECONFIG
     fi
 # kubernetes }
@@ -230,10 +228,18 @@
         if iskubeon; then
             echo -en "[${C_C}k8s:${C_G}"
             awk '
-                /namespace:/        {namespace = $2}
-                /name:/             {namespaces[$2] = namespace}
-                /^current-context:/ {printf $2 "/" namespaces[$2]; exit}
-            ' ~/.kube/config
+                !ctx && $1 == "current-context:"    {ctx = $2}
+                $1 == "namespace:"                  {ns = $2}
+                $0 == "- context:"                  {flag = 1}
+                flag && $1 == "name:" {
+                    if($2 == ctx){
+                        printf ctx "/" ns
+                        exit
+                    }else{
+                        flag = 0
+                    }
+                }
+            ' ~/.kube/configs/*
             echo -en "$C_D] "
         fi
     }
@@ -519,3 +525,4 @@ shopt -u xpg_echo
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|sed s/.$//)
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|head -c-1)
 export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++'|paste -sd:)
+
