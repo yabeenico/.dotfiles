@@ -390,7 +390,7 @@
 
 # vimmv {
     vimmv(){
-        vim <(ls | xargs -d\\n -n1 -II printf "mv -n %q/%s\n" I I | column -ts/)
+        vim <(ls | xargs -d'\n' -I= printf "mv -n %q/%s\n" = = | column -ts/)
     }
 # vimmv }
 
