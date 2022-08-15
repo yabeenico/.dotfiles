@@ -32,6 +32,10 @@
     complete -fX "!$complete_filter_media" mpc
 # complete_filter }
 
+# ctags {
+    (ctags -R -f ~/.local/lib/tags ~/.local/lib/) &>/dev/null & disown
+# ctags }
+
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
 # dircolors }
