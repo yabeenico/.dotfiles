@@ -13,10 +13,10 @@ endif
 " Plug {{{
 call plug#begin('~/.cache/vim/vim-plug')
 
-call system('{ :>/dev/tcp/localhost/32123;} &>/dev/null')
-let g:is_deno_running = !v:shell_error
+"call system('{ :>/dev/tcp/localhost/32123;} &>/dev/null')
+"let g:is_deno_running = !v:shell_error
 
-if g:is_deno_running
+if $DDC_VIM_ENABLE
     " ddc
     Plug 'vim-denops/denops.vim'
     Plug 'vim-denops/denops-helloworld.vim'
@@ -102,7 +102,7 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " ddc#custom {{{
-if g:is_deno_running
+if $DDC_VIM_ENABLE
     call ddc#custom#patch_filetype(['ps1', 'dosbatch', 'autohotkey', 'registry'], {
         \ 'sourceOptions': {
             \ 'file': {

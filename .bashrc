@@ -66,6 +66,7 @@
     fi
 
     run_deno_for_ddc(){
+        export DDC_VIM_ENABLE=1
         cli_ts=~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
         if ! [[ -f $cli_ts ]]; then
             git clone https://github.com/vim-denops/denops.vim \
