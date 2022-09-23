@@ -12,6 +12,10 @@
     fi
 # apt-fast }
 
+# ascii {
+    alias ascii='cat ~/.dotfiles/ascii.txt'
+# ascii }
+
 # bind {
     if [[ -t 1 ]]; then
         stty start undef
