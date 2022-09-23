@@ -262,6 +262,7 @@
     set spellfile=~/.vim/spell/en.utf-8.add
     set spelllang=en,cjk
     set swapfile
+    set tags+=~/.local/lib/tags
     set ttimeout
     set ttimeoutlen=100
     set ttyfast

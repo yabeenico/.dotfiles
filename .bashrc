@@ -36,6 +36,10 @@
     complete -fX "!$complete_filter_media" mpc
 # complete_filter }
 
+# ctags {
+    (ctags -R -f ~/.local/lib/tags ~/.local/lib/) &>/dev/null & disown
+# ctags }
+
 # dircolors {
     [[ -f ~/.colorrc ]] && eval `dircolors -b ~/.colorrc`
 # dircolors }
@@ -61,13 +65,20 @@
         if ! which deno &>/dev/null; then
             curl -fsSL https://deno.land/install.sh | sh
         fi
-        cli_ts=~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
-        if [[ -e $cli-ts ]] && !(:>/dev/tcp/localhost/32123) &>/dev/null; then
-            deno run -A --no-check "$cli_ts"
-        fi
     else
         unset DENO_INSTALL
     fi
+
+    run_deno_for_ddc(){
+        export DDC_VIM_ENABLE=1
+        cli_ts=~/.cache/vim/vim-plug/denops.vim/denops/@denops-private/cli.ts
+        if ! [[ -f $cli_ts ]]; then
+            git clone https://github.com/vim-denops/denops.vim \
+                ${cli_ts%%/denops/*}
+        fi
+        #(:>/dev/tcp/localhost/32123 || deno run -A --no-check $cli_ts) &>/dev/null & disown
+        (:>/dev/tcp/localhost/32123 || deno run -A $cli_ts) &>/dev/null & disown
+    }
 # deno }
 
 # git {
