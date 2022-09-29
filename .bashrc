@@ -81,6 +81,12 @@
     }
 # deno }
 
+# ff {
+    ff(){
+        ffprobe "$1" 2>&1 | grep -oP 'Duration: \K[0-9:]+|Video:.+ \K\d{3,}x\d+'
+    }
+# ff }
+
 # git {
     _gdl(){
         svn checkout $(
