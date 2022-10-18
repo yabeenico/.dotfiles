@@ -436,6 +436,7 @@ HISTFILESIZE=100000
 HISTSIZE=100000
 alias ..='cd ..'
 alias :q='exit'
+alias bat=batcat
 alias cutc='cut -c-$COLUMNS'
 alias em='emacs'
 alias ema='emacs'
