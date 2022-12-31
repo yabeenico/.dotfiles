@@ -465,6 +465,7 @@ alias vsa='vim ~/Dropbox/note/song.txt.arcive'
 alias vt='vim ~/Dropbox/note/todo.txt'
 alias watch='watch '
 alias x='exit'
+alias yt='yt-dlp --no-playlist -f "bv[ext=webm]+ba[ext=webm]"'
 complete -A hostname ping
 complete -A user write
 complete -cf sudo
