@@ -451,6 +451,7 @@ alias q='exit'
 alias sb='source ~/.bashrc'
 alias sc=screen
 alias sort='LC_ALL=en_UK.UTF-8 sort'
+alias sp='ssh-ping -W1 -i1'
 alias sudo='sudo '
 alias tm=tmux
 alias vb='vim ~/.bashrc'
