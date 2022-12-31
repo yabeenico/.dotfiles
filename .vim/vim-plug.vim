@@ -28,6 +28,7 @@ if $DDC_VIM_ENABLE
     Plug 'Shougo/ddc-sorter_rank'   " sorter_rank
     Plug 'tani/ddc-fuzzy'
     Plug 'Shougo/pum.vim'
+    Plug 'Shougo/ddc-ui-native'
 
     " /etc/apt/sources
 
@@ -166,6 +167,8 @@ if $DDC_VIM_ENABLE
             \ 'requireSameFiletype': v:false,
         \ },
     \ })
+
+    call ddc#custom#patch_global('ui', 'native')
 
     call ddc#enable()
 endif
