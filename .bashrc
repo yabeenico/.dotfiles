@@ -6,12 +6,6 @@
     fi
 # bashrc_local_begin }
 
-# apt-fast {
-    if which apt-fast &>/dev/null; then
-        alias apt=apt-fast
-    fi
-# apt-fast }
-
 # ascii {
     alias ascii='cat ~/.dotfiles/ascii.txt'
 # ascii }
