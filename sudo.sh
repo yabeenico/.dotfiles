@@ -2,6 +2,7 @@
 
 set -xeuo pipefail
 
+sudo mkdir -p /root/.vim/anydir
 sudo cp .vimrc_root /root/.vimrc
 
 # apt-fast
