@@ -468,7 +468,6 @@ complete -fX '!*.svg' -o plusdirs inkscape
 complete -fX '!*.svg' -o plusdirs svg2pdf
 export EDITOR=/usr/bin/vim
 export HISTCONTROL=ignoreboth
-export HISTCONTROL=ignoreboth:erasedups
 export HISTTIMEFORMAT='%F %T '
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
