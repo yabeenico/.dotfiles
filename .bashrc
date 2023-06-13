@@ -481,7 +481,6 @@ export PATH=~/Dropbox/opt/music:$PATH
 export TF_CPP_MIN_LOG_LEVEL=2
 function datei(){ date '+%FT%T%:z (%a' | perl -pe '$_=lc;s/.$/)/'; }
 function touchx(){ touch "$1" && chmod +x "$1"; }
-lesskey
 set bell-style none
 shopt -s cdspell
 shopt -s checkjobs
