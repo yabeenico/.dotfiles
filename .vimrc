@@ -99,6 +99,10 @@
     vnoremap <Leader>s y:@"<CR>
 " Leader }}}
 
+" Leader _ delete underbar {{{
+    nnoremap <silent><Leader>_ yyp:s/_//g<CR>A <Esc>0elDkJ:noh<CR>
+" Leader _ delete underbar }}}
+
 " Leader c CopipeTerm copy {{{
     nnoremap <silent><Leader>c :<C-u>call <SID>CopipeTerm()<CR>
     " https://saihoooooooo.hatenablog.com/entry/2013/07/09/112527
