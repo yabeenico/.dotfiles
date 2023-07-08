@@ -409,9 +409,9 @@
             <(ls | xargs -d'\n' -I@ printf 'mv -n %q/%s\n' @ @ | column -ts/)
     }
 # vimmv }
-
-
+#
 # fzf: dircolors {
+    _c_o_completion(){ [[ $READLINE_POINT > 2 ]] && fzf_bash_completion;}
     if [[ -t 1 ]]; then
         if [[ ! -d ~/.git/fzf-tab-completion ]] && which git &>/dev/null; then
             git clone https://github.com/lincheney/fzf-tab-completion \
@@ -420,9 +420,9 @@
         if [[ -f ~/.fzf.bash ]]; then
             source ~/.fzf.bash &&
             source ~/.git/fzf-tab-completion/bash/fzf-bash-completion.sh &&
-            bind -x '"\C-o": fzf_bash_completion'
+            bind -x '"\C-o":_c_o_completion'
+            bind '"\C-t": transpose-chars'
         fi
-        bind '"\C-t": transpose-chars'
     fi
 # fzf }
 
