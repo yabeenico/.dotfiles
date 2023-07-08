@@ -409,7 +409,7 @@
             <(ls | xargs -d'\n' -I@ printf 'mv -n %q/%s\n' @ @ | column -ts/)
     }
 # vimmv }
-#
+
 # fzf: dircolors {
     _c_o_completion(){ [[ $READLINE_POINT > 2 ]] && fzf_bash_completion;}
     if [[ -t 1 ]]; then
