@@ -406,7 +406,7 @@
 # vimmv {
     vimmv(){
         vim -e +'set noro | vi' \
-            <(ls | xargs -d'\n' -I@ printf 'mv -n %q/%s\n' @ @ | column -ts/)
+            <(\ls | xargs -d'\n' -I@ printf 'mv -n %q/%s\n' @ @ | column -ts/)
     }
 # vimmv }
 
