@@ -10,6 +10,12 @@
     alias ascii='cat ~/.dotfiles/ascii.txt'
 # ascii }
 
+# bash_completion {
+    if [[ -r /etc/profile.d/bash_completion.sh ]]; then
+        source /etc/profile.d/bash_completion.sh
+    fi
+# bash_completion }
+
 # bind {
     if [[ -t 1 ]]; then
         stty start undef
