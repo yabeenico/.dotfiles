@@ -1,5 +1,14 @@
+
+# run on wsl
 mkdir ~/account/Documents/WindowsPowerShell
+cp Profile.ps1 !$
+# launch admin powershell
 powershell.exe -Command 'Start-Process -Verb runas powershell.exe'
+
+# run on admin powershell
 Set-ExecutionPolicy Unrestricted
+
+# run on user powershell
 iwr -useb get.scoop.sh | iex
 scoop install sudo
+
