@@ -416,6 +416,13 @@
     }
 # vimmv }
 
+# vimw {
+    vimw(){
+        vim $(which "$1")
+    }
+    complete -A command vimw
+# vimw }
+
 # fzf: dircolors {
     _c_o_completion(){ [[ $READLINE_POINT > 2 ]] && fzf_bash_completion;}
     if [[ -t 1 ]]; then
