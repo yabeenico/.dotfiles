@@ -291,6 +291,17 @@
         printf $C_D
     }
 
+    _ps1_etime(){
+        local start=$(cat /run/shm/$$/etime0 2>/dev/null)
+        if [[ ! -z $start ]]; then
+            local end=$(date +%s%N 2>/run/shm/$$/etime0)
+            local t=$(( (end - start) / 1000000 ))
+            local m=$(( t % 1000 ))
+            local s=$(( t / 1000 ))
+            printf "[$C_C%d.%03d$C_D]" $s $m
+        fi
+    }
+
     _ps1(){
         set +x
 
@@ -299,17 +310,20 @@
         _ps1_git    >/run/shm/$$/git    & # real    0m0.020s
         _ps1_date   >/run/shm/$$/date   & # real    0m0.021s
         _ps1_uhw    >/run/shm/$$/uhw    & # real    0m0.014s
+        _ps1_etime  >/run/shm/$$/etime  & # real    0m0.011s
         _ps1_dollar >/run/shm/$$/dollar & # real    0m0.000s
         _ps1_screen >/run/shm/$$/screen & # real    0m0.000s
-        wait; wait; wait; wait; wait; wait;
-        echo "$(cat /run/shm/$$/{date,screen,kube,git})"
+        wait; wait; wait; wait; wait; wait; wait;
+        echo "$(cat /run/shm/$$/{date,screen,kube,git,etime})"
         echo "$(cat /run/shm/$$/uhw)"
         echo "$(cat /run/shm/$$/dollar)"
     }
 
     export PS1='$(_ps1)'
 
+    export PS0='$(date +%s%N >/run/shm/$$/etime0)'
     export PROMPT_COMMAND='EXIT_STATUS=$?; (set +x;echo)'
+
 # ps1 }
 
 # recycle: rotate {
