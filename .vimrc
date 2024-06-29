@@ -179,7 +179,7 @@
 " map {{{
 
     cnoremap <C-K> <C-\>e strpart(getcmdline(), 0, getcmdpos()-1)<CR>
-    cnoremap <C-\> \<\><Left><Left>
+    cnoremap <C-\> <Home>\<<END>\><Left>
     cnoremap <C-a> <C-b>
     cnoremap <C-b> <Left>
     cnoremap <C-d> <Delete>
