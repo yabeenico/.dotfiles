@@ -251,14 +251,11 @@
             awk '
                 !ctx && $1 == "current-context:"    {ctx = $2}
                 $1 == "namespace:"                  {ns = $2}
+                #substr($0, 1, 1) != " "            {flag = 0}
                 $0 == "- context:"                  {flag = 1}
-                flag && $1 == "name:" {
-                    if($2 == ctx){
-                        printf ctx "/" ns
-                        exit
-                    }else{
-                        flag = 0
-                    }
+                flag && ($1 == "name:") && ($2 == ctx) {
+                    printf ctx "/" ns
+                    exit
                 }
             ' ~/.kube/configs/*
             echo -en "$C_D] "
