@@ -310,7 +310,7 @@
         _ps1_etime  >/run/shm/$$/etime  & # real    0m0.011s
         _ps1_dollar >/run/shm/$$/dollar & # real    0m0.000s
         _ps1_screen >/run/shm/$$/screen & # real    0m0.000s
-        wait; wait; wait; wait; wait; wait; wait;
+        wait
         echo "$(cat /run/shm/$$/{date,screen,kube,git,etime})"
         echo "$(cat /run/shm/$$/uhw)"
         echo "$(cat /run/shm/$$/dollar)"
@@ -567,3 +567,6 @@ shopt -u xpg_echo
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|head -c-1)
 export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++'|paste -sd:)
 
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
