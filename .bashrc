@@ -377,12 +377,6 @@
     }
 # rotate }
 
-# scraping {
-    htt(){ ([[ -z $* ]] && cat || echo "$1") | sed -E 's,^h?t?t?p?,http,'; }
-    a(){ [[ ! -z $2 ]] && { n=$1; shift;}; axel -an ${n:-5} $(htt "$1"); }
-    w(){ wget $(htt "$1"); }
-# scraping }
-
 # screen {
     scs(){
         v=$1
@@ -567,6 +561,3 @@ shopt -u xpg_echo
 #export PATH=$(printf "$PATH"|awk -v{,O}RS=: '!a[$0]++'|head -c-1)
 export PATH=$(printf "$PATH"|awk -vRS=: '!a[$0]++'|paste -sd:)
 
-
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
