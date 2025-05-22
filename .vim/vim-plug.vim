@@ -82,6 +82,7 @@ Plug 'elzr/vim-json'
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 4
 let g:indentLine_bgcolor_term = 0
+let g:vim_json_syntax_conceal = 0
 
 " other
 Plug 'junegunn/fzf', { 'do': './install --all' }
