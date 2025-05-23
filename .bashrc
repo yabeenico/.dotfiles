@@ -480,7 +480,6 @@ alias x='exit'
 alias yt='yt-dlp --no-playlist -f "bv[ext=mp4]+ba[ext=m4a]" --merge-output-format mp4'
 complete -A hostname ping
 complete -A user write
-complete -cf sudo
 complete -fX '!*.pdf' -o plusdirs evince
 complete -fX '!*.svg' -o plusdirs inkscape
 complete -fX '!*.svg' -o plusdirs svg2pdf
