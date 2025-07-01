@@ -477,8 +477,7 @@ alias vsa='vim ~/Dropbox/note/song.txt.arcive'
 alias vt='vim ~/Dropbox/note/todo.txt'
 alias watch='watch '
 alias x='exit'
-#alias yt='yt-dlp --no-playlist -f "bv[ext=mp4]+ba[ext=m4a]" --merge-output-format mp4'
-alias yt='yt-dlp --no-playlist'
+alias yt='yt-dlp --no-playlist -f "bv[ext=mp4]+ba[ext=m4a]" --merge-output-format mp4'
 complete -A hostname ping
 complete -A user write
 complete -fX '!*.pdf' -o plusdirs evince
