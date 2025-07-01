@@ -452,8 +452,8 @@ alias bat=batcat
 alias cutc='cut -c-$COLUMNS'
 alias em='emacs'
 alias ema='emacs'
-alias ffmpeg='2>&1 ffmpeg'
-alias ffprobe='2>&1 ffprobe'
+alias ffmpeg='2>&1 ffmpeg -hide_banner'
+alias ffprobe='2>&1 ffprobe -hide_banner'
 alias gdl=_gdl
 alias grep='grep -s --color=auto'
 alias k=kubectl
