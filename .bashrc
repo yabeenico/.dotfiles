@@ -329,7 +329,7 @@
             (
                 cd ~/recycle/ &&
                 while du -bd0 . | awk '{exit $1<10*1000**3}'; do # 10G
-                    rm -rf ./"$(\ls -ctr | head -n1)"
+                    rm -rfv ./"$(\ls -ctr | head -n1)"
                 done
             )
             return
