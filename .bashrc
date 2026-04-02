@@ -380,6 +380,7 @@
 # screen {
     scs(){
         v=$1
+        hardstatus=$( (( $LINES%2 )) && echo alwayslastline || echo off)
         screen bash -c '
             screen -S $STY -X eval \
             "split '$v'" \
@@ -388,6 +389,7 @@
             "screen" \
             "focus next" \
             "layout save default" \
+            "hardstatus '$hardstatus'" \
             ;bash
         '
     }
