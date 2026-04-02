@@ -54,3 +54,7 @@ caption always $caption
 
 source $HOME/.screenrc_local
 
+bindkey "^Q" stuff "exit\n"
+bind  g stuff ^g
+bind ^g stuff ^g
+
