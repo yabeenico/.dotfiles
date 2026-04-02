@@ -27,6 +27,7 @@ defmonitor off
 defscrollback 10000
 escape ^t^t
 hardstatus off
+hardstatus string ""
 ignorecase on
 maptimeout 0
 msgminwait 1
