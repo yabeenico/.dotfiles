@@ -3,8 +3,10 @@
 
 Import-Module PSReadLine
 Set-PSReadlineOption -EditMode Emacs
-#Set-PSReadLineKeyHandler -Key ctrl+n -Function HistorySearchForward
-#Set-PSReadLineKeyHandler -Key ctrl+p -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Key UpArrow   -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key ctrl+n    -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Key ctrl+p    -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key ctrl+i -Function Complete
 
 Set-PSReadlineOption -Colors @{
