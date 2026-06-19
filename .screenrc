@@ -19,7 +19,7 @@ bindkey -m ^e  stuff ^e^e
 bindkey -m ^g  stuff ^]
 bindkey -m ^y  stuff ^y^y
 #bindkey -m ' ' eval 'stuff " "' writebuf
-#bindkey -m  c  eval 'stuff " "' writebuf 'exec bash -c "cat ~/.c | clip.exe"'
+bindkey -m  ^i  eval 'stuff " "' writebuf 'exec bash -c "iconv -c -f utf-8 -t cp932 ~/.c | clip.exe"'
 bufferfile $HOME/.c
 crlf off
 deflogin off
