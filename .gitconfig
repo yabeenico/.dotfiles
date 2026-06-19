@@ -9,5 +9,5 @@
 	default = current
 [color]
 	ui = auto
-[pull]
-	ff = only
+#[pull]
+#	ff = only
