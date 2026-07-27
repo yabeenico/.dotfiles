@@ -24,15 +24,16 @@
 " encoding {{{
     set encoding=utf-8
     setglobal fileencoding=utf-8
-    set fileencodings=iso-2022-jp,euc-jp,utf-8,sjis,cp932
+    set fileencodings=ucs-bom,utf-8,iso-2022-jp,cp932,euc-jp
+    set fileencodings=utf-8
 
-    augroup fileencodings
-        autocmd!
-        autocmd BufReadPost *
-            \ if &modifiable&&search('[^\x00-\x7f]', 'nw')==0|
-            \     set fileencoding= |
-            \ endif
-    augroup end
+    "augroup fileencodings
+    "    autocmd!
+    "    autocmd BufReadPost *
+    "        \ if &modifiable&&search('[^\x00-\x7f]', 'nw')==0|
+    "        \     set fileencoding= |
+    "        \ endif
+    "augroup end
 " encoding }}}
 
 " GetCChar {{{
